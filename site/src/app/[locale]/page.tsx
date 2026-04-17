@@ -79,8 +79,13 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Scroll indicator */}
+      <div className="flex justify-center py-6">
+        <ChevronsDown size={24} strokeWidth={1.5} className="text-secondary animate-bounce" />
+      </div>
+
       {/* Contact section */}
-      <section className="relative min-h-screen flex items-center justify-center -mt-32">
+      <section className="relative min-h-screen flex flex-col items-center justify-start pt-24 sm:justify-center sm:pt-0 -mt-32">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src="/videos/contact.mp4" type="video/mp4" />
