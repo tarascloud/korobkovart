@@ -13,7 +13,7 @@ export function BuyButton({ artwork }: { artwork: Artwork }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="w-full py-4 bg-foreground text-background text-sm tracking-wider uppercase font-bold hover:opacity-90 transition-opacity"
+        className="w-full py-4 bg-foreground text-background text-sm tracking-[0.15em] uppercase font-semibold hover:opacity-90 transition-opacity duration-300"
       >
         {t("buy_now")}
       </button>

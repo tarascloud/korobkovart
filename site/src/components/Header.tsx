@@ -35,7 +35,7 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
             <Link
               key={link.key}
               href={link.href}
-              className="text-sm tracking-wider uppercase text-secondary hover:text-foreground transition-colors relative group"
+              className="text-sm tracking-[0.15em] uppercase text-secondary hover:text-foreground transition-colors duration-300 relative group"
             >
               {t(link.key)}
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-foreground transition-all group-hover:w-full" />
@@ -44,7 +44,7 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
           {user?.role === "OWNER" && (
             <Link
               href="/admin"
-              className="text-sm tracking-wider uppercase text-secondary hover:text-foreground transition-colors relative group flex items-center gap-1"
+              className="text-sm tracking-[0.15em] uppercase text-secondary hover:text-foreground transition-colors duration-300 relative group flex items-center gap-1"
             >
               <Lock size={12} />
               Admin
@@ -98,7 +98,7 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
                   key={link.key}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-2xl tracking-wider uppercase text-foreground hover:text-secondary transition-colors"
+                  className="text-2xl tracking-[0.15em] uppercase text-foreground hover:text-secondary transition-colors duration-300"
                 >
                   {t(link.key)}
                 </Link>

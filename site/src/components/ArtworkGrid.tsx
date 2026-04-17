@@ -41,7 +41,7 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
                 setActive(f.value);
                 setVisibleCount(18);
               }}
-              className={`px-4 py-2 text-sm tracking-wider uppercase transition-colors border focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none ${
+              className={`px-4 py-2 text-sm tracking-[0.1em] uppercase transition-colors duration-300 border focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none ${
                 active === f.value
                   ? "border-foreground text-foreground bg-foreground/5"
                   : "border-border text-secondary hover:border-foreground hover:text-foreground"
@@ -69,7 +69,7 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
         <div className="text-center mt-10">
           <button
             onClick={() => setVisibleCount(prev => prev + 18)}
-            className="px-8 py-3 border border-border text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none"
+            className="px-8 py-3 border border-foreground text-sm tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none"
           >
             {t("load_more")} ({filtered.length - visibleCount} {t("remaining")})
           </button>

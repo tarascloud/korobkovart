@@ -31,10 +31,10 @@ export function ArtworkDetail({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16">
+    <div className="max-w-7xl mx-auto px-6 py-24">
       <Link
         href="/gallery"
-        className="text-sm text-secondary hover:text-foreground transition-colors tracking-wider uppercase mb-8 inline-block"
+        className="text-sm text-secondary hover:text-foreground transition-colors duration-300 tracking-[0.15em] uppercase mb-8 inline-block"
       >
         &larr; {t("series")}
       </Link>
@@ -55,7 +55,7 @@ export function ArtworkDetail({
         {/* Details */}
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
-            <h1 className="text-3xl font-bold tracking-wider">{artwork.title}</h1>
+            <h1 className="text-2xl font-semibold tracking-[0.1em]">{artwork.title}</h1>
             {artwork.id && (
               <ArtworkOwnerActions
                 artwork={{ id: artwork.id, status: artwork.status, featured: artwork.featured }}
@@ -110,6 +110,7 @@ export function ArtworkDetail({
                   <span className="bg-background px-4 text-xs text-secondary uppercase tracking-wider">
                     {t("inquire")}
                   </span>
+
                 </div>
               </div>
 
@@ -122,7 +123,7 @@ export function ArtworkDetail({
       {/* Related works */}
       {related.length > 0 && (
         <section className="mt-20 pt-12 border-t border-border">
-          <h2 className="text-xl font-bold tracking-wider uppercase mb-8">
+          <h2 className="text-lg font-semibold tracking-[0.2em] uppercase mb-10">
             {t("related")}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

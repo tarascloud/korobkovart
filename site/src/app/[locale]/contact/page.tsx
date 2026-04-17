@@ -1,7 +1,7 @@
 import { Mail, MessageCircle, Send } from "lucide-react";
 
 
-function InstagramIcon({ size = 28 }: { size?: number }) {
+function InstagramIcon({ size = 24 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -57,14 +57,15 @@ export default function ContactPage() {
           <source src="/videos/contact.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-background/60" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
       </div>
 
       {/* Content over video */}
-      <div className="relative max-w-md mx-auto px-6 py-16 flex flex-col items-center gap-8">
+      <div className="relative max-w-md mx-auto px-6 py-24 flex flex-col items-center gap-8">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">Mykhailo & Olha Korobkov</h2>
-          <p className="text-secondary">Valencia, Spain</p>
+          <h1 className="text-xl font-semibold tracking-[0.15em] mb-2">Mykhailo & Olha Korobkov</h1>
+          <p className="text-secondary text-sm tracking-wider">Valencia, Spain</p>
         </div>
 
         <div className="flex flex-col gap-4 w-full">
@@ -77,15 +78,15 @@ export default function ContactPage() {
               className={`group flex items-center gap-4 p-5 border border-foreground/20 backdrop-blur-sm bg-background/30 transition-all duration-300 ${social.color} hover:text-white hover:border-transparent`}
             >
               <social.icon
-                size={28}
+                size={24}
                 strokeWidth={1.5}
                 className="flex-shrink-0"
               />
               <div>
-                <p className="font-bold text-sm tracking-wider uppercase">
+                <p className="font-semibold text-sm tracking-[0.15em] uppercase">
                   {social.name}
                 </p>
-                <p className="text-xs opacity-70 mt-0.5">{social.label}</p>
+                <p className="text-xs opacity-60 mt-0.5">{social.label}</p>
               </div>
             </a>
           ))}

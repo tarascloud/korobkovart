@@ -58,7 +58,7 @@ export function InquiryForm({
         <input
           name="name"
           required
-          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
+          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors duration-300"
         />
       </div>
 
@@ -70,7 +70,7 @@ export function InquiryForm({
           name="email"
           type="email"
           required
-          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
+          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors duration-300"
         />
       </div>
 
@@ -81,7 +81,7 @@ export function InquiryForm({
           </label>
           <select
             name="subject"
-            className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
+            className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors duration-300"
           >
             <option value="buy">{t("subject_buy")}</option>
             <option value="commission">{t("subject_commission")}</option>
@@ -99,14 +99,14 @@ export function InquiryForm({
           name="message"
           rows={5}
           required
-          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors resize-none"
+          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors duration-300 resize-none"
         />
       </div>
 
       <button
         type="submit"
         disabled={status === "sending"}
-        className="px-8 py-3 bg-foreground text-background text-sm tracking-wider uppercase hover:opacity-90 transition-opacity disabled:opacity-50"
+        className="px-8 py-3 bg-foreground text-background text-sm tracking-[0.15em] uppercase hover:opacity-90 transition-opacity duration-300 disabled:opacity-50"
       >
         {status === "sending" ? "..." : t("form_submit")}
       </button>

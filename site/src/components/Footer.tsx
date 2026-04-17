@@ -18,7 +18,7 @@ export function Footer() {
               href="https://www.instagram.com/korobkov.art/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
+              className="hover:text-foreground transition-colors duration-300"
             >
               Instagram
             </a>
@@ -26,7 +26,7 @@ export function Footer() {
               href="https://t.me/Korobkov_art"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
+              className="hover:text-foreground transition-colors duration-300"
             >
               Telegram
             </a>
@@ -34,7 +34,7 @@ export function Footer() {
               href="https://wa.me/34658573627"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
+              className="hover:text-foreground transition-colors duration-300"
             >
               WhatsApp
             </a>

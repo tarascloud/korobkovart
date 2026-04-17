@@ -26,11 +26,11 @@ export function ArtworkCard({ artwork }: { artwork: Artwork }) {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
-        <div className="mt-3 space-y-1">
+        <div className="mt-4 space-y-1">
           <h3 className="text-sm font-medium tracking-wide">
             {artwork.title}
           </h3>
-          <p className="text-xs text-secondary">
+          <p className="text-xs text-secondary leading-relaxed">
             {artwork.year} &middot; {translateMedium(artwork.medium, tMedium)}
           </p>
           <p className="text-xs text-secondary">{artwork.dimensions}</p>

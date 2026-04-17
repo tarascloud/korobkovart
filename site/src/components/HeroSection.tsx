@@ -65,24 +65,24 @@ export function HeroSection() {
             Art Studio
           </h1>
 
-          <p className="text-lg sm:text-xl text-secondary tracking-widest uppercase">
+          <p className="text-lg sm:text-xl text-secondary tracking-[0.25em] uppercase">
             {t("tagline")}
           </p>
 
-          <p className="text-sm text-secondary tracking-wider max-w-sm mx-auto">
+          <p className="text-sm text-secondary tracking-wider max-w-sm mx-auto leading-relaxed">
             {t("subtitle")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <Link
               href="/gallery"
-              className="px-10 py-4 bg-foreground text-background text-sm tracking-widest uppercase hover:opacity-90 transition-all hover:scale-[1.02]"
+              className="px-10 py-4 bg-foreground text-background text-sm tracking-[0.15em] uppercase hover:opacity-90 transition-all duration-300"
             >
               {t("cta_gallery")}
             </Link>
             <Link
               href="/contact"
-              className="px-10 py-4 border border-foreground text-sm tracking-widest uppercase hover:bg-foreground hover:text-background transition-all hover:scale-[1.02]"
+              className="px-10 py-4 border border-foreground text-sm tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-300"
             >
               {t("cta_inquire")}
             </Link>

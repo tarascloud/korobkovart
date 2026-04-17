@@ -6,8 +6,8 @@ export default async function AboutPage() {
   return (
     <div>
       {/* Bio text above photo */}
-      <div className="max-w-4xl mx-auto px-6 py-12 md:py-16">
-        <p className="leading-relaxed text-secondary text-sm sm:text-base">
+      <div className="max-w-4xl mx-auto px-6 py-24">
+        <p className="leading-relaxed text-secondary text-base">
           {t("bio")}
         </p>
       </div>
