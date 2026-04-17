@@ -26,7 +26,6 @@ export default async function AdminArtworksPage({
       </div>
       <ArtworkTable
         artworks={JSON.parse(JSON.stringify(artworks))}
-        locale={locale}
       />
     </div>
   );
