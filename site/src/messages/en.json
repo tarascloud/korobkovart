@@ -28,6 +28,14 @@
       "podilia_desc": "Ancient ornaments of traditional Podil carpets intertwined with the human figure. History meets modernity.",
       "destruction": "Destruction Series",
       "destruction_desc": "Every event of our lives leaves its imprint. With the war, the negative imprints became much more abundant."
+    },
+    "press": {
+      "title": "Press & Recognition",
+      "read_article": "Read More"
+    },
+    "exhibitions_section": {
+      "title": "Selected Exhibitions",
+      "view_all": "All Exhibitions"
     }
   },
   "gallery": {
