@@ -81,6 +81,7 @@ export default async function HomePage() {
             <source src="/videos/contact.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-background/60" />
+          <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
         </div>
 
         <div className="relative max-w-md mx-auto px-6 py-16 flex flex-col items-center gap-8">
