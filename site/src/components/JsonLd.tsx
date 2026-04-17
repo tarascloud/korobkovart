@@ -8,8 +8,8 @@ export function ArtGalleryJsonLd() {
     telephone: '+380634755619',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Kyiv',
-      addressCountry: 'UA',
+      addressLocality: 'Valencia',
+      addressCountry: 'ES',
     },
     founder: {
       '@type': 'Person',
