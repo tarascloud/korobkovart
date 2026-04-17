@@ -1,5 +1,3 @@
-import { getTranslations } from "next-intl/server";
-
 import { Mail, MessageCircle, Send } from "lucide-react";
 
 
@@ -13,9 +11,7 @@ function InstagramIcon({ size = 28 }: { size?: number }) {
   );
 }
 
-export default async function ContactPage() {
-  const t = await getTranslations("contact");
-
+export default function ContactPage() {
   const socials = [
     {
       name: "Instagram",
@@ -94,9 +90,6 @@ export default async function ContactPage() {
           ))}
         </div>
 
-        <p className="text-sm text-secondary text-center max-w-sm">
-          {t("subtitle")}
-        </p>
       </div>
     </div>
   );
