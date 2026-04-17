@@ -1,6 +1,6 @@
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const intlMiddleware = createMiddleware({
   ...routing,
@@ -32,17 +32,26 @@ const countryToLocale: Record<string, string> = {
 };
 
 export default function middleware(request: NextRequest) {
+  const { host, pathname, search } = request.nextUrl;
+
+  // Redirect www.korobkovart.com → korobkovart.com (301 permanent)
+  if (host === 'www.korobkovart.com') {
+    const url = request.nextUrl.clone();
+    url.host = 'korobkovart.com';
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
   // Check Cloudflare country header first
   const country = request.headers.get('cf-ipcountry') || '';
   const geoLocale = countryToLocale[country.toUpperCase()];
 
-  if (geoLocale && !request.nextUrl.pathname.match(/^\/(en|es|ua)(\/|$)/)) {
+  if (geoLocale && !pathname.match(/^\/(en|es|ua)(\/|$)/)) {
     // Only redirect if user hasn't already chosen a locale
     const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
     if (!cookieLocale) {
       const url = request.nextUrl.clone();
-      url.pathname = `/${geoLocale}${request.nextUrl.pathname}`;
-      return Response.redirect(url);
+      url.pathname = `/${geoLocale}${pathname}`;
+      return NextResponse.redirect(url);
     }
   }
 
