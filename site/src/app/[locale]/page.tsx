@@ -80,7 +80,7 @@ export default async function HomePage() {
       </section>
 
       {/* Contact section — overlaps about photo for seamless blend */}
-      <section className="relative min-h-screen flex flex-col items-center justify-start pt-24 sm:justify-center sm:pt-0 -mt-48 sm:-mt-64">
+      <section className="relative min-h-screen flex flex-col items-center justify-center -mt-48 sm:-mt-64">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src="/videos/contact.mp4" type="video/mp4" />
