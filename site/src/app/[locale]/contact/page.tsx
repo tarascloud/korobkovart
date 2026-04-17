@@ -48,22 +48,23 @@ export default async function ContactPage() {
   ];
 
   return (
-    <div>
-      {/* Full-width video */}
-      <div className="relative w-full aspect-video overflow-hidden">
+    <div className="relative min-h-[80vh] flex items-center justify-center">
+      {/* Background video */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/videos/contact.mp4" type="video/mp4" />
         </video>
+        <div className="absolute inset-0 bg-background/60" />
       </div>
 
-      {/* Social links */}
-      <div className="max-w-xl mx-auto px-6 py-16 flex flex-col items-center gap-8">
+      {/* Content over video */}
+      <div className="relative max-w-md mx-auto px-6 py-16 flex flex-col items-center gap-8">
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-2">Mykhailo & Olha Korobkov</h2>
           <p className="text-secondary">Valencia, Spain</p>
@@ -76,7 +77,7 @@ export default async function ContactPage() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group flex items-center gap-4 p-5 border border-border transition-all duration-300 ${social.color} hover:text-white hover:border-transparent`}
+              className={`group flex items-center gap-4 p-5 border border-foreground/20 backdrop-blur-sm bg-background/30 transition-all duration-300 ${social.color} hover:text-white hover:border-transparent`}
             >
               <social.icon
                 size={28}
