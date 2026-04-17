@@ -69,6 +69,7 @@ export default async function HomePage() {
         {/* Gradient fade into photo */}
         <div className="relative w-full">
           <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent z-10" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/about.jpg"
@@ -79,7 +80,7 @@ export default async function HomePage() {
       </section>
 
       {/* Contact section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center">
+      <section className="relative min-h-[60vh] flex items-center justify-center -mt-24">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src="/videos/contact.mp4" type="video/mp4" />
