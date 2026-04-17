@@ -3,7 +3,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { ArtworkCard } from "@/components/ArtworkCard";
 import { getFeaturedArtworks } from "@/lib/artworks";
 import { Link } from "@/i18n/navigation";
-import { Mail, MessageCircle, Send } from "lucide-react";
+import { Mail, MessageCircle, Send, ChevronsDown } from "lucide-react";
 
 function InstagramIcon({ size = 24 }: { size?: number }) {
   return (
@@ -52,8 +52,13 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Scroll indicator */}
+      <div className="flex justify-center py-6">
+        <ChevronsDown size={24} strokeWidth={1.5} className="text-secondary animate-bounce" />
+      </div>
+
       {/* About section */}
-      <section className="border-t border-border">
+      <section>
         <div className="max-w-4xl mx-auto px-6 py-16">
           <h2 className="text-2xl font-bold tracking-wider uppercase mb-2">
             {tAbout("artist_title")}
@@ -61,7 +66,9 @@ export default async function HomePage() {
           <p className="text-secondary text-sm mb-6">{tAbout("artist_subtitle")}</p>
           <p className="leading-relaxed text-secondary">{tAbout("bio")}</p>
         </div>
-        <div className="w-full">
+        {/* Gradient fade into photo */}
+        <div className="relative w-full">
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent z-10" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/about.jpg"
