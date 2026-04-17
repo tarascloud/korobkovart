@@ -58,24 +58,19 @@ export default async function HomePage() {
       </div>
 
       {/* About section */}
-      <section>
-        <div className="max-w-4xl mx-auto px-6 py-16">
-          <h2 className="text-2xl font-bold tracking-wider uppercase mb-2">
-            {tAbout("artist_title")}
-          </h2>
-          <p className="text-secondary text-sm mb-6">{tAbout("artist_subtitle")}</p>
-          <p className="leading-relaxed text-secondary">{tAbout("bio")}</p>
-        </div>
-        {/* Gradient fade into photo */}
-        <div className="relative w-full">
-          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent z-10" />
-          <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent z-10" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/about.jpg"
-            alt={tAbout("artist_title")}
-            className="w-full h-auto"
-          />
+      <section className="relative w-full">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/about.jpg"
+          alt={tAbout("artist_title")}
+          className="w-full h-auto"
+        />
+        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background to-transparent z-10" />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent z-10" />
+        <div className="absolute inset-x-0 top-0 z-20 max-w-4xl mx-auto px-6 py-12 md:py-16">
+          <p className="leading-relaxed text-secondary text-sm sm:text-base">
+            {tAbout("bio")}
+          </p>
         </div>
       </section>
 
