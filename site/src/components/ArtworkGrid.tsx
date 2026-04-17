@@ -17,27 +17,41 @@ const filters: { key: string; value: ArtworkSeries | "all" }[] = [
 export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
   const t = useTranslations("gallery");
   const [active, setActive] = useState<ArtworkSeries | "all">("all");
+  const [visibleCount, setVisibleCount] = useState(18);
 
   const filtered =
     active === "all" ? artworks : artworks.filter((a) => a.series === active);
 
+  const visible = filtered.slice(0, visibleCount);
+
   return (
     <div>
       {/* Filters */}
-      <div className="flex flex-wrap gap-2 mb-10">
-        {filters.map((f) => (
-          <button
-            key={f.value}
-            onClick={() => setActive(f.value)}
-            className={`px-4 py-2 text-sm tracking-wider uppercase transition-colors border ${
-              active === f.value
-                ? "border-foreground text-foreground bg-foreground/5"
-                : "border-border text-secondary hover:border-foreground hover:text-foreground"
-            }`}
-          >
-            {t(f.key)}
-          </button>
-        ))}
+      <div className="relative mb-10">
+      <div className="flex flex-wrap gap-2 overflow-x-auto pb-2 sm:[mask-image:none] [mask-image:linear-gradient(to_right,black_85%,transparent)]">
+        {filters.map((f) => {
+          const count =
+            f.value === "all"
+              ? artworks.length
+              : artworks.filter((a) => a.series === f.value).length;
+          return (
+            <button
+              key={f.value}
+              onClick={() => {
+                setActive(f.value);
+                setVisibleCount(18);
+              }}
+              className={`px-4 py-2 text-sm tracking-wider uppercase transition-colors border focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none ${
+                active === f.value
+                  ? "border-foreground text-foreground bg-foreground/5"
+                  : "border-border text-secondary hover:border-foreground hover:text-foreground"
+              }`}
+            >
+              {t(f.key)} ({count})
+            </button>
+          );
+        })}
+      </div>
       </div>
 
       {/* Grid */}
@@ -45,9 +59,20 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
         <p className="text-secondary text-center py-20">{t("no_results")}</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filtered.map((artwork) => (
+          {visible.map((artwork) => (
             <ArtworkCard key={artwork.slug} artwork={artwork} />
           ))}
+        </div>
+      )}
+
+      {visibleCount < filtered.length && (
+        <div className="text-center mt-10">
+          <button
+            onClick={() => setVisibleCount(prev => prev + 18)}
+            className="px-8 py-3 border border-border text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none"
+          >
+            {t("load_more")} ({filtered.length - visibleCount} {t("remaining")})
+          </button>
         </div>
       )}
     </div>

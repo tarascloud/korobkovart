@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { useRouter } from "next/navigation";
 import { routing } from "@/i18n/routing";
 
 const labels: Record<string, string> = {
@@ -12,16 +12,20 @@ const labels: Record<string, string> = {
 
 export function LanguageSwitcher() {
   const locale = useLocale();
-  const pathname = usePathname();
   const router = useRouter();
+
+  function switchLocale(loc: string) {
+    document.cookie = `NEXT_LOCALE=${loc};path=/;max-age=${365 * 24 * 60 * 60}`;
+    router.refresh();
+  }
 
   return (
     <div className="flex items-center gap-1 text-sm">
       {routing.locales.map((loc) => (
         <button
           key={loc}
-          onClick={() => router.replace(pathname, { locale: loc })}
-          className={`px-2 py-1 transition-colors ${
+          onClick={() => switchLocale(loc)}
+          className={`px-2 py-1 transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none ${
             locale === loc
               ? "text-foreground font-bold border-b-2 border-foreground"
               : "text-secondary hover:text-foreground"

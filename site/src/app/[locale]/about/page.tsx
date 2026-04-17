@@ -1,7 +1,8 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 
-export default function AboutPage() {
-  const t = useTranslations("about");
+export default async function AboutPage() {
+  const t = await getTranslations("about");
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-16">
@@ -9,12 +10,24 @@ export default function AboutPage() {
         {t("title")}
       </h1>
 
-      {/* Artist Info */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-bold mb-2">{t("artist_title")}</h2>
-        <p className="text-secondary text-sm mb-6">{t("artist_subtitle")}</p>
-        <p className="leading-relaxed text-secondary">{t("bio")}</p>
-      </section>
+      {/* Artist Photo + Bio */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center">
+        <div className="relative aspect-[3/4] overflow-hidden bg-muted">
+          <Image
+            src="/images/artists.jpg"
+            alt="Mykhailo Korobkov & Olha Korobkova"
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority
+          />
+        </div>
+        <div>
+          <h2 className="text-xl font-bold mb-2">{t("artist_title")}</h2>
+          <p className="text-secondary text-sm mb-6">{t("artist_subtitle")}</p>
+          <p className="leading-relaxed text-secondary">{t("bio")}</p>
+        </div>
+      </div>
 
       {/* Education */}
       <section className="mb-16">
@@ -59,7 +72,7 @@ export default function AboutPage() {
         <a
           href="/booklet.pdf"
           download
-          className="inline-block px-8 py-3 bg-foreground text-background text-sm tracking-wider uppercase hover:opacity-90 transition-opacity"
+          className="inline-block px-8 py-3 border border-foreground text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none"
         >
           {t("download_booklet")}
         </a>
