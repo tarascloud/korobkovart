@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
 
 export default async function AboutPage() {
   const t = await getTranslations("about");
@@ -16,14 +15,12 @@ export default async function AboutPage() {
       </section>
 
       {/* Full-width photo */}
-      <div className="relative w-full aspect-[9/10] sm:aspect-[4/3] lg:aspect-[16/10]">
-        <Image
+      <div className="w-full">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src="/about.jpg"
           alt={t("artist_title")}
-          fill
-          className="object-cover object-top"
-          sizes="100vw"
-          priority
+          className="w-full h-auto"
         />
       </div>
     </div>

@@ -3,7 +3,6 @@ import { HeroSection } from "@/components/HeroSection";
 import { ArtworkCard } from "@/components/ArtworkCard";
 import { getFeaturedArtworks } from "@/lib/artworks";
 import { Link } from "@/i18n/navigation";
-import Image from "next/image";
 import { Mail, MessageCircle, Send } from "lucide-react";
 
 function InstagramIcon({ size = 24 }: { size?: number }) {
@@ -62,13 +61,12 @@ export default async function HomePage() {
           <p className="text-secondary text-sm mb-6">{tAbout("artist_subtitle")}</p>
           <p className="leading-relaxed text-secondary">{tAbout("bio")}</p>
         </div>
-        <div className="relative w-full aspect-[9/10] sm:aspect-[4/3] lg:aspect-[16/10]">
-          <Image
+        <div className="w-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/about.jpg"
             alt={tAbout("artist_title")}
-            fill
-            className="object-cover object-top"
-            sizes="100vw"
+            className="w-full h-auto"
           />
         </div>
       </section>
