@@ -32,14 +32,14 @@ export default async function HomePage() {
       <HeroSection />
 
       {/* Featured Works */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="flex items-center justify-between mb-10">
-          <h2 className="text-2xl font-bold tracking-wider uppercase">
+      <section className="max-w-7xl mx-auto px-6 py-24">
+        <div className="flex items-center justify-between mb-12">
+          <h2 className="text-xl font-semibold tracking-[0.2em] uppercase">
             {t("featured")}
           </h2>
           <Link
             href="/gallery"
-            className="text-sm text-secondary hover:text-foreground transition-colors tracking-wider uppercase"
+            className="text-sm text-secondary hover:text-foreground transition-colors duration-300 tracking-[0.15em] uppercase"
           >
             {t("view_all")} &rarr;
           </Link>
@@ -53,23 +53,23 @@ export default async function HomePage() {
       </section>
 
       {/* Scroll indicator */}
-      <div className="flex justify-center py-6">
-        <ChevronsDown size={24} strokeWidth={1.5} className="text-secondary animate-bounce" />
+      <div className="flex justify-center py-4">
+        <ChevronsDown size={24} strokeWidth={1} className="text-secondary/60 animate-bounce" />
       </div>
 
       {/* About section */}
       <section>
-        <div className="max-w-4xl mx-auto px-6 py-12 md:py-16">
-          <p className="leading-relaxed text-secondary text-sm sm:text-base">
+        <div className="max-w-4xl mx-auto px-6 py-24">
+          <p className="leading-relaxed text-secondary text-base">
             {tAbout("bio")}
           </p>
         </div>
-        <div className="flex justify-center py-6">
-          <ChevronsDown size={24} strokeWidth={1.5} className="text-secondary animate-bounce" />
+        <div className="flex justify-center py-4">
+          <ChevronsDown size={24} strokeWidth={1} className="text-secondary/60 animate-bounce" />
         </div>
         <div className="relative w-full">
           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background to-transparent z-10" />
-          <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-background to-transparent z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-background via-background/70 to-transparent z-10" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/about.jpg"
@@ -79,26 +79,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Scroll indicator */}
-      <div className="flex justify-center py-6">
-        <ChevronsDown size={24} strokeWidth={1.5} className="text-secondary animate-bounce" />
-      </div>
-
-      {/* Contact section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-start pt-24 sm:justify-center sm:pt-0 -mt-32">
+      {/* Contact section — overlaps about photo for seamless blend */}
+      <section className="relative min-h-screen flex flex-col items-center justify-start pt-24 sm:justify-center sm:pt-0 -mt-48 sm:-mt-64">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src="/videos/contact.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-background/60" />
-          <div className="absolute inset-x-0 top-0 h-[30%] bg-gradient-to-b from-background via-background/40 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-[40%] bg-gradient-to-b from-background via-background/50 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
         </div>
 
-        <div className="relative max-w-md mx-auto px-6 py-16 flex flex-col items-center gap-8">
+        <div className="relative max-w-md mx-auto px-6 py-24 flex flex-col items-center gap-8">
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">Mykhailo & Olha Korobkov</h2>
-            <p className="text-secondary">Valencia, Spain</p>
+            <h2 className="text-xl font-semibold tracking-[0.15em] mb-2">Mykhailo & Olha Korobkov</h2>
+            <p className="text-secondary text-sm tracking-wider">Valencia, Spain</p>
           </div>
 
           <div className="flex flex-col gap-4 w-full">
@@ -110,10 +105,10 @@ export default async function HomePage() {
                 rel="noopener noreferrer"
                 className={`group flex items-center gap-4 p-5 border border-foreground/20 backdrop-blur-sm bg-background/30 transition-all duration-300 ${social.color} hover:text-white hover:border-transparent`}
               >
-                <social.icon size={28} strokeWidth={1.5} className="flex-shrink-0" />
+                <social.icon size={24} strokeWidth={1.5} className="flex-shrink-0" />
                 <div>
-                  <p className="font-bold text-sm tracking-wider uppercase">{social.name}</p>
-                  <p className="text-xs opacity-70 mt-0.5">{social.label}</p>
+                  <p className="font-semibold text-sm tracking-[0.15em] uppercase">{social.name}</p>
+                  <p className="text-xs opacity-60 mt-0.5">{social.label}</p>
                 </div>
               </a>
             ))}
