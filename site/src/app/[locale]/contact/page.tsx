@@ -48,29 +48,28 @@ export default async function ContactPage() {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-16">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Video */}
-        <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src="/videos/contact.mp4" type="video/mp4" />
-          </video>
+    <div>
+      {/* Full-width video */}
+      <div className="relative w-full aspect-video overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src="/videos/contact.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Social links */}
+      <div className="max-w-xl mx-auto px-6 py-16 flex flex-col items-center gap-8">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-2">Mykhailo & Olha Korobkov</h2>
+          <p className="text-secondary">Valencia, Spain</p>
         </div>
 
-        {/* Social links */}
-        <div className="flex flex-col items-center lg:items-start gap-8">
-          <div className="text-center lg:text-left">
-            <h2 className="text-2xl font-bold mb-2">Mykhailo & Olha Korobkov</h2>
-            <p className="text-secondary">Valencia, Spain</p>
-          </div>
-
-        <div className="flex flex-col gap-4 w-full max-w-sm">
+        <div className="flex flex-col gap-4 w-full">
           {socials.map((social) => (
             <a
               key={social.name}
@@ -94,10 +93,9 @@ export default async function ContactPage() {
           ))}
         </div>
 
-          <p className="text-sm text-secondary text-center lg:text-left max-w-sm">
-            {t("subtitle")}
-          </p>
-        </div>
+        <p className="text-sm text-secondary text-center max-w-sm">
+          {t("subtitle")}
+        </p>
       </div>
     </div>
   );
