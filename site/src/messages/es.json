@@ -28,6 +28,14 @@
       "podilia_desc": "Antiguos ornamentos de alfombras tradicionales de Podil entrelazados con la figura humana. La historia se encuentra con la modernidad.",
       "destruction": "Serie Destruccion",
       "destruction_desc": "Cada evento de nuestras vidas deja su huella. Con la guerra, las huellas negativas se volvieron mucho mas abundantes."
+    },
+    "press": {
+      "title": "Prensa y Reconocimiento",
+      "read_article": "Leer Mas"
+    },
+    "exhibitions_section": {
+      "title": "Exposiciones Seleccionadas",
+      "view_all": "Todas las Exposiciones"
     }
   },
   "gallery": {

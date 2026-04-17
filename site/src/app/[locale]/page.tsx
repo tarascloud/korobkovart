@@ -2,6 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { HeroSection } from "@/components/HeroSection";
 import { ArtworkCard } from "@/components/ArtworkCard";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { PressSection } from "@/components/PressSection";
+import { ExhibitionsSection } from "@/components/ExhibitionsSection";
 import { getFeaturedArtworks } from "@/lib/artworks";
 import { Link } from "@/i18n/navigation";
 
@@ -55,6 +57,12 @@ export default async function HomePage() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* Press Mentions */}
+      <PressSection />
+
+      {/* Exhibitions */}
+      <ExhibitionsSection />
     </div>
   );
 }
