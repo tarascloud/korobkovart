@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 const ORDER_STATUSES = ["INQUIRY", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"] as const;
 
 const statusColors: Record<string, string> = {
-  INQUIRY: "bg-yellow-100 text-yellow-800",
-  CONFIRMED: "bg-blue-100 text-blue-800",
-  SHIPPED: "bg-purple-100 text-purple-800",
-  DELIVERED: "bg-green-100 text-green-800",
-  CANCELLED: "bg-red-100 text-red-800",
+  INQUIRY: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
+  CONFIRMED: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+  SHIPPED: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
+  DELIVERED: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
+  CANCELLED: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
 };
 
 interface OrderRow {
@@ -24,6 +25,7 @@ interface OrderRow {
 }
 
 export function OrderTable({ orders: initial }: { orders: OrderRow[] }) {
+  const t = useTranslations("admin");
   const [orders, setOrders] = useState(initial);
   const [updating, setUpdating] = useState<string | null>(null);
 
@@ -50,12 +52,12 @@ export function OrderTable({ orders: initial }: { orders: OrderRow[] }) {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border text-left">
-            <th className="pb-3 pr-4 font-medium text-secondary">Order</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">Buyer</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">Artwork</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">Status</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">Carrier</th>
-            <th className="pb-3 font-medium text-secondary">Date</th>
+            <th className="pb-3 pr-4 font-medium text-secondary">{t("order_id")}</th>
+            <th className="pb-3 pr-4 font-medium text-secondary">{t("buyer")}</th>
+            <th className="pb-3 pr-4 font-medium text-secondary">{t("artwork")}</th>
+            <th className="pb-3 pr-4 font-medium text-secondary">{t("status")}</th>
+            <th className="pb-3 pr-4 font-medium text-secondary">{t("carrier")}</th>
+            <th className="pb-3 font-medium text-secondary">{t("date")}</th>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +67,7 @@ export function OrderTable({ orders: initial }: { orders: OrderRow[] }) {
                 {o.id.slice(0, 8)}...
               </td>
               <td className="py-3 pr-4">
-                <p className="font-medium">{o.user.name || "No name"}</p>
+                <p className="font-medium">{o.user.name || t("no_name")}</p>
                 <p className="text-xs text-secondary">{o.user.email}</p>
               </td>
               <td className="py-3 pr-4">{o.artwork.title}</td>
@@ -97,7 +99,7 @@ export function OrderTable({ orders: initial }: { orders: OrderRow[] }) {
           {orders.length === 0 && (
             <tr>
               <td colSpan={6} className="py-8 text-center text-secondary">
-                No orders yet
+                {t("no_orders")}
               </td>
             </tr>
           )}

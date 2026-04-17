@@ -7,6 +7,7 @@ import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { UserMenu } from "./UserMenu";
+import { Lock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -40,16 +41,28 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-foreground transition-all group-hover:w-full" />
             </Link>
           ))}
+          {user?.role === "OWNER" && (
+            <Link
+              href="/admin"
+              className="text-sm tracking-wider uppercase text-secondary hover:text-foreground transition-colors relative group flex items-center gap-1"
+            >
+              <Lock size={12} />
+              Admin
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-foreground transition-all group-hover:w-full" />
+            </Link>
+          )}
         </nav>
 
         <div className="flex items-center gap-3">
-          <LanguageSwitcher />
-          <ThemeToggle />
+          <div className="hidden lg:flex items-center gap-3">
+            <LanguageSwitcher />
+            <ThemeToggle />
+          </div>
           <UserMenu user={user || null} />
 
           {/* Mobile burger */}
           <button
-            className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+            className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none rounded"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -90,6 +103,23 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
                   {t(link.key)}
                 </Link>
               ))}
+
+              {user?.role === "OWNER" && (
+                <Link
+                  href="/admin"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-2xl tracking-wider uppercase text-foreground hover:text-secondary transition-colors flex items-center gap-2"
+                >
+                  <Lock size={20} />
+                  Admin
+                </Link>
+              )}
+
+              {/* Language & Theme controls */}
+              <div className="border-t border-border pt-4 flex items-center gap-4">
+                <LanguageSwitcher />
+                <ThemeToggle />
+              </div>
             </div>
           </motion.nav>
         )}

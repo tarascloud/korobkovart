@@ -1,8 +1,8 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { exhibitions } from "@/data/exhibitions";
 
-export default function ExhibitionsPage() {
-  const t = useTranslations("exhibitions");
+export default async function ExhibitionsPage() {
+  const t = await getTranslations("exhibitions");
   const joint = exhibitions.filter((e) => e.type === "joint");
   const personal = exhibitions.filter((e) => e.type === "personal");
 

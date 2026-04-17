@@ -84,7 +84,7 @@ export function ArtworkOwnerActions({
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as ArtworkStatus)}
-              className="w-full text-sm rounded-md border border-border bg-background px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-foreground"
+              className="w-full text-sm rounded-md border border-border bg-background px-2 py-1.5 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none"
             >
               {statuses.map((s) => (
                 <option key={s.value} value={s.value}>

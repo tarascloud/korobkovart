@@ -5,10 +5,10 @@ export default function PartnersPage() {
   const t = useTranslations("partners");
 
   const types = [
-    { key: "gallery", icon: "M3 3h18v18H3z" },
-    { key: "mural", icon: "M12 2L2 22h20L12 2z" },
-    { key: "curatorial", icon: "M12 2a10 10 0 100 20 10 10 0 000-20z" },
-    { key: "corporate", icon: "M4 4h16v16H4z" },
+    { key: "gallery" },
+    { key: "mural" },
+    { key: "curatorial" },
+    { key: "corporate" },
   ];
 
   return (
@@ -20,7 +20,7 @@ export default function PartnersPage() {
 
       {/* Why Partner */}
       <section className="mb-16">
-        <h2 className="text-lg font-bold tracking-wider uppercase mb-4">
+        <h2 className="text-xl font-bold tracking-wider uppercase mb-4">
           {t("why_title")}
         </h2>
         <p className="text-secondary leading-relaxed">{t("why_text")}</p>
@@ -28,13 +28,13 @@ export default function PartnersPage() {
 
       {/* Types */}
       <section className="mb-16">
-        <h2 className="text-lg font-bold tracking-wider uppercase mb-8">
+        <h2 className="text-xl font-bold tracking-wider uppercase mb-8">
           {t("types_title")}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {types.map((type) => (
             <div key={type.key} className="p-6 border border-border">
-              <h3 className="font-bold mb-2">
+              <h3 className="text-lg font-bold mb-2">
                 {t(`type_${type.key}` as any)}
               </h3>
               <p className="text-sm text-secondary">
@@ -50,7 +50,7 @@ export default function PartnersPage() {
         <a
           href="/booklet.pdf"
           download
-          className="inline-block px-8 py-3 border border-foreground text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-colors"
+          className="inline-block px-8 py-3 border border-foreground text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none"
         >
           {t("press_kit")}
         </a>
@@ -58,7 +58,7 @@ export default function PartnersPage() {
 
       {/* Form */}
       <section>
-        <h2 className="text-lg font-bold tracking-wider uppercase mb-6">
+        <h2 className="text-xl font-bold tracking-wider uppercase mb-6">
           {t("form_title")}
         </h2>
         <InquiryForm type="partner" />

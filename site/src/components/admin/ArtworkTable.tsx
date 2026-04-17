@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface ArtworkRow {
   id: string;
@@ -16,25 +17,52 @@ interface ArtworkRow {
   sortOrder: number;
 }
 
+type SortColumn = "title" | "year" | "series" | "status" | "featured" | "sortOrder";
+
 const statusColors: Record<string, string> = {
-  available: "bg-green-100 text-green-800",
-  sold: "bg-red-100 text-red-800",
-  on_exhibition: "bg-blue-100 text-blue-800",
-  exists: "bg-gray-100 text-gray-800",
+  available: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
+  sold: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+  on_exhibition: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+  exists: "bg-gray-100 text-gray-800 dark:bg-gray-800/40 dark:text-gray-400",
 };
 
 export function ArtworkTable({
   artworks: initial,
-  locale,
 }: {
   artworks: ArtworkRow[];
-  locale: string;
 }) {
+  const t = useTranslations("admin");
   const [artworks, setArtworks] = useState(initial);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [sortCol, setSortCol] = useState<SortColumn>("sortOrder");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+
+  function handleSort(col: SortColumn) {
+    if (sortCol === col) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortCol(col);
+      setSortDir("asc");
+    }
+  }
+
+  const sorted = [...artworks].sort((a, b) => {
+    let valA: string | number | boolean = a[sortCol];
+    let valB: string | number | boolean = b[sortCol];
+    if (typeof valA === "string") valA = valA.toLowerCase();
+    if (typeof valB === "string") valB = valB.toLowerCase();
+    if (typeof valA === "boolean") valA = valA ? 1 : 0;
+    if (typeof valB === "boolean") valB = valB ? 1 : 0;
+    if (valA < valB) return sortDir === "asc" ? -1 : 1;
+    if (valA > valB) return sortDir === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  const arrow = (col: SortColumn) =>
+    sortCol === col ? (sortDir === "asc" ? " \u2191" : " \u2193") : "";
 
   async function handleDelete(id: string) {
-    if (!confirm("Delete this artwork?")) return;
+    if (!confirm(t("confirm_delete"))) return;
     setDeleting(id);
     try {
       const res = await fetch(`/api/admin/artworks/${id}`, { method: "DELETE" });
@@ -51,17 +79,48 @@ export function ArtworkTable({
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border text-left">
-            <th className="pb-3 pr-4 font-medium text-secondary">Image</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">Title</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">Year</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">Series</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">Status</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">Featured</th>
-            <th className="pb-3 font-medium text-secondary">Actions</th>
+            <th className="pb-3 pr-4 font-medium text-secondary">{t("image")}</th>
+            <th
+              onClick={() => handleSort("title")}
+              className="pb-3 pr-4 font-medium text-secondary cursor-pointer hover:text-foreground select-none"
+            >
+              {t("title_field")}{arrow("title")}
+            </th>
+            <th
+              onClick={() => handleSort("year")}
+              className="pb-3 pr-4 font-medium text-secondary cursor-pointer hover:text-foreground select-none"
+            >
+              {t("year")}{arrow("year")}
+            </th>
+            <th
+              onClick={() => handleSort("series")}
+              className="pb-3 pr-4 font-medium text-secondary cursor-pointer hover:text-foreground select-none"
+            >
+              {t("series")}{arrow("series")}
+            </th>
+            <th
+              onClick={() => handleSort("status")}
+              className="pb-3 pr-4 font-medium text-secondary cursor-pointer hover:text-foreground select-none"
+            >
+              {t("status")}{arrow("status")}
+            </th>
+            <th
+              onClick={() => handleSort("featured")}
+              className="pb-3 pr-4 font-medium text-secondary cursor-pointer hover:text-foreground select-none"
+            >
+              {t("featured")}{arrow("featured")}
+            </th>
+            <th
+              onClick={() => handleSort("sortOrder")}
+              className="pb-3 pr-4 font-medium text-secondary cursor-pointer hover:text-foreground select-none"
+            >
+              {t("sort_order")}{arrow("sortOrder")}
+            </th>
+            <th className="pb-3 font-medium text-secondary">{t("actions")}</th>
           </tr>
         </thead>
         <tbody>
-          {artworks.map((a) => (
+          {sorted.map((a) => (
             <tr key={a.id} className="border-b border-border/50">
               <td className="py-3 pr-4">
                 <div className="relative w-12 h-12 bg-muted">
@@ -85,27 +144,28 @@ export function ArtworkTable({
                 </span>
               </td>
               <td className="py-3 pr-4">{a.featured ? "Yes" : ""}</td>
+              <td className="py-3 pr-4">{a.sortOrder}</td>
               <td className="py-3 space-x-3">
                 <Link
-                  href={`/${locale}/admin/artworks/${a.id}`}
+                  href={`/admin/artworks/${a.id}`}
                   className="text-blue-600 hover:underline"
                 >
-                  Edit
+                  {t("edit")}
                 </Link>
                 <button
                   onClick={() => handleDelete(a.id)}
                   disabled={deleting === a.id}
                   className="text-red-600 hover:underline disabled:opacity-50"
                 >
-                  {deleting === a.id ? "..." : "Delete"}
+                  {deleting === a.id ? "..." : t("delete")}
                 </button>
               </td>
             </tr>
           ))}
           {artworks.length === 0 && (
             <tr>
-              <td colSpan={7} className="py-8 text-center text-secondary">
-                No artworks yet
+              <td colSpan={8} className="py-8 text-center text-secondary">
+                {t("no_artworks")}
               </td>
             </tr>
           )}
