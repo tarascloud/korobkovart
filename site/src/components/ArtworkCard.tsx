@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { translateMedium } from "@/lib/translate-medium";
+import { getImageUrl } from "@/lib/r2";
 import type { Artwork } from "@/lib/types";
 
 export function ArtworkCard({ artwork }: { artwork: Artwork }) {
@@ -18,7 +19,7 @@ export function ArtworkCard({ artwork }: { artwork: Artwork }) {
       >
         <div className="relative overflow-hidden bg-muted aspect-[3/4]">
           <Image
-            src={artwork.image}
+            src={getImageUrl(artwork.image)}
             alt={artwork.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

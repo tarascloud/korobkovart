@@ -1,3 +1,5 @@
+import { getAbsoluteImageUrl } from "@/lib/r2";
+
 export function ArtGalleryJsonLd() {
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -38,7 +40,7 @@ export function ArtworkJsonLd({ artwork }: { artwork: { title: string; year: num
     artMedium: artwork.medium,
     width: artwork.dimensions.split('x')[0]?.trim(),
     height: artwork.dimensions.split('x')[1]?.replace(' cm', '').trim(),
-    image: `https://ko.taras.cloud${artwork.image}`,
+    image: getAbsoluteImageUrl(artwork.image),
     url: `https://ko.taras.cloud/en/gallery/${artwork.slug}`,
     creator: {
       '@type': 'Person',

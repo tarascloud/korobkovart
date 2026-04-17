@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/r2";
 
 export const dynamic = "force-dynamic";
 
@@ -58,7 +59,7 @@ export default async function CollectionsPage({
               >
                 <div className="relative aspect-[4/3] bg-muted overflow-hidden">
                   <Image
-                    src={coverImage}
+                    src={getImageUrl(coverImage)}
                     alt={col.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"

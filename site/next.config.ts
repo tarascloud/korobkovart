@@ -3,10 +3,25 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
+// Parse R2 hostname for next/image remotePatterns
+const r2Url = process.env.R2_PUBLIC_URL;
+const r2RemotePattern = r2Url
+  ? (() => {
+      const parsed = new URL(r2Url);
+      return {
+        protocol: parsed.protocol.replace(":", "") as "https" | "http",
+        hostname: parsed.hostname,
+      };
+    })()
+  : null;
+
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
     formats: ["image/avif", "image/webp"],
+    ...(r2RemotePattern
+      ? { remotePatterns: [r2RemotePattern] }
+      : {}),
   },
   async headers() {
     return [

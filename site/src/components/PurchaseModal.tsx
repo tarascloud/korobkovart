@@ -9,6 +9,7 @@ import {
   type ShippingQuote,
   type ShippingCarrier,
 } from "@/lib/shipping";
+import { getImageUrl } from "@/lib/r2";
 import type { Artwork } from "@/lib/types";
 
 interface SavedAddress {
@@ -170,7 +171,7 @@ export function PurchaseModal({
               <div className="flex gap-4 mb-6 pb-6 border-b border-border">
                 <div className="w-20 h-24 bg-muted relative flex-shrink-0 overflow-hidden">
                   <img
-                    src={artwork.image}
+                    src={getImageUrl(artwork.image)}
                     alt={artwork.title}
                     className="w-full h-full object-cover"
                   />
