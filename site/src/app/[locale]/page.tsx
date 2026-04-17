@@ -80,7 +80,7 @@ export default async function HomePage() {
       </section>
 
       {/* Contact section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center -mt-24">
+      <section className="relative min-h-[90vh] flex items-center justify-center -mt-24">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src="/videos/contact.mp4" type="video/mp4" />
