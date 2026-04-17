@@ -77,13 +77,13 @@ export default async function HomePage() {
       </section>
 
       {/* Contact section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center -mt-32">
+      <section className="relative min-h-screen flex items-center justify-center -mt-32">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src="/videos/contact.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-background/60" />
-          <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-[30%] bg-gradient-to-b from-background via-background/40 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
         </div>
 
