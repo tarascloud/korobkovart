@@ -58,19 +58,21 @@ export default async function HomePage() {
       </div>
 
       {/* About section */}
-      <section className="relative w-full">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/about.jpg"
-          alt={tAbout("artist_title")}
-          className="w-full h-auto"
-        />
-        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background to-transparent z-10" />
-        <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-background to-transparent z-10" />
-        <div className="absolute inset-x-0 top-0 z-20 max-w-4xl mx-auto px-6 py-12 md:py-16">
+      <section>
+        <div className="max-w-4xl mx-auto px-6 py-12 md:py-16">
           <p className="leading-relaxed text-secondary text-sm sm:text-base">
             {tAbout("bio")}
           </p>
+        </div>
+        <div className="relative w-full">
+          <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background to-transparent z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-background to-transparent z-10" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/about.jpg"
+            alt={tAbout("artist_title")}
+            className="w-full h-auto"
+          />
         </div>
       </section>
 
