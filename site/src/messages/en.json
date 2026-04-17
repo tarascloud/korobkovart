@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "title": "Korobkov Art Studio",
+    "description": "Contemporary Ukrainian art studio. Original paintings, murals, and installations by Mykhailo Korobkov & Olha Korobkova."
+  },
+  "nav": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "about": "About",
+    "exhibitions": "Exhibitions",
+    "partners": "Partners",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "Contemporary Ukrainian Art",
+    "subtitle": "Paintings, Murals & Installations",
+    "cta_gallery": "View Gallery",
+    "cta_inquire": "Inquire About Works"
+  },
+  "home": {
+    "featured": "Featured Works",
+    "available": "Available Now",
+    "view_all": "View All Works",
+    "series": {
+      "podilia": "Podilia Series",
+      "podilia_desc": "Ancient ornaments of traditional Podil carpets intertwined with the human figure. History meets modernity.",
+      "destruction": "Destruction Series",
+      "destruction_desc": "Every event of our lives leaves its imprint. With the war, the negative imprints became much more abundant."
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "filter_all": "All Works",
+    "filter_podilia": "Podilia",
+    "filter_destruction": "Destruction",
+    "filter_murals": "Murals",
+    "filter_graphics": "Graphics",
+    "filter_earlier": "Earlier Works",
+    "no_results": "No works found in this category."
+  },
+  "artwork": {
+    "year": "Year",
+    "medium": "Medium",
+    "dimensions": "Dimensions",
+    "series": "Series",
+    "status": "Status",
+    "status_available": "Available",
+    "status_sold": "Sold",
+    "status_exhibition": "On Exhibition",
+    "status_exists": "Exists",
+    "inquire": "Inquire About This Work",
+    "related": "Related Works",
+    "limited_edition": "Limited Edition",
+    "of": "of"
+  },
+  "about": {
+    "title": "About",
+    "artist_title": "Mykhailo Korobkov",
+    "artist_subtitle": "Muralist. Canvas, walls, installations.",
+    "bio": "Born in 1985 in Crimea, Ukraine. Lives and works in Kyiv. Graduated from the Crimean Art College named after Samokish (painting) and the Kharkiv State Academy of Design and Arts (monumental painting).",
+    "statement_podilia_title": "\"Podilia\" Series of Works",
+    "statement_podilia": "The composition of the Podilia series was based on the ancient ornaments of traditional Podil carpets, which we combine with the human figure. We convey meaning not only through images but also through technique, combining oil painting with modern materials such as acrylic aerosol paints. There is great beauty in the female figure, each shape is imbued with exceptional aesthetics and character. We represent real modern people who've been living in war and all of them are from Podillia.",
+    "statement_destruction_title": "\"Destruction\" Series",
+    "statement_destruction": "Every event of our lives leaves its imprint, its noticeable trace. Sadly, our present shows us that the negative imprints became much more abundant. With the beginning of the war not only Russian missiles have broken into our reality, but also crippled fates, countless tears of grief, and the absence of home for many Ukrainian people. But despite all of this I am trying to look into the future with optimism, to build a bright reality for my children and a successful future for our country.",
+    "education_title": "Education",
+    "education_1": "Crimean Art College named after Samokish (painter)",
+    "education_2": "Kharkiv Academy of Design and Art (monumental painting)",
+    "download_booklet": "Download Artist Booklet (PDF)"
+  },
+  "exhibitions": {
+    "title": "Exhibitions",
+    "joint": "Joint Exhibitions",
+    "personal": "Personal Exhibitions",
+    "upcoming": "Upcoming",
+    "past": "Past"
+  },
+  "partners": {
+    "title": "Partners",
+    "subtitle": "Collaborate with Korobkov Art Studio",
+    "why_title": "Why Partner With Us",
+    "why_text": "Korobkov Art Studio brings a unique voice in contemporary Ukrainian art — blending ancient Podil carpet ornaments with modern techniques, creating works that bridge history and present day. Our art has been exhibited in London, Krakow, Cordoba, Wroclaw, Istanbul, and Kyiv.",
+    "types_title": "Collaboration Types",
+    "type_gallery": "Gallery Exhibition",
+    "type_gallery_desc": "Host a solo or group exhibition featuring our paintings, murals, and installations.",
+    "type_mural": "Mural Commission",
+    "type_mural_desc": "Commission a large-scale mural for your space — public, commercial, or private.",
+    "type_curatorial": "Curatorial Project",
+    "type_curatorial_desc": "Include our works in curatorial projects exploring Ukrainian contemporary art, identity, and war.",
+    "type_corporate": "Corporate Art",
+    "type_corporate_desc": "Acquire original artworks for corporate collections and office spaces.",
+    "press_kit": "Download Press Kit",
+    "form_title": "Partnership Inquiry"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch with us",
+    "form_name": "Your Name",
+    "form_email": "Email",
+    "form_subject": "Subject",
+    "form_message": "Message",
+    "form_submit": "Send Message",
+    "form_success": "Message sent successfully. We'll get back to you soon.",
+    "form_error": "Something went wrong. Please try again.",
+    "subject_buy": "Buy Artwork",
+    "subject_commission": "Commission",
+    "subject_exhibition": "Exhibition",
+    "subject_other": "Other",
+    "phone": "Phone",
+    "location": "Kyiv, Ukraine",
+    "follow": "Follow Us"
+  },
+  "collections": {
+    "title": "Collections",
+    "back_to_gallery": "Gallery",
+    "back_to_collections": "Collections",
+    "empty": "No collections yet.",
+    "collection_empty": "No works in this collection yet.",
+    "works_count": "works"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "privacy": "Privacy Policy"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "common": {
+    "back": "Back",
+    "loading": "Loading...",
+    "read_more": "Read More"
+  },
+  "medium": {
+    "canvas": "Canvas",
+    "oil": "Oil",
+    "acrylic": "Acrylic",
+    "spray": "Spray",
+    "oil_stick": "Oil stick",
+    "collage": "Collage",
+    "textile": "Textile",
+    "plywood": "Plywood",
+    "mural": "Mural",
+    "gypsum": "Gypsum",
+    "marble": "Marble",
+    "silkscreen": "Silkscreen",
+    "paper": "Paper",
+    "mixed_media": "Mixed media",
+    "two_canvases": "Two canvases",
+    "esparto_blinds": "Esparto blinds",
+    "clay": "Air hardening modeling clay",
+    "on": "on",
+    "layers": "layers"
+  },
+  "purchase": {
+    "buy_now": "Buy This Artwork",
+    "title": "Purchase Artwork",
+    "price_on_request": "Price on request",
+    "shipping_address": "Shipping Address",
+    "country": "Country",
+    "select_country": "Select country...",
+    "city": "City",
+    "address": "Street Address",
+    "zip": "Postal Code",
+    "calculate_shipping": "Calculate Shipping",
+    "region": "Region",
+    "packed_size": "Packed size",
+    "choose_carrier": "Choose Shipping Carrier",
+    "days": "business days",
+    "proceed": "Proceed to Checkout",
+    "your_details": "Your Contact Details",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone (optional)",
+    "weight": "Weight",
+    "volumetric": "volumetric",
+    "billable_weight": "Billable weight",
+    "contact_note": "We will contact you to confirm the artwork price and finalize the purchase. Shipping cost is estimated and may vary slightly.",
+    "back": "Back",
+    "submit_order": "Submit Order",
+    "order_received": "Order Request Received!",
+    "order_note": "Thank you for your interest. We will contact you within 24 hours to confirm the price, payment details, and shipping arrangements.",
+    "close": "Close",
+    "saved_addresses": "Saved Addresses"
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "title": "Korobkov Art Studio",
+    "description": "Estudio de arte contemporaneo ucraniano. Pinturas originales, murales e instalaciones por Mykhailo Korobkov y Olha Korobkova."
+  },
+  "nav": {
+    "home": "Inicio",
+    "gallery": "Galeria",
+    "about": "Sobre nosotros",
+    "exhibitions": "Exposiciones",
+    "partners": "Socios",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "tagline": "Arte Contemporaneo Ucraniano",
+    "subtitle": "Pinturas, Murales e Instalaciones",
+    "cta_gallery": "Ver Galeria",
+    "cta_inquire": "Consultar Sobre Obras"
+  },
+  "home": {
+    "featured": "Obras Destacadas",
+    "available": "Disponible Ahora",
+    "view_all": "Ver Todas las Obras",
+    "series": {
+      "podilia": "Serie Podilia",
+      "podilia_desc": "Antiguos ornamentos de alfombras tradicionales de Podil entrelazados con la figura humana. La historia se encuentra con la modernidad.",
+      "destruction": "Serie Destruccion",
+      "destruction_desc": "Cada evento de nuestras vidas deja su huella. Con la guerra, las huellas negativas se volvieron mucho mas abundantes."
+    }
+  },
+  "gallery": {
+    "title": "Galeria",
+    "filter_all": "Todas las Obras",
+    "filter_podilia": "Podilia",
+    "filter_destruction": "Destruccion",
+    "filter_murals": "Murales",
+    "filter_graphics": "Grafica",
+    "filter_earlier": "Obras Anteriores",
+    "no_results": "No se encontraron obras en esta categoria."
+  },
+  "artwork": {
+    "year": "Ano",
+    "medium": "Tecnica",
+    "dimensions": "Dimensiones",
+    "series": "Serie",
+    "status": "Estado",
+    "status_available": "Disponible",
+    "status_sold": "Vendido",
+    "status_exhibition": "En Exposicion",
+    "status_exists": "Existe",
+    "inquire": "Consultar Sobre Esta Obra",
+    "related": "Obras Relacionadas",
+    "limited_edition": "Edicion Limitada",
+    "of": "de"
+  },
+  "about": {
+    "title": "Sobre Nosotros",
+    "artist_title": "Mykhailo Korobkov",
+    "artist_subtitle": "Muralista. Lienzo, paredes, instalaciones.",
+    "bio": "Nacido en 1985 en Crimea, Ucrania. Vive y trabaja en Kiev. Graduado del Colegio de Arte de Crimea Samokish (pintura) y de la Academia Estatal de Diseno y Artes de Jarkov (pintura monumental).",
+    "statement_podilia_title": "Serie de Obras \"Podilia\"",
+    "statement_podilia": "La composicion de la serie Podilia se baso en los antiguos ornamentos de las alfombras tradicionales de Podil, que combinamos con la figura humana. Transmitimos el significado no solo a traves de imagenes, sino tambien a traves de la tecnica, combinando la pintura al oleo con materiales modernos como las pinturas en aerosol acrilicas. Hay una gran belleza en la figura femenina, cada forma esta impregnada de una estetica y caracter excepcionales. Representamos a personas reales y modernas que han vivido en guerra y todas son de Podillia.",
+    "statement_destruction_title": "Serie \"Destruccion\"",
+    "statement_destruction": "Cada evento de nuestras vidas deja su huella, su rastro notable. Lamentablemente, nuestro presente nos muestra que las huellas negativas se han vuelto mucho mas abundantes. Con el comienzo de la guerra, no solo los misiles rusos irrumpieron en nuestra realidad, sino tambien destinos destrozados, incontables lagrimas de dolor y la ausencia de hogar para muchos ucranianos. Pero a pesar de todo esto, intento mirar al futuro con optimismo, construir una realidad brillante para mis hijos y un futuro exitoso para nuestro pais.",
+    "education_title": "Educacion",
+    "education_1": "Colegio de Arte de Crimea Samokish (pintor)",
+    "education_2": "Academia de Diseno y Arte de Jarkov (pintura monumental)",
+    "download_booklet": "Descargar Folleto del Artista (PDF)"
+  },
+  "exhibitions": {
+    "title": "Exposiciones",
+    "joint": "Exposiciones Colectivas",
+    "personal": "Exposiciones Personales",
+    "upcoming": "Proximas",
+    "past": "Pasadas"
+  },
+  "partners": {
+    "title": "Socios",
+    "subtitle": "Colabora con Korobkov Art Studio",
+    "why_title": "Por Que Asociarse Con Nosotros",
+    "why_text": "Korobkov Art Studio aporta una voz unica en el arte contemporaneo ucraniano, fusionando antiguos ornamentos de alfombras de Podil con tecnicas modernas, creando obras que tienden un puente entre la historia y el presente. Nuestro arte se ha exhibido en Londres, Cracovia, Cordoba, Wroclaw, Estambul y Kiev.",
+    "types_title": "Tipos de Colaboracion",
+    "type_gallery": "Exposicion en Galeria",
+    "type_gallery_desc": "Organice una exposicion individual o colectiva con nuestras pinturas, murales e instalaciones.",
+    "type_mural": "Encargo de Mural",
+    "type_mural_desc": "Encargue un mural a gran escala para su espacio: publico, comercial o privado.",
+    "type_curatorial": "Proyecto Curatorial",
+    "type_curatorial_desc": "Incluya nuestras obras en proyectos curatoriales que exploren el arte contemporaneo ucraniano, la identidad y la guerra.",
+    "type_corporate": "Arte Corporativo",
+    "type_corporate_desc": "Adquiera obras de arte originales para colecciones corporativas y espacios de oficina.",
+    "press_kit": "Descargar Kit de Prensa",
+    "form_title": "Consulta de Colaboracion"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Pongase en contacto con nosotros",
+    "form_name": "Su Nombre",
+    "form_email": "Correo Electronico",
+    "form_subject": "Asunto",
+    "form_message": "Mensaje",
+    "form_submit": "Enviar Mensaje",
+    "form_success": "Mensaje enviado con exito. Nos pondremos en contacto pronto.",
+    "form_error": "Algo salio mal. Por favor, intentelo de nuevo.",
+    "subject_buy": "Comprar Obra",
+    "subject_commission": "Encargo",
+    "subject_exhibition": "Exposicion",
+    "subject_other": "Otro",
+    "phone": "Telefono",
+    "location": "Kiev, Ucrania",
+    "follow": "Siguenos"
+  },
+  "collections": {
+    "title": "Colecciones",
+    "back_to_gallery": "Galeria",
+    "back_to_collections": "Colecciones",
+    "empty": "Aun no hay colecciones.",
+    "collection_empty": "Aun no hay obras en esta coleccion.",
+    "works_count": "obras"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados",
+    "privacy": "Politica de Privacidad"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Oscuro"
+  },
+  "common": {
+    "back": "Volver",
+    "loading": "Cargando...",
+    "read_more": "Leer Mas"
+  },
+  "medium": {
+    "canvas": "Lienzo",
+    "oil": "Oleo",
+    "acrylic": "Acrilico",
+    "spray": "Spray",
+    "oil_stick": "Barra de oleo",
+    "collage": "Collage",
+    "textile": "Textil",
+    "plywood": "Contrachapado",
+    "mural": "Mural",
+    "gypsum": "Yeso",
+    "marble": "Marmol",
+    "silkscreen": "Serigrafia",
+    "paper": "Papel",
+    "mixed_media": "Tecnica mixta",
+    "two_canvases": "Dos lienzos",
+    "esparto_blinds": "Persianas de esparto",
+    "clay": "Arcilla de modelar autoendurece",
+    "on": "sobre",
+    "layers": "capas"
+  },
+  "purchase": {
+    "buy_now": "Comprar Esta Obra",
+    "title": "Comprar Obra de Arte",
+    "price_on_request": "Precio bajo consulta",
+    "shipping_address": "Direccion de Envio",
+    "country": "Pais",
+    "select_country": "Seleccionar pais...",
+    "city": "Ciudad",
+    "address": "Direccion",
+    "zip": "Codigo Postal",
+    "calculate_shipping": "Calcular Envio",
+    "region": "Region",
+    "packed_size": "Tamano embalado",
+    "choose_carrier": "Elegir Transportista",
+    "days": "dias laborables",
+    "proceed": "Continuar con la Compra",
+    "your_details": "Sus Datos de Contacto",
+    "name": "Nombre Completo",
+    "email": "Correo Electronico",
+    "phone": "Telefono (opcional)",
+    "weight": "Peso",
+    "volumetric": "volumetrico",
+    "billable_weight": "Peso facturable",
+    "contact_note": "Nos pondremos en contacto con usted para confirmar el precio de la obra y finalizar la compra. El costo de envio es estimado y puede variar ligeramente.",
+    "back": "Atras",
+    "submit_order": "Enviar Pedido",
+    "order_received": "Solicitud de Pedido Recibida!",
+    "order_note": "Gracias por su interes. Nos pondremos en contacto con usted dentro de las 24 horas para confirmar el precio, los detalles de pago y los arreglos de envio.",
+    "close": "Cerrar",
+    "saved_addresses": "Direcciones Guardadas"
+  }
+}

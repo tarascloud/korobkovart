@@ -1,0 +1,177 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  OWNER
+  BUYER
+}
+
+enum ArtworkSeries {
+  podilia
+  destruction
+  murals
+  graphics
+  earlier
+}
+
+enum ArtworkStatus {
+  available
+  sold
+  on_exhibition
+  exists
+}
+
+enum OrderStatus {
+  INQUIRY
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  role          Role      @default(BUYER)
+  phone         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  addresses     Address[]
+  orders        Order[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Artwork {
+  id                      String        @id @default(cuid())
+  slug                    String        @unique
+  title                   String
+  year                    Int
+  series                  ArtworkSeries
+  medium                  String
+  dimensions              String
+  status                  ArtworkStatus @default(available)
+  imagePath               String
+  descriptionEn           String?
+  descriptionEs           String?
+  descriptionUa           String?
+  collaborator            String?
+  limitedEditionTotal     Int?
+  limitedEditionAvailable Int?
+  featured                Boolean       @default(false)
+  sortOrder               Int           @default(0)
+  price                   Int?          // cents EUR, null = price on request
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+  collections             ArtworkCollection[]
+  orders                  Order[]
+
+  @@index([series])
+  @@index([status])
+}
+
+model Collection {
+  id             String              @id @default(cuid())
+  slug           String              @unique
+  name           String
+  descriptionEn  String?
+  descriptionEs  String?
+  descriptionUa  String?
+  coverImagePath String?
+  sortOrder      Int                 @default(0)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  artworks       ArtworkCollection[]
+}
+
+model ArtworkCollection {
+  artworkId    String
+  collectionId String
+  artwork      Artwork    @relation(fields: [artworkId], references: [id], onDelete: Cascade)
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
+  @@id([artworkId, collectionId])
+}
+
+model Address {
+  id        String  @id @default(cuid())
+  userId    String
+  name      String
+  country   String
+  city      String
+  address   String
+  zip       String
+  phone     String?
+  isDefault Boolean @default(false)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders    Order[]
+
+  @@index([userId])
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  userId            String
+  artworkId         String
+  status            OrderStatus @default(INQUIRY)
+  shippingAddressId String?
+  carrierName       String?
+  shippingCost      Int?        // cents EUR
+  trackingNumber    String?
+  notes             String?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  user              User        @relation(fields: [userId], references: [id])
+  artwork           Artwork     @relation(fields: [artworkId], references: [id])
+  shippingAddress   Address?    @relation(fields: [shippingAddressId], references: [id])
+
+  @@index([userId])
+  @@index([artworkId])
+  @@index([shippingAddressId])
+}
+
+model SiteSettings {
+  id         String   @id @default("default")
+  siteName   String   @default("Korobkov Art Studio")
+  phone      String   @default("+38 (063) 475 56 19")
+  email      String   @default("info@korobkovart.com")
+  instagram  String   @default("https://www.instagram.com/korobkov.art/")
+  tgBotToken String   @default("")
+  tgChatId   String   @default("")
+  tgEnabled  Boolean  @default(false)
+  updatedAt  DateTime @updatedAt
+}
