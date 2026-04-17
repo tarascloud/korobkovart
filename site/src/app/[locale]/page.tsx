@@ -64,6 +64,9 @@ export default async function HomePage() {
             {tAbout("bio")}
           </p>
         </div>
+        <div className="flex justify-center py-6">
+          <ChevronsDown size={24} strokeWidth={1.5} className="text-secondary animate-bounce" />
+        </div>
         <div className="relative w-full">
           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background to-transparent z-10" />
           <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-background to-transparent z-10" />
