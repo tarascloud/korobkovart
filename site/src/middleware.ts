@@ -7,7 +7,6 @@ const intlMiddleware = createMiddleware({
   localeDetection: true,
 });
 
-// Map country codes to locales
 const countryToLocale: Record<string, string> = {
   UA: 'ua',
   ES: 'es',
@@ -32,26 +31,17 @@ const countryToLocale: Record<string, string> = {
 };
 
 export default function middleware(request: NextRequest) {
-  const { host, pathname, search } = request.nextUrl;
+  // With localePrefix: 'never', locale is determined by cookie only.
+  // Set cookie from geo-detection on first visit.
+  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
 
-  // Redirect www.korobkovart.com → korobkovart.com (301 permanent)
-  if (host === 'www.korobkovart.com') {
-    const url = request.nextUrl.clone();
-    url.host = 'korobkovart.com';
-    return NextResponse.redirect(url, { status: 301 });
-  }
-
-  // Check Cloudflare country header first
-  const country = request.headers.get('cf-ipcountry') || '';
-  const geoLocale = countryToLocale[country.toUpperCase()];
-
-  if (geoLocale && !pathname.match(/^\/(en|es|ua)(\/|$)/)) {
-    // Only redirect if user hasn't already chosen a locale
-    const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
-    if (!cookieLocale) {
-      const url = request.nextUrl.clone();
-      url.pathname = `/${geoLocale}${pathname}`;
-      return NextResponse.redirect(url);
+  if (!cookieLocale) {
+    const country = request.headers.get('cf-ipcountry') || '';
+    const geoLocale = countryToLocale[country.toUpperCase()];
+    if (geoLocale) {
+      const response = intlMiddleware(request);
+      response.cookies.set('NEXT_LOCALE', geoLocale, { path: '/', maxAge: 365 * 24 * 60 * 60 });
+      return response;
     }
   }
 
@@ -59,5 +49,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(en|es|ua)/:path*']
+  matcher: ['/((?!api|_next|artworks|images|fonts|favicon.ico|booklet.pdf|robots.txt|sitemap.xml|manifest.json|sw.js|hero-bg.mp4|videos).*)']
 };

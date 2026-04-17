@@ -7,6 +7,7 @@ import { InquiryForm } from "@/components/InquiryForm";
 import { BuyButton } from "@/components/BuyButton";
 import { ArtworkOwnerActions } from "@/components/ArtworkOwnerActions";
 import { translateMedium } from "@/lib/translate-medium";
+import { getImageUrl } from "@/lib/r2";
 import { Link } from "@/i18n/navigation";
 import type { Artwork } from "@/lib/types";
 
@@ -42,7 +43,7 @@ export function ArtworkDetail({
         {/* Image */}
         <div className="relative aspect-[3/4] bg-muted">
           <Image
-            src={artwork.image}
+            src={getImageUrl(artwork.image)}
             alt={artwork.title}
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"

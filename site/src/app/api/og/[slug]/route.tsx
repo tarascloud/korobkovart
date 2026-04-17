@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { prisma } from "@/lib/prisma";
+import { getAbsoluteImageUrl } from "@/lib/r2";
 
 export const runtime = "nodejs";
 
@@ -28,7 +29,7 @@ export async function GET(
         {/* Left: artwork image */}
         <div style={{ width: "630px", height: "630px", display: "flex" }}>
           <img
-            src={`https://ko.taras.cloud${artwork.imagePath}`}
+            src={getAbsoluteImageUrl(artwork.imagePath)}
             alt=""
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
