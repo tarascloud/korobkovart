@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { requireOwnerApi } from "@/lib/api-auth";
 import pg from "pg";
 
 function createClient() {
@@ -8,19 +8,9 @@ function createClient() {
   });
 }
 
-async function requireOwnerSession() {
-  const session = await auth();
-  if (!session?.user || (session.user as Record<string, unknown>).role !== "OWNER") {
-    return null;
-  }
-  return session;
-}
-
 export async function GET() {
-  const session = await requireOwnerSession();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  }
+  const { error } = await requireOwnerApi();
+  if (error) return error;
 
   const client = createClient();
 
@@ -57,10 +47,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await requireOwnerSession();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  }
+  const { error } = await requireOwnerApi();
+  if (error) return error;
 
   const client = createClient();
 
