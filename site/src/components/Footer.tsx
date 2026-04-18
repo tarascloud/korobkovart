@@ -31,7 +31,7 @@ export function Footer() {
               Telegram
             </a>
             <a
-              href="https://wa.me/34658573627"
+              href="https://wa.me/34652285139"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-foreground transition-colors duration-300"

@@ -23,7 +23,7 @@ export default async function HomePage() {
   const socials = [
     { name: "Instagram", icon: InstagramIcon, href: "https://www.instagram.com/korobkov.art", label: "@korobkov.art", color: "hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400" },
     { name: "Telegram", icon: Send, href: "https://t.me/Korobkov_art", label: "@Korobkov_art", color: "hover:bg-[#0088cc]" },
-    { name: "WhatsApp", icon: MessageCircle, href: "https://wa.me/34658573627", label: "+34 658 57 36 27", color: "hover:bg-[#25D366]" },
+    { name: "WhatsApp", icon: MessageCircle, href: "https://wa.me/34652285139", label: "+34 652 28 51 39", color: "hover:bg-[#25D366]" },
     { name: "Email", icon: Mail, href: "mailto:Korobkovartstudio@gmail.com", label: "Korobkovartstudio@gmail.com", color: "hover:bg-foreground" },
   ];
 

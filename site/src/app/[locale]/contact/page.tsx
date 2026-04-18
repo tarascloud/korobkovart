@@ -30,8 +30,8 @@ export default function ContactPage() {
     {
       name: "WhatsApp",
       icon: MessageCircle,
-      href: "https://wa.me/34658573627",
-      label: "+34 658 57 36 27",
+      href: "https://wa.me/34652285139",
+      label: "+34 652 28 51 39",
       color: "hover:bg-[#25D366]",
     },
     {
