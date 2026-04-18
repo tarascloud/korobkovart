@@ -39,14 +39,14 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
       </div>
 
-      <div className="relative flex flex-col items-center gap-8 text-center mt-12">
-        {/* Logo container dynamically drops down during intro */}
+      <div className="relative flex flex-col items-center gap-8 text-center">
+        {/* Logo draws exactly in its final placement, no shifts */}
         <motion.div
-          initial={{ scale: isIntro ? 1.2 : 1, y: isIntro ? 20 : 0 }}
-          animate={{ scale: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: isIntro ? 0.4 : 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
         >
-          <Logo animate={isIntro} size={100} showText={false} />
+          <Logo animate={isIntro} size={80} showText={false} />
         </motion.div>
 
         {/* The rest of the hero elements gracefully fade in */}

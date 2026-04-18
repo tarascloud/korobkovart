@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Artwork" ADD COLUMN IF NOT EXISTS "titleUa" TEXT;
+ALTER TABLE "Artwork" ADD COLUMN IF NOT EXISTS "titleEs" TEXT;

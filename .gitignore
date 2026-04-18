@@ -5,3 +5,4 @@ src/generated/
 *.tgz
 .DS_Store
 scratch/
+.claude/worktrees/

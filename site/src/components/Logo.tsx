@@ -15,50 +15,51 @@ import { motion } from "framer-motion";
  * All strokes are now completely accurate filled paths.
  */
 
+const easePremium = [0.22, 1, 0.36, 1] as const;
+
 const bracketLeft = {
-  hidden: { opacity: 0, x: 15 },
+  hidden: { opacity: 0, x: 25 },
   visible: (delay: number) => ({
     opacity: 1,
     x: 0,
-    transition: { delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { delay, duration: 1.2, ease: easePremium },
   }),
 };
 
 const bracketRight = {
-  hidden: { opacity: 0, x: -15 },
+  hidden: { opacity: 0, x: -25 },
   visible: (delay: number) => ({
     opacity: 1,
     x: 0,
-    transition: { delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { delay, duration: 1.2, ease: easePremium },
   }),
 };
 
 const kStem = {
-  hidden: { opacity: 0, y: -20 },
+  hidden: { opacity: 0, y: -30 },
   visible: (delay: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { delay, duration: 1.0, ease: easePremium },
   }),
 };
 
 const kCircle = {
-  hidden: { opacity: 0, y: -15, scale: 0.8 },
+  hidden: { opacity: 0, y: -25 },
   visible: (delay: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: { delay, type: "spring" as const, stiffness: 220, damping: 15 },
+    transition: { delay, type: "spring" as const, stiffness: 280, damping: 18, mass: 0.8 },
   }),
 };
 
 const kLeaf = {
-  hidden: { opacity: 0, x: -10, y: 10 },
+  hidden: { opacity: 0, x: -25, y: 20 },
   visible: (delay: number) => ({
     opacity: 1,
     x: 0,
     y: 0,
-    transition: { delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { delay, duration: 1.0, ease: easePremium },
   }),
 };
 

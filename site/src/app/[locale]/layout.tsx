@@ -2,14 +2,19 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Inter } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Providers } from "@/components/Providers";
 import { ArtGalleryJsonLd } from "@/components/JsonLd";
-import { IntroOverlay } from "@/components/IntroOverlay";
 import { AdminBar } from "@/components/AdminBar";
 import { auth } from "@/lib/auth";
+
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-inter",
+});
 
 
 export async function generateMetadata({
@@ -79,19 +84,19 @@ export default async function LocaleLayout({
   } : null;
 
   return (
-    <html lang={locale} suppressHydrationWarning className="h-full">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-      </head>
+    <html lang={locale} suppressHydrationWarning className={`h-full ${inter.variable} ${inter.className}`}>
       <body className="min-h-full flex flex-col antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:text-black"
+        >
+          Skip to content
+        </a>
         <ArtGalleryJsonLd />
         <Providers>
           <NextIntlClientProvider messages={messages}>
-            <IntroOverlay />
             <Header user={user} />
-            <main className="flex-1 pt-[73px]">{children}</main>
+            <main id="main" className="flex-1 pt-[73px]">{children}</main>
             <Footer />
             <AdminBar user={user} />
           </NextIntlClientProvider>

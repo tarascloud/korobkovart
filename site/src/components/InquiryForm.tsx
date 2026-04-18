@@ -52,10 +52,11 @@ export function InquiryForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
       <div>
-        <label className="block text-sm text-secondary mb-1">
+        <label htmlFor="inquiry-name" className="block text-sm text-secondary mb-1">
           {t("form_name")}
         </label>
         <input
+          id="inquiry-name"
           name="name"
           required
           className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors duration-300"
@@ -63,10 +64,11 @@ export function InquiryForm({
       </div>
 
       <div>
-        <label className="block text-sm text-secondary mb-1">
+        <label htmlFor="inquiry-email" className="block text-sm text-secondary mb-1">
           {t("form_email")}
         </label>
         <input
+          id="inquiry-email"
           name="email"
           type="email"
           required
@@ -76,10 +78,11 @@ export function InquiryForm({
 
       {type === "general" && (
         <div>
-          <label className="block text-sm text-secondary mb-1">
+          <label htmlFor="inquiry-subject" className="block text-sm text-secondary mb-1">
             {t("form_subject")}
           </label>
           <select
+            id="inquiry-subject"
             name="subject"
             className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors duration-300"
           >
@@ -92,10 +95,11 @@ export function InquiryForm({
       )}
 
       <div>
-        <label className="block text-sm text-secondary mb-1">
+        <label htmlFor="inquiry-message" className="block text-sm text-secondary mb-1">
           {t("form_message")}
         </label>
         <textarea
+          id="inquiry-message"
           name="message"
           rows={5}
           required
