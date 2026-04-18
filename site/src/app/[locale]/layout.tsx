@@ -48,11 +48,20 @@ export async function generateMetadata({
       locale:
         locale === "ua" ? "uk_UA" : locale === "es" ? "es_ES" : "en_US",
       type: "website",
+      images: [
+        {
+          url: "/about.jpg",
+          width: 1200,
+          height: 630,
+          alt: t("title"),
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
+      images: ["/about.jpg"],
     },
     robots: {
       index: true,
