@@ -50,10 +50,10 @@ export async function generateMetadata({
       type: "website",
       images: [
         {
-          url: "/og-image.png",
+          url: "/about.jpg",
           width: 1200,
           height: 630,
-          alt: "Korobkov Art Studio",
+          alt: t("title"),
         },
       ],
     },
@@ -61,7 +61,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
-      images: ["/og-image.png"],
+      images: ["/about.jpg"],
     },
     robots: {
       index: true,
