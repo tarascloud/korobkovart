@@ -49,9 +49,6 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: textDelay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Decorative line */}
-          <div className="h-[1px] bg-foreground/20 w-16" />
-
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-none uppercase">
             Korobkov
             <br />
