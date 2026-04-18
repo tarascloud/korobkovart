@@ -21,10 +21,10 @@ export default async function HomePage() {
   const featured = await getFeaturedArtworks();
 
   const socials = [
-    { name: "Instagram", icon: InstagramIcon, href: "https://www.instagram.com/korobkov.art", label: "@korobkov.art", color: "hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400" },
-    { name: "Telegram", icon: Send, href: "https://t.me/Korobkov_art", label: "@Korobkov_art", color: "hover:bg-[#0088cc]" },
-    { name: "WhatsApp", icon: MessageCircle, href: "https://wa.me/34652285139", label: "+34 652 28 51 39", color: "hover:bg-[#25D366]" },
-    { name: "Email", icon: Mail, href: "mailto:Korobkovartstudio@gmail.com", label: "Korobkovartstudio@gmail.com", color: "hover:bg-foreground" },
+    { name: "Instagram", icon: InstagramIcon, href: "https://www.instagram.com/korobkov.art", label: "@korobkov.art" },
+    { name: "Telegram", icon: Send, href: "https://t.me/Korobkov_art", label: "@Korobkov_art" },
+    { name: "WhatsApp", icon: MessageCircle, href: "https://wa.me/34652285139", label: "+34 652 28 51 39" },
+    { name: "Email", icon: Mail, href: "mailto:Korobkovartstudio@gmail.com", label: "Korobkovartstudio@gmail.com" },
   ];
 
   return (
@@ -103,7 +103,7 @@ export default async function HomePage() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex items-center gap-4 p-5 border border-foreground/20 backdrop-blur-sm bg-background/30 transition-all duration-300 active:scale-[0.98] ${social.color} hover:text-white hover:border-transparent`}
+                className="group flex items-center gap-4 p-5 border border-foreground/20 backdrop-blur-sm bg-background/30 hover-tinted-shadow hover:bg-foreground hover:text-background hover:border-transparent transition-all duration-300 active:scale-[0.98]"
               >
                 <social.icon size={24} strokeWidth={1.5} className="flex-shrink-0" />
                 <div>
