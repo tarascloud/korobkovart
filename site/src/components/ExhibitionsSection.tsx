@@ -15,7 +15,7 @@ export async function ExhibitionsSection() {
       <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="flex items-center justify-between mb-10">
           <ScrollReveal>
-            <h2 className="text-2xl font-bold tracking-wider uppercase">
+            <h2 className="text-2xl font-semibold tracking-tight uppercase [text-wrap:balance]">
               {t("exhibitions_section.title")}
             </h2>
           </ScrollReveal>
