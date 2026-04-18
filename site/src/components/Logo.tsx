@@ -49,7 +49,7 @@ const kCircle = {
   visible: (delay: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay, type: "spring", stiffness: 280, damping: 18, mass: 0.8 },
+    transition: { delay, type: "spring" as const, stiffness: 280, damping: 18, mass: 0.8 },
   }),
 };
 
