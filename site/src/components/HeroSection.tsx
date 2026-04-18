@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { Logo } from "./Logo";
 import { motion } from "framer-motion";
 import { ChevronsDown } from "lucide-react";
 
@@ -83,25 +82,7 @@ export function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Right: Logo -- larger, offset vertically */}
-        <motion.div
-          className="hidden sm:flex items-center justify-center pr-8 lg:pr-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Logo animate={isIntro} size={120} showText={false} className="opacity-80" />
-        </motion.div>
-
-        {/* Mobile: Logo small, top-right */}
-        <motion.div
-          className="sm:hidden absolute top-0 right-0 -translate-y-[calc(100%+2rem)]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <Logo animate={isIntro} size={48} showText={false} className="opacity-60" />
-        </motion.div>
+        {/* Logo only in header nav, not duplicated here */}
       </div>
 
       {/* Scroll indicator -- bottom center */}
