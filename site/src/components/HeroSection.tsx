@@ -22,7 +22,7 @@ export function HeroSection() {
   const textDelay = isIntro ? 1.4 : 0.2;
 
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-6">
+    <section className="relative min-h-[100dvh] flex items-end sm:items-center px-6">
       {/* Background Video and Overlays */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <video
@@ -33,71 +33,85 @@ export function HeroSection() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Darkening overlay for high contrast */}
-        <div className="absolute inset-0 bg-background/20 sm:bg-background/10" />
-        {/* Gradient fade to blend softly into the next section */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+        {/* Darkening overlay */}
+        <div className="absolute inset-0 bg-background/30 sm:bg-background/20" />
+        {/* Left-side content area darkening for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/30 to-transparent" />
+        {/* Bottom fade into next section */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
       </div>
 
-      <div className="relative flex flex-col items-center gap-8 text-center">
-        {/* Logo draws exactly in its final placement, no shifts */}
+      {/* Split layout: text left, logo right */}
+      <div className="relative w-full max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-8 sm:gap-16 pb-24 sm:pb-0">
+        {/* Left: Text content -- left-aligned, asymmetric */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <Logo animate={isIntro} size={80} showText={false} />
-        </motion.div>
-
-        {/* The rest of the hero elements gracefully fade in */}
-        <motion.div
-          className="flex flex-col items-center gap-6"
-          initial={{ opacity: 0, y: 15 }}
+          className="flex flex-col gap-6 max-w-lg"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: textDelay, duration: 0.8, ease: "easeOut" }}
+          transition={{ delay: textDelay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Decorative line */}
-          <div className="h-[1px] bg-foreground/20 w-24" />
+          <div className="h-[1px] bg-foreground/20 w-16" />
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-none uppercase">
             Korobkov
             <br />
-            Art Studio
+            <span className="font-light text-secondary">Art Studio</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-secondary tracking-[0.25em] uppercase">
+          <p className="text-base sm:text-lg text-secondary tracking-[0.2em] uppercase">
             {t("tagline")}
           </p>
 
-          <p className="text-sm text-secondary tracking-wider max-w-sm mx-auto leading-relaxed">
+          <p className="text-sm text-secondary tracking-wider max-w-sm leading-relaxed">
             {t("subtitle")}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+          <div className="flex flex-col sm:flex-row gap-3 mt-2">
             <Link
               href="/gallery"
-              className="px-10 py-4 bg-foreground text-background text-sm tracking-[0.15em] uppercase hover:opacity-90 transition-all duration-300"
+              className="px-8 py-3.5 bg-foreground text-background text-sm tracking-[0.15em] uppercase hover:opacity-90 transition-all duration-300 active:scale-[0.98]"
             >
               {t("cta_gallery")}
             </Link>
             <Link
               href="/contact"
-              className="px-10 py-4 border border-foreground text-sm tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-300"
+              className="px-8 py-3.5 border border-foreground/40 text-sm tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-300 active:scale-[0.98]"
             >
               {t("cta_inquire")}
             </Link>
           </div>
         </motion.div>
+
+        {/* Right: Logo -- larger, offset vertically */}
+        <motion.div
+          className="hidden sm:flex items-center justify-center pr-8 lg:pr-16"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Logo animate={isIntro} size={120} showText={false} className="opacity-80" />
+        </motion.div>
+
+        {/* Mobile: Logo small, top-right */}
+        <motion.div
+          className="sm:hidden absolute top-0 right-0 -translate-y-[calc(100%+2rem)]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <Logo animate={isIntro} size={48} showText={false} className="opacity-60" />
+        </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator -- bottom center */}
       <motion.div
-        className="absolute bottom-8"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 8, 0] }}
-        transition={{ 
+        transition={{
           opacity: { delay: textDelay + 0.4, duration: 0.8 },
-          y: { repeat: Infinity, duration: 2 } 
+          y: { repeat: Infinity, duration: 2 },
         }}
       >
         <ChevronsDown size={24} strokeWidth={1.5} className="text-secondary" />
