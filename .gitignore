@@ -1,8 +1,11 @@
 node_modules/
 .next/
 .env
-src/generated/
+.env.local
+**/src/generated/
 *.tgz
 .DS_Store
 scratch/
 .claude/worktrees/
+media/
+bot/node_modules/
