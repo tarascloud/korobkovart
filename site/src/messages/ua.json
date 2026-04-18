@@ -7,7 +7,7 @@
     "home": "Головна",
     "gallery": "Галерея",
     "about": "Про нас",
-    "exhibitions": "Виставки",
+    "cv": "CV",
     "partners": "Партнери",
     "contact": "Контакти",
     "prints": "Принти",
@@ -35,7 +35,7 @@
     },
     "exhibitions_section": {
       "title": "Вибрані Виставки",
-      "view_all": "Всі Виставки"
+      "view_all": "CV"
     }
   },
   "gallery": {

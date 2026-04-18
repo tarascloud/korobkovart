@@ -7,7 +7,7 @@
     "home": "Home",
     "gallery": "Gallery",
     "about": "About",
-    "exhibitions": "Exhibitions",
+    "cv": "CV",
     "partners": "Partners",
     "contact": "Contact",
     "prints": "Prints",
@@ -35,7 +35,7 @@
     },
     "exhibitions_section": {
       "title": "Selected Exhibitions",
-      "view_all": "All Exhibitions"
+      "view_all": "CV"
     }
   },
   "gallery": {

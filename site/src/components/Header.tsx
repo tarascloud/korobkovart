@@ -13,7 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const navLinks = [
   { href: "/gallery", key: "gallery" },
   { href: "/about", key: "about" },
-  { href: "/exhibitions", key: "exhibitions" },
+  { href: "/cv", key: "cv" },
   { href: "/partners", key: "partners" },
   { href: "/contact", key: "contact" },
 ] as const;

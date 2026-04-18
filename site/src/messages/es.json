@@ -7,7 +7,7 @@
     "home": "Inicio",
     "gallery": "Galeria",
     "about": "Sobre nosotros",
-    "exhibitions": "Exposiciones",
+    "cv": "CV",
     "partners": "Socios",
     "contact": "Contacto",
     "prints": "Impresiones",
@@ -35,7 +35,7 @@
     },
     "exhibitions_section": {
       "title": "Exposiciones Seleccionadas",
-      "view_all": "Todas las Exposiciones"
+      "view_all": "CV"
     }
   },
   "gallery": {

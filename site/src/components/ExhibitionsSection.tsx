@@ -20,7 +20,7 @@ export async function ExhibitionsSection() {
             </h2>
           </ScrollReveal>
           <Link
-            href="/exhibitions"
+            href="/cv"
             className="text-sm text-secondary hover:text-foreground transition-colors tracking-wider uppercase"
           >
             {t("exhibitions_section.view_all")} &rarr;
