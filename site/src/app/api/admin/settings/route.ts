@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { requireOwnerApi } from "@/lib/api-auth";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== "OWNER") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  }
+  const { error } = await requireOwnerApi();
+  if (error) return error;
 
   const settings = await prisma.siteSettings.upsert({
     where: { id: "default" },
@@ -18,10 +16,8 @@ export async function GET() {
 }
 
 export async function PUT(req: NextRequest) {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== "OWNER") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  }
+  const { error } = await requireOwnerApi();
+  if (error) return error;
 
   try {
     const body = await req.json();

@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { requireOwnerApi } from "@/lib/api-auth";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== "OWNER") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  }
+  const { error } = await requireOwnerApi();
+  if (error) return error;
 
   try {
     const formData = await req.formData();
