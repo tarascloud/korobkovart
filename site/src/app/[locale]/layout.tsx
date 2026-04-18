@@ -7,7 +7,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Providers } from "@/components/Providers";
 import { ArtGalleryJsonLd } from "@/components/JsonLd";
-import { IntroOverlay } from "@/components/IntroOverlay";
 import { AdminBar } from "@/components/AdminBar";
 import { auth } from "@/lib/auth";
 
@@ -89,7 +88,6 @@ export default async function LocaleLayout({
         <ArtGalleryJsonLd />
         <Providers>
           <NextIntlClientProvider messages={messages}>
-            <IntroOverlay />
             <Header user={user} />
             <main className="flex-1 pt-[73px]">{children}</main>
             <Footer />
