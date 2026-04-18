@@ -34,7 +34,7 @@ export default async function HomePage() {
       {/* Featured Works */}
       <section className="max-w-7xl mx-auto px-6 py-24">
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-xl font-semibold tracking-[0.2em] uppercase">
+          <h2 className="text-xl font-semibold tracking-tight uppercase [text-wrap:balance]">
             {t("featured")}
           </h2>
           <Link
@@ -46,8 +46,8 @@ export default async function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featured.map((artwork) => (
-            <ArtworkCard key={artwork.slug} artwork={artwork} />
+          {featured.map((artwork, i) => (
+            <ArtworkCard key={artwork.slug} artwork={artwork} index={i} />
           ))}
         </div>
       </section>
@@ -60,7 +60,7 @@ export default async function HomePage() {
       {/* About section */}
       <section>
         <div className="max-w-4xl mx-auto px-6 py-24">
-          <p className="leading-relaxed text-secondary text-base">
+          <p className="leading-relaxed text-secondary text-base max-w-[65ch]">
             {tAbout("bio")}
           </p>
         </div>
@@ -80,7 +80,7 @@ export default async function HomePage() {
       </section>
 
       {/* Contact section — overlaps about photo for seamless blend */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center -mt-48 sm:-mt-64">
+      <section className="relative min-h-[100dvh] flex flex-col items-center justify-center -mt-48 sm:-mt-64">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src="/videos/contact.mp4" type="video/mp4" />
@@ -103,7 +103,7 @@ export default async function HomePage() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex items-center gap-4 p-5 border border-foreground/20 backdrop-blur-sm bg-background/30 transition-all duration-300 ${social.color} hover:text-white hover:border-transparent`}
+                className={`group flex items-center gap-4 p-5 border border-foreground/20 backdrop-blur-sm bg-background/30 transition-all duration-300 active:scale-[0.98] ${social.color} hover:text-white hover:border-transparent`}
               >
                 <social.icon size={24} strokeWidth={1.5} className="flex-shrink-0" />
                 <div>

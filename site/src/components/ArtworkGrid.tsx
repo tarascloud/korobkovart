@@ -58,9 +58,11 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
       {filtered.length === 0 ? (
         <p className="text-secondary text-center py-20">{t("no_results")}</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {visible.map((artwork) => (
-            <ArtworkCard key={artwork.slug} artwork={artwork} />
+        <div className="columns-1 sm:columns-2 gap-8 [column-fill:balanced]">
+          {visible.map((artwork, i) => (
+            <div key={artwork.slug} className="break-inside-avoid mb-8">
+              <ArtworkCard artwork={artwork} index={i} />
+            </div>
           ))}
         </div>
       )}

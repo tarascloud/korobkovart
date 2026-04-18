@@ -2,18 +2,20 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Inter } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Providers } from "@/components/Providers";
 import { ArtGalleryJsonLd } from "@/components/JsonLd";
 import { AdminBar } from "@/components/AdminBar";
+import { NoiseOverlay } from "@/components/NoiseOverlay";
 import { auth } from "@/lib/auth";
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin", "cyrillic"],
-  variable: "--font-inter",
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 
@@ -93,7 +95,7 @@ export default async function LocaleLayout({
   } : null;
 
   return (
-    <html lang={locale} suppressHydrationWarning className={`h-full ${inter.variable} ${inter.className}`}>
+    <html lang={locale} suppressHydrationWarning className={`h-full ${dmSans.variable} ${dmSans.className}`}>
       <body className="min-h-full flex flex-col antialiased">
         <a
           href="#main"
@@ -108,6 +110,7 @@ export default async function LocaleLayout({
             <main id="main" className="flex-1 pt-[73px]">{children}</main>
             <Footer />
             <AdminBar user={user} />
+            <NoiseOverlay />
           </NextIntlClientProvider>
         </Providers>
       </body>
