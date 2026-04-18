@@ -1,4 +1,5 @@
 import { getLocale } from "next-intl/server";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 const content = {
   ua: {
@@ -186,101 +187,139 @@ export default async function CvPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-24">
-      <h1 className="text-2xl font-semibold tracking-[0.2em] uppercase mb-16">
-        {t.title}
-      </h1>
+      <ScrollReveal>
+        <div className="h-[1px] bg-foreground/20 w-16 mb-6" />
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tighter uppercase leading-none mb-2">
+          Korobkov
+          <br />
+          <span className="font-light text-secondary">Art Studio</span>
+        </h1>
+        <p className="text-sm text-secondary tracking-[0.2em] uppercase mt-3">
+          Curriculum Vitae
+        </p>
+      </ScrollReveal>
 
       {/* Biography */}
-      <section className="mb-16">
-        <h2 className="text-lg font-semibold tracking-[0.2em] uppercase mb-8">
-          {t.biography}
-        </h2>
-        <div className="space-y-4 text-sm leading-relaxed text-secondary">
-          {t.biographyText.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
+      <section className="mt-20 mb-20 border-t border-border pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
+          <ScrollReveal>
+            <div className="md:sticky md:top-32">
+              <h2 className="text-xl font-semibold tracking-tight uppercase">
+                {t.biography}
+              </h2>
+              <div className="h-[1px] bg-border w-12 mt-4" />
+            </div>
+          </ScrollReveal>
+          <div className="space-y-4 text-sm leading-relaxed text-secondary">
+            {t.biographyText.map((p, i) => (
+              <ScrollReveal key={i} delay={i * 0.06}>
+                <p>{p}</p>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Education */}
-      <section className="mb-16">
-        <h2 className="text-lg font-semibold tracking-[0.2em] uppercase mb-8">
-          {t.education}
-        </h2>
-        <div className="mb-6">
-          <h3 className="font-medium text-sm mb-3">{t.mykhailo}</h3>
-          <ul className="space-y-1.5 text-sm text-secondary">
-            {t.mykhailoEdu.map((item, i) => (
-              <li key={i} className="flex gap-2">
-                <span className="text-foreground/40">&#8226;</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3 className="font-medium text-sm mb-3">{t.olha}</h3>
-          <ul className="space-y-1.5 text-sm text-secondary">
-            {t.olhaEdu.map((item, i) => (
-              <li key={i} className="flex gap-2">
-                <span className="text-foreground/40">&#8226;</span>
-                {item}
-              </li>
-            ))}
-          </ul>
+      <section className="mb-20 border-t border-border pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
+          <ScrollReveal>
+            <h2 className="text-xl font-semibold tracking-tight uppercase">
+              {t.education}
+            </h2>
+            <div className="h-[1px] bg-border w-12 mt-4" />
+          </ScrollReveal>
+          <div>
+            <ScrollReveal delay={0.08}>
+              <div className="mb-8">
+                <h3 className="font-medium text-sm mb-3 tracking-wide uppercase">{t.mykhailo}</h3>
+                <ul className="space-y-1.5 text-sm text-secondary">
+                  {t.mykhailoEdu.map((item, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="text-foreground/40">&#8226;</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.12}>
+              <div>
+                <h3 className="font-medium text-sm mb-3 tracking-wide uppercase">{t.olha}</h3>
+                <ul className="space-y-1.5 text-sm text-secondary">
+                  {t.olhaEdu.map((item, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="text-foreground/40">&#8226;</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
       {/* Selected Projects */}
-      <section className="mb-16">
-        <h2 className="text-lg font-semibold tracking-[0.2em] uppercase mb-8">
-          {t.selectedProjects}
-        </h2>
-        <div className="space-y-6">
+      <section className="mb-20 border-t border-border pt-16">
+        <ScrollReveal>
+          <h2 className="text-xl font-semibold tracking-tight uppercase mb-10">
+            {t.selectedProjects}
+          </h2>
+        </ScrollReveal>
+        <div className="space-y-0">
           {t.projects.map((p, i) => (
-            <div key={i} className="flex gap-6 py-4 border-b border-border">
-              <span className="text-sm text-secondary min-w-[50px] tabular-nums">
-                {p.year}
-              </span>
-              <div>
-                <h3 className="font-medium text-sm">{p.title}</h3>
-                <p className="text-sm text-secondary mt-1 leading-relaxed">
-                  {p.desc}
-                </p>
+            <ScrollReveal key={i} delay={i * 0.08}>
+              <div className="grid grid-cols-1 sm:grid-cols-[minmax(60px,auto)_1fr] gap-2 sm:gap-8 py-6 border-b border-border">
+                <span className="text-sm text-secondary font-mono tabular-nums">
+                  {p.year}
+                </span>
+                <div>
+                  <h3 className="font-medium text-sm">{p.title}</h3>
+                  <p className="text-sm text-secondary mt-1 leading-relaxed">
+                    {p.desc}
+                  </p>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </section>
 
       {/* Solo Exhibitions */}
-      <section className="mb-16">
-        <h2 className="text-lg font-semibold tracking-[0.2em] uppercase mb-8">
-          {t.soloExhibitions}
-        </h2>
-        <ul className="space-y-3 text-sm text-secondary">
+      <section className="mb-20 border-t border-border pt-16">
+        <ScrollReveal>
+          <h2 className="text-xl font-semibold tracking-tight uppercase mb-10">
+            {t.soloExhibitions}
+          </h2>
+        </ScrollReveal>
+        <div className="space-y-0">
           {t.solo.map((item, i) => (
-            <li key={i} className="flex gap-2">
-              <span className="text-foreground/40">&#8226;</span>
-              {item}
-            </li>
+            <ScrollReveal key={i} delay={i * 0.05}>
+              <div className="py-3 border-b border-border text-sm text-secondary hover:text-foreground transition-colors">
+                {item}
+              </div>
+            </ScrollReveal>
           ))}
-        </ul>
+        </div>
       </section>
 
       {/* Group Exhibitions */}
-      <section>
-        <h2 className="text-lg font-semibold tracking-[0.2em] uppercase mb-8">
-          {t.groupExhibitions}
-        </h2>
-        <ul className="space-y-3 text-sm text-secondary">
+      <section className="border-t border-border pt-16">
+        <ScrollReveal>
+          <h2 className="text-xl font-semibold tracking-tight uppercase mb-10">
+            {t.groupExhibitions}
+          </h2>
+        </ScrollReveal>
+        <div className="space-y-0">
           {t.group.map((item, i) => (
-            <li key={i} className="flex gap-2">
-              <span className="text-foreground/40">&#8226;</span>
-              {item}
-            </li>
+            <ScrollReveal key={i} delay={i * 0.05}>
+              <div className="py-3 border-b border-border text-sm text-secondary hover:text-foreground transition-colors">
+                {item}
+              </div>
+            </ScrollReveal>
           ))}
-        </ul>
+        </div>
       </section>
     </div>
   );

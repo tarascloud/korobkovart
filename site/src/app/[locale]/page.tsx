@@ -3,7 +3,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { ArtworkCard } from "@/components/ArtworkCard";
 import { getFeaturedArtworks } from "@/lib/artworks";
 import { Link } from "@/i18n/navigation";
-import { Mail, MessageCircle, Send, ChevronsDown } from "lucide-react";
+import { Mail, MessageCircle, Send } from "lucide-react";
 
 function InstagramIcon({ size = 24 }: { size?: number }) {
   return (
@@ -52,11 +52,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Scroll indicator */}
-      <div className="flex justify-center py-4">
-        <ChevronsDown size={24} strokeWidth={1} className="text-secondary/60 animate-bounce" />
-      </div>
-
       {/* About section */}
       <section>
         <div className="max-w-4xl mx-auto px-6 py-24">
@@ -64,10 +59,7 @@ export default async function HomePage() {
             {tAbout("bio")}
           </p>
         </div>
-        <div className="flex justify-center py-4">
-          <ChevronsDown size={24} strokeWidth={1} className="text-secondary/60 animate-bounce" />
-        </div>
-        <div className="relative w-full">
+        <div className="relative w-full mt-16">
           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background to-transparent z-10" />
           <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-background via-background/70 to-transparent z-10" />
           {/* eslint-disable-next-line @next/next/no-img-element */}

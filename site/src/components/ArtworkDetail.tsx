@@ -79,11 +79,10 @@ export function ArtworkDetail({
             </div>
             <div className="flex justify-between py-2 border-b border-border">
               <span className="text-secondary">{t("status")}</span>
-              <span
-                className={
-                  artwork.status === "available" ? "text-green-600" : ""
-                }
-              >
+              <span className="flex items-center gap-2">
+                {artwork.status === "available" && (
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-foreground/60" />
+                )}
                 {statusLabels[artwork.status]}
               </span>
             </div>
