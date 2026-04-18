@@ -1,7 +1,14 @@
 "use client";
 
 import { MotionConfig } from "framer-motion";
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "sonner";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      <Toaster position="bottom-right" />
+    </ThemeProvider>
+  );
 }
