@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -11,6 +12,8 @@ import { ArtGalleryJsonLd } from "@/components/JsonLd";
 import { AdminBar } from "@/components/AdminBar";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
 import { auth } from "@/lib/auth";
+
+const GA_MEASUREMENT_ID = "G-H3LWG543XL";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -94,9 +97,27 @@ export default async function LocaleLayout({
     role: (session.user as any).role as string | undefined,
   } : null;
 
+  const isProd = process.env.NODE_ENV === "production";
+
   return (
     <html lang={locale} suppressHydrationWarning className={`h-full ${manrope.variable} ${manrope.className}`}>
       <body className="min-h-full flex flex-col antialiased">
+        {isProd && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-foreground focus:text-background focus:px-4 focus:py-2 focus:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
