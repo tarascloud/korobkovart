@@ -60,13 +60,15 @@
     "status_sold": "Vendido",
     "status_exhibition": "En Exposicion",
     "status_exists": "Existe",
-    "inquire": "Consultar Sobre Esta Obra",
+    "inquire": "Alguna pregunta sobre esta obra?",
     "related": "Obras Relacionadas",
     "limited_edition": "Edicion Limitada",
     "of": "de",
     "location": "Ubicacion",
     "price_on_request": "Precio bajo consulta",
-    "shipping_extra": "Envio calculado al finalizar la compra"
+    "shipping_extra": "Envio calculado al finalizar la compra",
+    "inquire_cta": "Enviar Consulta",
+    "buy_section_title": "Adquirir esta obra"
   },
   "about": {
     "title": "Sobre Nosotros",

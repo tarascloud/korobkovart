@@ -60,13 +60,15 @@
     "status_sold": "Sold",
     "status_exhibition": "On Exhibition",
     "status_exists": "Exists",
-    "inquire": "Inquire About This Work",
+    "inquire": "Have a question about this work?",
     "related": "Related Works",
     "limited_edition": "Limited Edition",
     "of": "of",
     "location": "Location",
     "price_on_request": "Price on request",
-    "shipping_extra": "Shipping calculated at checkout"
+    "shipping_extra": "Shipping calculated at checkout",
+    "inquire_cta": "Send Inquiry",
+    "buy_section_title": "Acquire this work"
   },
   "about": {
     "title": "About",

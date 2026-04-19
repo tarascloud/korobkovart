@@ -60,13 +60,15 @@
     "status_sold": "Продана",
     "status_exhibition": "На Виставці",
     "status_exists": "Існує",
-    "inquire": "Запитати Про Цю Роботу",
+    "inquire": "Питання про цю роботу?",
     "related": "Схожі Роботи",
     "limited_edition": "Лімітоване Видання",
     "of": "з",
     "location": "Місцезнаходження",
     "price_on_request": "Ціна за запитом",
-    "shipping_extra": "Доставка розраховується при оформленні"
+    "shipping_extra": "Доставка розраховується при оформленні",
+    "inquire_cta": "Надіслати Запит",
+    "buy_section_title": "Придбати роботу"
   },
   "about": {
     "title": "Про Нас",
