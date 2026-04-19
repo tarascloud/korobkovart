@@ -23,8 +23,10 @@ export function ArtworkCard({ artwork, index = 0 }: { artwork: Artwork; index?: 
             src={getImageUrl(artwork.image)}
             alt={artwork.title}
             fill
-            sizes="(max-width: 640px) 100vw, 50vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
+            loading={index < 4 ? "eager" : "lazy"}
+            decoding="async"
           />
           {/* Hover overlay with quick info */}
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-end p-4">

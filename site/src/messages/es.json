@@ -75,7 +75,12 @@
     "price_on_request": "Precio bajo consulta",
     "shipping_extra": "Envio calculado al finalizar la compra",
     "inquire_cta": "Enviar Consulta",
-    "buy_section_title": "Adquirir esta obra"
+    "buy_section_title": "Adquirir esta obra",
+    "breadcrumb_home": "Inicio",
+    "breadcrumb_gallery": "Galeria",
+    "artist_statement": "Palabra del artista",
+    "close": "Cerrar",
+    "zoom_hint": "Toca la imagen para ampliar"
   },
   "about": {
     "title": "Sobre Nosotros",

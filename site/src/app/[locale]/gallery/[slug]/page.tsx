@@ -54,7 +54,7 @@ export default async function ArtworkPage({
 }: {
   params: Promise<{ slug: string; locale: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const artwork = await getArtworkBySlug(slug);
 
   if (!artwork) notFound();
@@ -65,7 +65,7 @@ export default async function ArtworkPage({
 
   return (
     <>
-      <ArtworkJsonLd artwork={artwork} />
+      <ArtworkJsonLd artwork={artwork} locale={locale} />
       <ArtworkDetail artwork={artwork} related={related} isOwner={isOwner} />
     </>
   );

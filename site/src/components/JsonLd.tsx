@@ -31,22 +31,61 @@ export function ArtGalleryJsonLd() {
   );
 }
 
-export function ArtworkJsonLd({ artwork }: { artwork: { title: string; year: number; medium: string; dimensions: string; image: string; slug: string } }) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'VisualArtwork',
+export function ArtworkJsonLd({
+  artwork,
+  locale = "en",
+}: {
+  artwork: {
+    title: string;
+    year: number;
+    medium: string;
+    dimensions: string;
+    image: string;
+    slug: string;
+    series?: string;
+    status?: string;
+    description?: { en?: string; es?: string; ua?: string } | null;
+  };
+  locale?: string;
+}) {
+  const [wRaw, hRaw] = artwork.dimensions.split("x").map((s) => s.trim());
+  const w = wRaw ? parseFloat(wRaw) : undefined;
+  const h = hRaw ? parseFloat(hRaw.replace(/[^0-9.]/g, "")) : undefined;
+
+  const desc = (artwork.description && (artwork.description[locale as "en"|"es"|"ua"] || artwork.description.en)) || undefined;
+
+  const jsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "VisualArtwork",
     name: artwork.title,
     dateCreated: String(artwork.year),
     artMedium: artwork.medium,
-    width: artwork.dimensions.split('x')[0]?.trim(),
-    height: artwork.dimensions.split('x')[1]?.replace(' cm', '').trim(),
+    artform: "Painting",
+    artworkSurface: artwork.medium,
     image: getAbsoluteImageUrl(artwork.image),
-    url: `https://ko.taras.cloud/en/gallery/${artwork.slug}`,
+    url: `https://ko.taras.cloud/${locale}/gallery/${artwork.slug}`,
+    inLanguage: locale,
     creator: {
-      '@type': 'Person',
-      name: 'Mykhailo Korobkov',
+      "@type": "Person",
+      name: "Mykhailo Korobkov",
+      jobTitle: "Artist",
+      nationality: "Ukrainian",
     },
   };
+
+  if (desc) jsonLd.description = desc;
+  if (w) jsonLd.width = { "@type": "QuantitativeValue", value: w, unitCode: "CMT" };
+  if (h) jsonLd.height = { "@type": "QuantitativeValue", value: h, unitCode: "CMT" };
+  if (artwork.series) jsonLd.genre = artwork.series;
+  if (artwork.status === "available") {
+    jsonLd.offers = {
+      "@type": "Offer",
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: `https://ko.taras.cloud/${locale}/gallery/${artwork.slug}`,
+      seller: { "@type": "Organization", name: "Korobkov Art Studio" },
+    };
+  }
 
   return (
     <script
