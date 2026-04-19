@@ -21,6 +21,13 @@ export function ArtGalleryJsonLd() {
       nationality: 'Ukrainian',
       jobTitle: 'Artist',
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 39.4699,
+      longitude: -0.3763,
+    },
+    image: 'https://ko.taras.cloud/logo.png',
+    priceRange: '€500-€5000',
   };
 
   return (
