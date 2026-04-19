@@ -75,7 +75,12 @@
     "price_on_request": "Ціна за запитом",
     "shipping_extra": "Доставка розраховується при оформленні",
     "inquire_cta": "Надіслати Запит",
-    "buy_section_title": "Придбати роботу"
+    "buy_section_title": "Придбати роботу",
+    "breadcrumb_home": "Головна",
+    "breadcrumb_gallery": "Галерея",
+    "artist_statement": "Слово автора",
+    "close": "Закрити",
+    "zoom_hint": "Торкніться, щоб збільшити"
   },
   "about": {
     "title": "Про Нас",

@@ -75,7 +75,12 @@
     "price_on_request": "Price on request",
     "shipping_extra": "Shipping calculated at checkout",
     "inquire_cta": "Send Inquiry",
-    "buy_section_title": "Acquire this work"
+    "buy_section_title": "Acquire this work",
+    "breadcrumb_home": "Home",
+    "breadcrumb_gallery": "Gallery",
+    "artist_statement": "Artist statement",
+    "close": "Close",
+    "zoom_hint": "Tap image to zoom"
   },
   "about": {
     "title": "About",
