@@ -102,6 +102,13 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning className={`h-full ${manrope.variable} ${manrope.className}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');var s=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(t!=='light'&&s))document.documentElement.classList.add('dark');}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col antialiased">
         {isProd && (
           <>
