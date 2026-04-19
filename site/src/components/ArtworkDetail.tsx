@@ -182,21 +182,29 @@ export function ArtworkDetail({
 
           {artwork.status === "available" && (
             <ScrollReveal delay={0.4}>
-              <div className="mt-4 space-y-6">
-                <BuyButton artwork={artwork} />
+              <div className="mt-4 space-y-8">
+                {/* Primary CTA: Buy (solid, high emphasis) */}
+                <div className="space-y-2">
+                  <p className="text-xs text-secondary uppercase tracking-[0.2em]">
+                    {t("buy_section_title")}
+                  </p>
+                  <BuyButton artwork={artwork} />
+                </div>
 
-                <div className="relative">
+                {/* Visual separator */}
+                <div className="relative py-2">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-border" />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-background px-4 text-xs text-secondary uppercase tracking-wider">
+                    <span className="bg-background px-4 text-xs text-secondary uppercase tracking-[0.2em]">
                       {t("inquire")}
                     </span>
                   </div>
                 </div>
 
-                <InquiryForm artworkTitle={artwork.title} type="artwork" />
+                {/* Secondary CTA: Inquiry form (outline, lower emphasis) */}
+                <InquiryForm artworkTitle={artwork.title} type="artwork" variant="secondary" />
               </div>
             </ScrollReveal>
           )}

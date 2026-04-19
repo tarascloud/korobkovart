@@ -6,9 +6,11 @@ import { useTranslations } from "next-intl";
 export function InquiryForm({
   artworkTitle,
   type = "general",
+  variant = "primary",
 }: {
   artworkTitle?: string;
   type?: "general" | "partner" | "artwork";
+  variant?: "primary" | "secondary";
 }) {
   const t = useTranslations("contact");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
@@ -110,7 +112,11 @@ export function InquiryForm({
       <button
         type="submit"
         disabled={status === "sending"}
-        className="px-8 py-3 bg-foreground text-background text-sm tracking-[0.15em] uppercase hover:opacity-90 transition-opacity duration-300 disabled:opacity-50"
+        className={
+          variant === "secondary"
+            ? "px-8 py-3 border border-foreground text-foreground text-sm tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-colors duration-300 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            : "px-8 py-3 bg-foreground text-background text-sm tracking-[0.15em] uppercase hover:opacity-90 transition-opacity duration-300 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        }
       >
         {status === "sending" ? (
           <span className="flex items-center gap-2">
