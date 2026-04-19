@@ -11,7 +11,10 @@
     "partners": "Partners",
     "contact": "Contact",
     "prints": "Prints",
-    "blog": "Blog"
+    "blog": "Blog",
+    "theme_light": "Switch to light theme",
+    "theme_dark": "Switch to dark theme",
+    "toggle_menu": "Toggle menu"
   },
   "hero": {
     "tagline": "Contemporary Ukrainian Art",

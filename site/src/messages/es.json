@@ -11,7 +11,10 @@
     "partners": "Socios",
     "contact": "Contacto",
     "prints": "Impresiones",
-    "blog": "Blog"
+    "blog": "Blog",
+    "theme_light": "Cambiar a tema claro",
+    "theme_dark": "Cambiar a tema oscuro",
+    "toggle_menu": "Abrir menu"
   },
   "hero": {
     "tagline": "Arte Contemporaneo Ucraniano",
