@@ -110,17 +110,18 @@ export function ArtworkForm({
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
       {error && (
-        <div className="p-3 bg-destructive/10 text-destructive text-sm border border-destructive/20">
+        <div id="artwork-form-error" role="alert" className="p-3 bg-destructive/10 text-destructive text-sm border border-destructive/20">
           {error}
         </div>
       )}
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-title" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Title *
           </label>
           <input
+            id="artwork-title"
             type="text"
             required
             value={form.title}
@@ -128,14 +129,17 @@ export function ArtworkForm({
               update("title", e.target.value);
               if (!isEdit) update("slug", generateSlug(e.target.value));
             }}
+            aria-invalid={!!error}
+            aria-describedby={error ? "artwork-form-error" : undefined}
             className="w-full border border-border px-3 py-2 text-sm bg-transparent"
           />
         </div>
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-slug" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Slug *
           </label>
           <input
+            id="artwork-slug"
             type="text"
             required
             value={form.slug}
@@ -147,10 +151,11 @@ export function ArtworkForm({
 
       <div className="grid grid-cols-3 gap-4">
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-year" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Year *
           </label>
           <input
+            id="artwork-year"
             type="number"
             required
             value={form.year}
@@ -159,10 +164,11 @@ export function ArtworkForm({
           />
         </div>
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-series" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Series *
           </label>
           <select
+            id="artwork-series"
             value={form.series}
             onChange={(e) => update("series", e.target.value)}
             className="w-full border border-border px-3 py-2 text-sm bg-transparent"
@@ -175,10 +181,11 @@ export function ArtworkForm({
           </select>
         </div>
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-status" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Status
           </label>
           <select
+            id="artwork-status"
             value={form.status}
             onChange={(e) => update("status", e.target.value)}
             className="w-full border border-border px-3 py-2 text-sm bg-transparent"
@@ -194,10 +201,11 @@ export function ArtworkForm({
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-medium" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Medium *
           </label>
           <input
+            id="artwork-medium"
             type="text"
             required
             value={form.medium}
@@ -206,10 +214,11 @@ export function ArtworkForm({
           />
         </div>
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-dimensions" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Dimensions *
           </label>
           <input
+            id="artwork-dimensions"
             type="text"
             required
             value={form.dimensions}
@@ -221,10 +230,11 @@ export function ArtworkForm({
       </div>
 
       <div>
-        <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+        <label htmlFor="artwork-image-path" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
           Image Path *
         </label>
         <input
+          id="artwork-image-path"
           type="text"
           required
           value={form.imagePath}
@@ -235,10 +245,11 @@ export function ArtworkForm({
       </div>
 
       <div>
-        <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+        <label htmlFor="artwork-image-upload" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
           Upload Image
         </label>
         <input
+          id="artwork-image-upload"
           type="file"
           accept="image/*"
           disabled={uploading}
@@ -282,10 +293,11 @@ export function ArtworkForm({
       </div>
 
       <div>
-        <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+        <label htmlFor="artwork-collaborator" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
           Collaborator
         </label>
         <input
+          id="artwork-collaborator"
           type="text"
           value={form.collaborator}
           onChange={(e) => update("collaborator", e.target.value)}
@@ -295,10 +307,11 @@ export function ArtworkForm({
 
       <div className="grid grid-cols-3 gap-4">
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-sort-order" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Sort Order
           </label>
           <input
+            id="artwork-sort-order"
             type="number"
             value={form.sortOrder}
             onChange={(e) => update("sortOrder", Number(e.target.value))}
@@ -306,10 +319,11 @@ export function ArtworkForm({
           />
         </div>
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-price" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Price (cents EUR)
           </label>
           <input
+            id="artwork-price"
             type="number"
             value={form.price ?? ""}
             onChange={(e) =>
@@ -320,8 +334,9 @@ export function ArtworkForm({
           />
         </div>
         <div className="flex items-end pb-2">
-          <label className="flex items-center gap-2 text-sm cursor-pointer">
+          <label htmlFor="artwork-featured" className="flex items-center gap-2 text-sm cursor-pointer">
             <input
+              id="artwork-featured"
               type="checkbox"
               checked={form.featured}
               onChange={(e) => update("featured", e.target.checked)}
@@ -334,10 +349,11 @@ export function ArtworkForm({
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-le-total" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Limited Edition Total
           </label>
           <input
+            id="artwork-le-total"
             type="number"
             value={form.limitedEditionTotal ?? ""}
             onChange={(e) =>
@@ -347,10 +363,11 @@ export function ArtworkForm({
           />
         </div>
         <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+          <label htmlFor="artwork-le-available" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
             Limited Edition Available
           </label>
           <input
+            id="artwork-le-available"
             type="number"
             value={form.limitedEditionAvailable ?? ""}
             onChange={(e) =>
@@ -365,10 +382,11 @@ export function ArtworkForm({
       </div>
 
       <div>
-        <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+        <label htmlFor="artwork-desc-en" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
           Description (EN)
         </label>
         <textarea
+          id="artwork-desc-en"
           rows={3}
           value={form.descriptionEn}
           onChange={(e) => update("descriptionEn", e.target.value)}
@@ -377,10 +395,11 @@ export function ArtworkForm({
       </div>
 
       <div>
-        <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+        <label htmlFor="artwork-desc-es" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
           Description (ES)
         </label>
         <textarea
+          id="artwork-desc-es"
           rows={3}
           value={form.descriptionEs}
           onChange={(e) => update("descriptionEs", e.target.value)}
@@ -389,10 +408,11 @@ export function ArtworkForm({
       </div>
 
       <div>
-        <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+        <label htmlFor="artwork-desc-ua" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
           Description (UA)
         </label>
         <textarea
+          id="artwork-desc-ua"
           rows={3}
           value={form.descriptionUa}
           onChange={(e) => update("descriptionUa", e.target.value)}

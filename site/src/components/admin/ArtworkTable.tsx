@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface ArtworkRow {
   id: string;
@@ -36,6 +37,7 @@ export function ArtworkTable({
   const [deleting, setDeleting] = useState<string | null>(null);
   const [sortCol, setSortCol] = useState<SortColumn>("sortOrder");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   function handleSort(col: SortColumn) {
     if (sortCol === col) {
@@ -61,8 +63,13 @@ export function ArtworkTable({
   const arrow = (col: SortColumn) =>
     sortCol === col ? (sortDir === "asc" ? " \u2191" : " \u2193") : "";
 
-  async function handleDelete(id: string) {
-    if (!confirm(t("confirm_delete"))) return;
+  function handleDelete(id: string) {
+    setConfirmDeleteId(id);
+  }
+
+  async function executeDelete() {
+    const id = confirmDeleteId;
+    if (!id) return;
     setDeleting(id);
     try {
       const res = await fetch(`/api/admin/artworks/${id}`, { method: "DELETE" });
@@ -171,6 +178,14 @@ export function ArtworkTable({
           )}
         </tbody>
       </table>
+      <ConfirmDialog
+        open={confirmDeleteId !== null}
+        onOpenChange={(open) => !open && setConfirmDeleteId(null)}
+        title={t("confirm_delete")}
+        confirmLabel={t("delete")}
+        onConfirm={executeDelete}
+        destructive
+      />
     </div>
   );
 }
