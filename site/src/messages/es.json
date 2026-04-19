@@ -14,7 +14,8 @@
     "blog": "Blog",
     "theme_light": "Cambiar a tema claro",
     "theme_dark": "Cambiar a tema oscuro",
-    "toggle_menu": "Abrir menu"
+    "toggle_menu": "Abrir menu",
+    "skip_to_content": "Saltar al contenido"
   },
   "hero": {
     "tagline": "Arte Contemporaneo Ucraniano",

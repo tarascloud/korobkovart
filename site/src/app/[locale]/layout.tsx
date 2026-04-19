@@ -85,6 +85,7 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
+  const tNav = await getTranslations({ locale, namespace: "nav" });
   const session = await auth();
   const user = session?.user ? {
     name: session.user.name,
@@ -98,15 +99,15 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:text-black"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-foreground focus:text-background focus:px-4 focus:py-2 focus:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          Skip to content
+          {tNav("skip_to_content")}
         </a>
         <ArtGalleryJsonLd />
         <Providers>
           <NextIntlClientProvider messages={messages}>
             <Header user={user} />
-            <main id="main" className="flex-1 pt-[73px]">{children}</main>
+            <main id="main" tabIndex={-1} className="flex-1 pt-[73px] focus:outline-none">{children}</main>
             <Footer />
             <AdminBar user={user} />
             <NoiseOverlay />

@@ -30,7 +30,7 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav aria-label="Primary" className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.key}
