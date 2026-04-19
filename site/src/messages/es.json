@@ -48,7 +48,11 @@
     "filter_earlier": "Obras Anteriores",
     "no_results": "No se encontraron obras en esta categoria.",
     "load_more": "Cargar Mas",
-    "remaining": "restantes"
+    "remaining": "restantes",
+    "clear_filters": "Limpiar filtros",
+    "filter_label": "Filtrar por serie",
+    "showing": "Mostrando {count} de {total}",
+    "try_other": "Intenta seleccionar otra serie"
   },
   "artwork": {
     "year": "Ano",

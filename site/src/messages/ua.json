@@ -48,7 +48,11 @@
     "filter_earlier": "Ранні Роботи",
     "no_results": "Роботи в цій категорії не знайдено.",
     "load_more": "Завантажити Ще",
-    "remaining": "залишилось"
+    "remaining": "залишилось",
+    "clear_filters": "Скинути фільтри",
+    "filter_label": "Фільтр за серіями",
+    "showing": "Показано {count} з {total}",
+    "try_other": "Спробуйте обрати іншу серію"
   },
   "artwork": {
     "year": "Рік",
