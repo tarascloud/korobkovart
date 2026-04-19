@@ -1,4 +1,5 @@
 import { signIn } from "@/lib/auth";
+import { InAppBrowserGuard } from "@/components/InAppBrowserGuard";
 
 export default function SignInPage() {
   return (
@@ -10,6 +11,7 @@ export default function SignInPage() {
             Sign in to Korobkov Art Studio
           </p>
         </div>
+        <InAppBrowserGuard />
         <form
           action={async () => {
             "use server";
