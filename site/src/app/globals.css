@@ -1,27 +1,79 @@
 @import "tailwindcss";
 
+/* ── Palette variants (KO-REFRESH-09) ────────────────────────────────
+   Three documented light-theme variants — switch by setting
+   data-palette="warm-white" or "gallery-white" on <html>. Default = beige.
+   Rationale: gallery-white (#fafafa) is the industry neutral for displaying
+   artwork without colour bias; beige carries Art Studio warmth but can tint
+   reproductions; warm-white is a compromise.
+   Tarasu: оберіть остаточний варіант, і ми видалимо інші.
+   Variant A — beige (current, warm, studio identity)     → #f5f5f0
+   Variant B — warm-white (cream, less tint)              → #fafaf7
+   Variant C — gallery-white (neutral, art-first)         → #fafafa
+──────────────────────────────────────────────────────────────────── */
 :root {
-  --background: #f5f5f0;
+  /* Default: gallery-white for best artwork fidelity */
+  --background: #fafafa;
   --foreground: #1a1a1a;
   --accent: #000000;
   --secondary: #3f3f3f;
-  --muted: #e5e5e0;
+  --muted: #eaeae8;
   --border: #d4d4d0;
   --card: #ffffff;
   --card-foreground: #1a1a1a;
   --popover: #ffffff;
   --popover-foreground: #1a1a1a;
   --primary: #1a1a1a;
-  --primary-foreground: #f5f5f0;
-  --secondary-foreground: #f5f5f0;
+  --primary-foreground: #fafafa;
+  --secondary-foreground: #fafafa;
   --muted-foreground: #3f3f3f;
-  --accent-foreground: #f5f5f0;
+  --accent-foreground: #fafafa;
   --destructive: #dc2626;
   --input: #d4d4d0;
   --ring: #1a1a1a;
   --radius: 0.5rem;
   --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
   --spring-duration: 0.5s;
+
+  /* ── Typography scale (KO-REFRESH-13) ─ modular 1.25 ratio ─────── */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 2rem;      /* 32px */
+  --font-size-3xl: 3rem;      /* 48px */
+  --font-size-4xl: 4rem;      /* 64px (hero desktop) */
+
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.65;
+  --line-height-loose: 1.8;
+
+  --letter-spacing-tighter: -0.04em;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  --letter-spacing-wider: 0.1em;
+  --letter-spacing-widest: 0.2em;
+}
+
+/* Opt-in palette variants via data-palette on <html> */
+:root[data-palette="beige"] {
+  --background: #f5f5f0;
+  --muted: #e5e5e0;
+  --primary-foreground: #f5f5f0;
+  --secondary-foreground: #f5f5f0;
+  --accent-foreground: #f5f5f0;
+}
+
+:root[data-palette="warm-white"] {
+  --background: #fafaf7;
+  --muted: #ededea;
+  --primary-foreground: #fafaf7;
+  --secondary-foreground: #fafaf7;
+  --accent-foreground: #fafaf7;
 }
 
 .dark {
@@ -174,3 +226,58 @@ input, textarea, select {
     animation: none;
   }
 }
+
+/* ── Typography helper classes (KO-REFRESH-13) ──────────────────── */
+.text-display {
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tighter);
+  font-weight: 700;
+}
+
+.text-h1 {
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  font-weight: 700;
+}
+
+.text-h2 {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
+  font-weight: 600;
+}
+
+.text-h3 {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+  font-weight: 600;
+}
+
+.text-body-lg {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+}
+
+.text-body {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+}
+
+.text-body-sm {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.text-caption {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+/* Increase baseline breathing room on artwork sections */
+.prose-artwork h1 { font-size: var(--font-size-2xl); line-height: var(--line-height-snug); letter-spacing: var(--letter-spacing-tight); }
+.prose-artwork h2 { font-size: var(--font-size-xl); line-height: var(--line-height-snug); }
+.prose-artwork p  { font-size: var(--font-size-base); line-height: var(--line-height-relaxed); }
