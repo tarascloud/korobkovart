@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://korobkovart.com"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://ko.taras.cloud"
   ),
   title: "Korobkov Art Studio",
   description:
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     siteName: "Korobkov Art Studio",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://korobkovart.com",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://ko.taras.cloud",
   },
 };
 
