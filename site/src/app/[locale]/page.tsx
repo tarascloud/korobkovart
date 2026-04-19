@@ -84,7 +84,7 @@ export default async function HomePage() {
 
         <div className="relative max-w-md mx-auto px-6 pt-[45%] sm:pt-[35%] pb-24 flex flex-col items-center gap-8">
           <div className="text-center">
-            <h2 className="text-xl font-semibold tracking-[0.15em] mb-2">Mykhailo & Olha Korobkov</h2>
+            <h2 className="text-xl font-semibold tracking-[0.15em] mb-2">Michael & Olha Korobkov</h2>
             <p className="text-secondary text-sm tracking-wider">Valencia, Spain</p>
           </div>
 

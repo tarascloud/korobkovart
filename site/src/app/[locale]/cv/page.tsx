@@ -65,13 +65,13 @@ const content = {
     title: "KOROBKOV ART STUDIO — CV",
     biography: "Biography",
     biographyText: [
-      "Korobkov Art Studio is a creative duo formed by Ukrainian artists Mykhailo and Olha Korobkov, working together since 2017. Born in Ukraine and currently based in Córdoba, Spain, they create paintings, large-scale works, murals and installations.",
+      "Korobkov Art Studio is a creative duo formed by Ukrainian artists Michael and Olha Korobkov, working together since 2017. Born in Ukraine and currently based in Córdoba, Spain, they create paintings, large-scale works, murals and installations.",
       "Their artistic practice explores themes of cultural identity, migration and the influence of new environments on the inner landscape of the human experience. The duo works with a hybrid language that combines figuration and abstraction, using rhythm, color and gesture as tools for translating memory, emotion and processes of personal transformation.",
       "A significant element of their visual language is the use of ornaments and repeated modules — structures that evoke both traditional decorative motifs and contemporary digital patterns. By merging expressive hand-painted gestures with rhythmic visual sequences, the artists create spaces where past and present, material and digital, personal and collective narratives intersect.",
       "Their works are held in private collections in the USA, Germany, France, Spain and Ukraine.",
     ],
     education: "Education",
-    mykhailo: "Mykhailo Korobkov",
+    mykhailo: "Michael Korobkov",
     mykhailoEdu: [
       "Samokysh Crimean Art College (Fine Arts, Painting), Ukraine",
       "Kharkiv State Academy of Design and Arts (Monumental Painting), Ukraine",
@@ -124,13 +124,13 @@ const content = {
     title: "KOROBKOV ART STUDIO — CV",
     biography: "Biografía",
     biographyText: [
-      "Korobkov Art Studio is a creative duo formed by Ukrainian artists Mykhailo and Olha Korobkov, working together since 2017. Born in Ukraine and currently based in Córdoba, Spain, they create paintings, large-scale works, murals and installations.",
+      "Korobkov Art Studio is a creative duo formed by Ukrainian artists Michael and Olha Korobkov, working together since 2017. Born in Ukraine and currently based in Córdoba, Spain, they create paintings, large-scale works, murals and installations.",
       "Their artistic practice explores themes of cultural identity, migration and the influence of new environments on the inner landscape of the human experience. The duo works with a hybrid language that combines figuration and abstraction, using rhythm, color and gesture as tools for translating memory, emotion and processes of personal transformation.",
       "A significant element of their visual language is the use of ornaments and repeated modules — structures that evoke both traditional decorative motifs and contemporary digital patterns. By merging expressive hand-painted gestures with rhythmic visual sequences, the artists create spaces where past and present, material and digital, personal and collective narratives intersect.",
       "Their works are held in private collections in the USA, Germany, France, Spain and Ukraine.",
     ],
     education: "Educación",
-    mykhailo: "Mykhailo Korobkov",
+    mykhailo: "Michael Korobkov",
     mykhailoEdu: [
       "Samokysh Crimean Art College (Fine Arts, Painting), Ukraine",
       "Kharkiv State Academy of Design and Arts (Monumental Painting), Ukraine",
