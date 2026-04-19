@@ -20,7 +20,7 @@ export async function generateMetadata({
   }
 
   const title = `${artwork.title} (${artwork.year})`;
-  const description = `${artwork.title} - ${artwork.medium}, ${artwork.dimensions}. By Mykhailo Korobkov.`;
+  const description = `${artwork.title} - ${artwork.medium}, ${artwork.dimensions}. By Michael Korobkov.`;
 
   return {
     title,

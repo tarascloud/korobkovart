@@ -54,7 +54,7 @@ export default async function ContactPage() {
               <div className="h-[1px] bg-foreground/20 w-16 mb-6" />
 
               <h1 className="text-3xl sm:text-4xl font-bold tracking-tighter leading-none uppercase mb-2">
-                Mykhailo & Olha
+                Michael & Olha
                 <br />
                 <span className="font-light text-secondary">Korobkov</span>
               </h1>

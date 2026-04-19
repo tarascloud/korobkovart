@@ -15,7 +15,7 @@ export function ArtGalleryJsonLd() {
     },
     founder: {
       '@type': 'Person',
-      name: 'Mykhailo Korobkov',
+      name: 'Michael Korobkov',
       birthDate: '1985',
       birthPlace: 'Crimea, Ukraine',
       nationality: 'Ukrainian',
@@ -67,7 +67,7 @@ export function ArtworkJsonLd({
     inLanguage: locale,
     creator: {
       "@type": "Person",
-      name: "Mykhailo Korobkov",
+      name: "Michael Korobkov",
       jobTitle: "Artist",
       nationality: "Ukrainian",
     },
