@@ -30,7 +30,7 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav aria-label="Primary" className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.key}
@@ -60,11 +60,18 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
           </div>
           <UserMenu user={user || null} />
 
+          {/* Mobile: theme toggle always visible */}
+          <div className="lg:hidden">
+            <ThemeToggle />
+          </div>
+
           {/* Mobile burger */}
           <button
-            className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none rounded"
+            className="lg:hidden min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-1.5 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none rounded"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label={t("toggle_menu")}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
           >
             <motion.span
               className="block w-6 h-[2px] bg-foreground origin-center"
@@ -86,6 +93,7 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
       <AnimatePresence>
         {menuOpen && (
           <motion.nav
+            id="mobile-nav"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -115,10 +123,9 @@ export function Header({ user }: { user?: { name?: string | null; email?: string
                 </Link>
               )}
 
-              {/* Language & Theme controls */}
+              {/* Language control (theme moved to header) */}
               <div className="border-t border-border pt-4 flex items-center gap-4">
                 <LanguageSwitcher />
-                <ThemeToggle />
               </div>
             </div>
           </motion.nav>

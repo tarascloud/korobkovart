@@ -11,7 +11,11 @@
     "partners": "Partners",
     "contact": "Contact",
     "prints": "Prints",
-    "blog": "Blog"
+    "blog": "Blog",
+    "theme_light": "Switch to light theme",
+    "theme_dark": "Switch to dark theme",
+    "toggle_menu": "Toggle menu",
+    "skip_to_content": "Skip to content"
   },
   "hero": {
     "tagline": "Contemporary Ukrainian Art",
@@ -48,7 +52,11 @@
     "filter_earlier": "Earlier Works",
     "no_results": "No works found in this category.",
     "load_more": "Load More",
-    "remaining": "remaining"
+    "remaining": "remaining",
+    "clear_filters": "Clear filters",
+    "filter_label": "Filter by series",
+    "showing": "Showing {count} of {total}",
+    "try_other": "Try selecting a different series"
   },
   "artwork": {
     "year": "Year",
@@ -60,13 +68,20 @@
     "status_sold": "Sold",
     "status_exhibition": "On Exhibition",
     "status_exists": "Exists",
-    "inquire": "Inquire About This Work",
+    "inquire": "Have a question about this work?",
     "related": "Related Works",
     "limited_edition": "Limited Edition",
     "of": "of",
     "location": "Location",
     "price_on_request": "Price on request",
-    "shipping_extra": "Shipping calculated at checkout"
+    "shipping_extra": "Shipping calculated at checkout",
+    "inquire_cta": "Send Inquiry",
+    "buy_section_title": "Acquire this work",
+    "breadcrumb_home": "Home",
+    "breadcrumb_gallery": "Gallery",
+    "artist_statement": "Artist statement",
+    "close": "Close",
+    "zoom_hint": "Tap image to zoom"
   },
   "about": {
     "title": "About",
@@ -138,10 +153,6 @@
     "subtitle": "Signed and numbered limited edition prints. Each piece comes with a certificate of authenticity.",
     "empty": "No prints available at the moment.",
     "available": "available"
-  },
-  "footer": {
-    "rights": "All rights reserved",
-    "privacy": "Privacy Policy"
   },
   "theme": {
     "light": "Light",
