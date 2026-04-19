@@ -26,10 +26,13 @@ export function HeroSection() {
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <video
           src="/hero-bg.mp4?v=2"
+          poster="/hero-bg-poster.jpg"
           autoPlay
           loop
           muted
           playsInline
+          preload="metadata"
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Darkening overlay */}
@@ -63,16 +66,16 @@ export function HeroSection() {
             {t("subtitle")}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 mt-2">
+          <div className="flex flex-row flex-wrap gap-3 mt-2">
             <Link
               href="/gallery"
-              className="px-8 py-3.5 bg-foreground text-background text-sm tracking-[0.15em] uppercase hover:opacity-90 transition-all duration-300 active:scale-[0.98]"
+              className="px-6 sm:px-8 py-3.5 min-h-[44px] inline-flex items-center justify-center bg-foreground text-background text-sm tracking-[0.15em] uppercase hover:opacity-90 transition-all duration-300 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               {t("cta_gallery")}
             </Link>
             <Link
               href="/contact"
-              className="px-8 py-3.5 border border-foreground/40 text-sm tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-300 active:scale-[0.98]"
+              className="px-6 sm:px-8 py-3.5 min-h-[44px] inline-flex items-center justify-center border border-foreground/40 text-sm tracking-[0.15em] uppercase hover:bg-foreground hover:text-background transition-all duration-300 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               {t("cta_inquire")}
             </Link>

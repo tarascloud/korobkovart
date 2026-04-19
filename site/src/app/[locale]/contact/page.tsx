@@ -32,6 +32,9 @@ export default async function ContactPage() {
           loop
           muted
           playsInline
+          preload="metadata"
+          poster="/videos/contact-poster.jpg"
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/videos/contact.mp4" type="video/mp4" />
