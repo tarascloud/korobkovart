@@ -48,63 +48,116 @@ export function OrderTable({ orders: initial }: { orders: OrderRow[] }) {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b border-border text-left">
-            <th className="pb-3 pr-4 font-medium text-secondary">{t("order_id")}</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">{t("buyer")}</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">{t("artwork")}</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">{t("status")}</th>
-            <th className="pb-3 pr-4 font-medium text-secondary">{t("carrier")}</th>
-            <th className="pb-3 font-medium text-secondary">{t("date")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((o) => (
-            <tr key={o.id} className="border-b border-border/50">
-              <td className="py-3 pr-4 font-mono text-xs">
-                {o.id.slice(0, 8)}...
-              </td>
-              <td className="py-3 pr-4">
-                <p className="font-medium">{o.user.name || t("no_name")}</p>
-                <p className="text-xs text-secondary">{o.user.email}</p>
-              </td>
-              <td className="py-3 pr-4">{o.artwork.title}</td>
-              <td className="py-3 pr-4">
-                <select
-                  value={o.status}
-                  onChange={(e) => handleStatusChange(o.id, e.target.value)}
-                  disabled={updating === o.id}
-                  className={`px-2 py-1 text-xs rounded border-0 cursor-pointer disabled:opacity-50 ${statusColors[o.status] || ""}`}
-                >
-                  {ORDER_STATUSES.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td className="py-3 pr-4 text-xs">
+    <>
+      {/* Mobile cards */}
+      <div className="md:hidden space-y-3">
+        {orders.map((o) => (
+          <div
+            key={o.id}
+            className="rounded-xl border border-border p-4 space-y-3"
+          >
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0">
+                <p className="font-medium truncate">{o.artwork.title}</p>
+                <p className="text-xs text-secondary mt-0.5">
+                  {o.user.name || t("no_name")} &middot; {o.user.email}
+                </p>
+              </div>
+              <span className="font-mono text-xs text-secondary shrink-0">
+                {o.id.slice(0, 8)}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <select
+                value={o.status}
+                onChange={(e) => handleStatusChange(o.id, e.target.value)}
+                disabled={updating === o.id}
+                className={`px-2 py-1 text-xs rounded border-0 cursor-pointer disabled:opacity-50 ${statusColors[o.status] || ""}`}
+              >
+                {ORDER_STATUSES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+              <span className="text-xs text-secondary">
+                {new Date(o.createdAt).toLocaleDateString()}
+              </span>
+            </div>
+            {(o.carrierName || o.trackingNumber) && (
+              <div className="text-xs text-secondary pt-1 border-t border-border/50">
                 {o.carrierName || "-"}
                 {o.trackingNumber && (
-                  <span className="block text-secondary">{o.trackingNumber}</span>
+                  <span className="ml-2">{o.trackingNumber}</span>
                 )}
-              </td>
-              <td className="py-3 text-xs text-secondary">
-                {new Date(o.createdAt).toLocaleDateString()}
-              </td>
+              </div>
+            )}
+          </div>
+        ))}
+        {orders.length === 0 && (
+          <p className="py-8 text-center text-secondary">{t("no_orders")}</p>
+        )}
+      </div>
+
+      {/* Desktop table */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-border text-left">
+              <th className="pb-3 pr-4 font-medium text-secondary">{t("order_id")}</th>
+              <th className="pb-3 pr-4 font-medium text-secondary">{t("buyer")}</th>
+              <th className="pb-3 pr-4 font-medium text-secondary">{t("artwork")}</th>
+              <th className="pb-3 pr-4 font-medium text-secondary">{t("status")}</th>
+              <th className="pb-3 pr-4 font-medium text-secondary">{t("carrier")}</th>
+              <th className="pb-3 font-medium text-secondary">{t("date")}</th>
             </tr>
-          ))}
-          {orders.length === 0 && (
-            <tr>
-              <td colSpan={6} className="py-8 text-center text-secondary">
-                {t("no_orders")}
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {orders.map((o) => (
+              <tr key={o.id} className="border-b border-border/50">
+                <td className="py-3 pr-4 font-mono text-xs">
+                  {o.id.slice(0, 8)}...
+                </td>
+                <td className="py-3 pr-4">
+                  <p className="font-medium">{o.user.name || t("no_name")}</p>
+                  <p className="text-xs text-secondary">{o.user.email}</p>
+                </td>
+                <td className="py-3 pr-4">{o.artwork.title}</td>
+                <td className="py-3 pr-4">
+                  <select
+                    value={o.status}
+                    onChange={(e) => handleStatusChange(o.id, e.target.value)}
+                    disabled={updating === o.id}
+                    className={`px-2 py-1 text-xs rounded border-0 cursor-pointer disabled:opacity-50 ${statusColors[o.status] || ""}`}
+                  >
+                    {ORDER_STATUSES.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className="py-3 pr-4 text-xs">
+                  {o.carrierName || "-"}
+                  {o.trackingNumber && (
+                    <span className="block text-secondary">{o.trackingNumber}</span>
+                  )}
+                </td>
+                <td className="py-3 text-xs text-secondary">
+                  {new Date(o.createdAt).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+            {orders.length === 0 && (
+              <tr>
+                <td colSpan={6} className="py-8 text-center text-secondary">
+                  {t("no_orders")}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
