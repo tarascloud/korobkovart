@@ -109,10 +109,11 @@ export function CollectionManager({
         >
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+              <label htmlFor="collection-name" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
                 Name
               </label>
               <input
+                id="collection-name"
                 type="text"
                 required
                 value={name}
@@ -129,10 +130,11 @@ export function CollectionManager({
               />
             </div>
             <div>
-              <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
+              <label htmlFor="collection-slug" className="block text-xs text-secondary mb-1 uppercase tracking-wider">
                 Slug
               </label>
               <input
+                id="collection-slug"
                 type="text"
                 required
                 value={slug}
@@ -181,7 +183,9 @@ export function CollectionManager({
 
             {addingArtwork === c.id && (
               <div className="flex gap-2 mb-3">
+                <label htmlFor={`add-artwork-${c.id}`} className="sr-only">Select artwork to add to collection</label>
                 <select
+                  id={`add-artwork-${c.id}`}
                   value={selectedArtwork}
                   onChange={(e) => setSelectedArtwork(e.target.value)}
                   className="flex-1 border border-border px-3 py-1 text-sm bg-transparent"

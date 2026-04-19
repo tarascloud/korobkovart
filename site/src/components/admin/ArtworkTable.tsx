@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface ArtworkRow {
   id: string;
@@ -36,6 +37,7 @@ export function ArtworkTable({
   const [deleting, setDeleting] = useState<string | null>(null);
   const [sortCol, setSortCol] = useState<SortColumn>("sortOrder");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   function handleSort(col: SortColumn) {
     if (sortCol === col) {
@@ -61,8 +63,13 @@ export function ArtworkTable({
   const arrow = (col: SortColumn) =>
     sortCol === col ? (sortDir === "asc" ? " \u2191" : " \u2193") : "";
 
-  async function handleDelete(id: string) {
-    if (!confirm(t("confirm_delete"))) return;
+  function handleDelete(id: string) {
+    setConfirmDeleteId(id);
+  }
+
+  async function executeDelete() {
+    const id = confirmDeleteId;
+    if (!id) return;
     setDeleting(id);
     try {
       const res = await fetch(`/api/admin/artworks/${id}`, { method: "DELETE" });
@@ -183,60 +190,24 @@ export function ArtworkTable({
               </th>
               <th className="pb-3 font-medium text-secondary">{t("actions")}</th>
             </tr>
-          </thead>
-          <tbody>
-            {sorted.map((a) => (
-              <tr key={a.id} className="border-b border-border/50">
-                <td className="py-3 pr-4">
-                  <div className="relative w-12 h-12 bg-muted">
-                    <Image
-                      src={a.imagePath}
-                      alt={a.title}
-                      fill
-                      className="object-cover"
-                      sizes="48px"
-                    />
-                  </div>
-                </td>
-                <td className="py-3 pr-4 font-medium">{a.title}</td>
-                <td className="py-3 pr-4">{a.year}</td>
-                <td className="py-3 pr-4 capitalize">{a.series}</td>
-                <td className="py-3 pr-4">
-                  <span
-                    className={`px-2 py-0.5 text-xs rounded ${statusColors[a.status] || "bg-gray-100"}`}
-                  >
-                    {a.status.replace("_", " ")}
-                  </span>
-                </td>
-                <td className="py-3 pr-4">{a.featured ? "Yes" : ""}</td>
-                <td className="py-3 pr-4">{a.sortOrder}</td>
-                <td className="py-3 space-x-3">
-                  <Link
-                    href={`/admin/artworks/${a.id}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    {t("edit")}
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(a.id)}
-                    disabled={deleting === a.id}
-                    className="text-red-600 hover:underline disabled:opacity-50"
-                  >
-                    {deleting === a.id ? "..." : t("delete")}
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {artworks.length === 0 && (
-              <tr>
-                <td colSpan={8} className="py-8 text-center text-secondary">
-                  {t("no_artworks")}
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </>
+          ))}
+          {artworks.length === 0 && (
+            <tr>
+              <td colSpan={8} className="py-8 text-center text-secondary">
+                {t("no_artworks")}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <ConfirmDialog
+        open={confirmDeleteId !== null}
+        onOpenChange={(open) => !open && setConfirmDeleteId(null)}
+        title={t("confirm_delete")}
+        confirmLabel={t("delete")}
+        onConfirm={executeDelete}
+        destructive
+      />
+    </div>
   );
 }
