@@ -12,10 +12,13 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   projects: [
-    // Default Chromium suite
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
     },
     // WebKit (Safari) — important for e-commerce: payment flows, form autofill,
     // and CSS rendering differ significantly between Blink and WebKit engines.
