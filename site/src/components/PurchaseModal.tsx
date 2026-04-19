@@ -417,7 +417,33 @@ export function PurchaseModal({
               {/* Step: Confirmation */}
               {step === "confirm" && submitted && (
                 <div className="text-center py-8 space-y-4">
-                  <div className="text-4xl">✓</div>
+                  <motion.div
+                    className="mx-auto w-16 h-16 rounded-full border-2 border-foreground/20 flex items-center justify-center"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
+                  >
+                    <motion.svg
+                      width="28"
+                      height="28"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 1 }}
+                      transition={{ delay: 0.3, duration: 0.4 }}
+                    >
+                      <motion.path
+                        d="M5 13l4 4L19 7"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ delay: 0.35, duration: 0.5, ease: "easeOut" }}
+                      />
+                    </motion.svg>
+                  </motion.div>
                   <h3 className="text-lg font-bold">{t("order_received")}</h3>
                   {orderId && (
                     <p className="text-xs text-secondary font-mono">

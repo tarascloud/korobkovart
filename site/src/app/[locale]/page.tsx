@@ -3,7 +3,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { ArtworkCard } from "@/components/ArtworkCard";
 import { getFeaturedArtworks } from "@/lib/artworks";
 import { Link } from "@/i18n/navigation";
-import { Mail, MessageCircle, Send, ChevronsDown } from "lucide-react";
+import { Mail, MessageCircle, Send } from "lucide-react";
 
 function InstagramIcon({ size = 24 }: { size?: number }) {
   return (
@@ -21,10 +21,10 @@ export default async function HomePage() {
   const featured = await getFeaturedArtworks();
 
   const socials = [
-    { name: "Instagram", icon: InstagramIcon, href: "https://www.instagram.com/korobkov.art", label: "@korobkov.art", color: "hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400" },
-    { name: "Telegram", icon: Send, href: "https://t.me/Korobkov_art", label: "@Korobkov_art", color: "hover:bg-[#0088cc]" },
-    { name: "WhatsApp", icon: MessageCircle, href: "https://wa.me/34652285139", label: "+34 652 28 51 39", color: "hover:bg-[#25D366]" },
-    { name: "Email", icon: Mail, href: "mailto:Korobkovartstudio@gmail.com", label: "Korobkovartstudio@gmail.com", color: "hover:bg-foreground" },
+    { name: "Instagram", icon: InstagramIcon, href: "https://www.instagram.com/korobkov.art", label: "@korobkov.art" },
+    { name: "Telegram", icon: Send, href: "https://t.me/Korobkov_art", label: "@Korobkov_art" },
+    { name: "WhatsApp", icon: MessageCircle, href: "https://wa.me/34652285139", label: "+34 652 28 51 39" },
+    { name: "Email", icon: Mail, href: "mailto:Korobkovartstudio@gmail.com", label: "Korobkovartstudio@gmail.com" },
   ];
 
   return (
@@ -34,7 +34,7 @@ export default async function HomePage() {
       {/* Featured Works */}
       <section className="max-w-7xl mx-auto px-6 py-24">
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-xl font-semibold tracking-[0.2em] uppercase">
+          <h2 className="text-xl font-semibold tracking-tight uppercase [text-wrap:balance]">
             {t("featured")}
           </h2>
           <Link
@@ -46,28 +46,20 @@ export default async function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featured.map((artwork) => (
-            <ArtworkCard key={artwork.slug} artwork={artwork} />
+          {featured.map((artwork, i) => (
+            <ArtworkCard key={artwork.slug} artwork={artwork} index={i} />
           ))}
         </div>
       </section>
 
-      {/* Scroll indicator */}
-      <div className="flex justify-center py-4">
-        <ChevronsDown size={24} strokeWidth={1} className="text-secondary/60 animate-bounce" />
-      </div>
-
       {/* About section */}
       <section>
         <div className="max-w-4xl mx-auto px-6 py-24">
-          <p className="leading-relaxed text-secondary text-base">
+          <p className="leading-relaxed text-secondary text-base max-w-[65ch]">
             {tAbout("bio")}
           </p>
         </div>
-        <div className="flex justify-center py-4">
-          <ChevronsDown size={24} strokeWidth={1} className="text-secondary/60 animate-bounce" />
-        </div>
-        <div className="relative w-full">
+        <div className="relative w-full mt-16">
           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background to-transparent z-10" />
           <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-background via-background/70 to-transparent z-10" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -80,7 +72,7 @@ export default async function HomePage() {
       </section>
 
       {/* Contact section — overlaps about photo for seamless blend */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center -mt-48 sm:-mt-64">
+      <section className="relative min-h-[100dvh] flex flex-col items-center justify-center -mt-48 sm:-mt-64">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src="/videos/contact.mp4" type="video/mp4" />
@@ -103,7 +95,7 @@ export default async function HomePage() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex items-center gap-4 p-5 border border-foreground/20 backdrop-blur-sm bg-background/30 transition-all duration-300 ${social.color} hover:text-white hover:border-transparent`}
+                className="group flex items-center gap-4 p-5 border border-foreground/20 backdrop-blur-sm bg-background/30 hover-tinted-shadow hover:bg-foreground hover:text-background hover:border-transparent transition-all duration-300 active:scale-[0.98]"
               >
                 <social.icon size={24} strokeWidth={1.5} className="flex-shrink-0" />
                 <div>

@@ -56,11 +56,26 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <p className="text-secondary text-center py-20">{t("no_results")}</p>
+        <div className="flex flex-col items-center justify-center py-24 gap-6">
+          {/* Empty state icon -- abstract frame */}
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-secondary/40">
+            <rect x="6" y="6" width="52" height="52" rx="2" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" />
+            <path d="M22 38L28 30L34 36L38 32L44 38" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="26" cy="24" r="3" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+          <div className="text-center">
+            <p className="text-sm text-secondary tracking-wide">{t("no_results")}</p>
+            <p className="text-xs text-secondary/60 mt-2">
+              {t("filter_all") && "Try selecting a different series"}
+            </p>
+          </div>
+        </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {visible.map((artwork) => (
-            <ArtworkCard key={artwork.slug} artwork={artwork} />
+        <div className="columns-1 sm:columns-2 gap-8 [column-fill:balanced]">
+          {visible.map((artwork, i) => (
+            <div key={artwork.slug} className="break-inside-avoid mb-8">
+              <ArtworkCard artwork={artwork} index={i} />
+            </div>
           ))}
         </div>
       )}

@@ -2,7 +2,7 @@ import { signIn } from "@/lib/auth";
 
 export default function SignInPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-6">
+    <div className="min-h-[100dvh] flex items-center justify-center px-6">
       <div className="w-full max-w-sm text-center space-y-8">
         <div>
           <h1 className="text-2xl font-bold tracking-wider uppercase">Sign In</h1>
