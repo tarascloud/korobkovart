@@ -154,10 +154,6 @@
     "empty": "No prints available at the moment.",
     "available": "available"
   },
-  "footer": {
-    "rights": "All rights reserved",
-    "privacy": "Privacy Policy"
-  },
   "theme": {
     "light": "Light",
     "dark": "Dark"
