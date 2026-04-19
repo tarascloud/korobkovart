@@ -159,10 +159,12 @@ export function PurchaseModal({
                 {t("title")}
               </h2>
               <button
+                type="button"
                 onClick={handleClose}
-                className="w-8 h-8 flex items-center justify-center text-secondary hover:text-foreground"
+                aria-label={t("close")}
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center text-secondary hover:text-foreground rounded-full focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
               >
-                &times;
+                <span aria-hidden="true" className="text-2xl leading-none">&times;</span>
               </button>
             </div>
 
