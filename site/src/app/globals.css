@@ -287,3 +287,32 @@ input, textarea, select {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
+
+/* ── Focus-visible baseline (KO-REFRESH-17) ────────────────────────
+   Provides a safe fallback focus ring on interactive elements when
+   a component does not define its own focus-visible style. Components
+   with custom focus-visible:ring-* classes (via Tailwind) override.
+──────────────────────────────────────────────────────────────────── */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible,
+[role="menuitem"]:focus-visible,
+[role="option"]:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Form fields: keep existing focus:border-foreground, suppress outline
+   redundancy for the border-focused inputs — they keep their own style */
+input.focus\:border-foreground:focus-visible,
+select.focus\:border-foreground:focus-visible,
+textarea.focus\:border-foreground:focus-visible {
+  outline-offset: 0px;
+}
