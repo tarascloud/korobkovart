@@ -110,7 +110,7 @@ export function ArtworkForm({
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
       {error && (
-        <div className="p-3 bg-red-50 text-red-700 text-sm border border-red-200">
+        <div className="p-3 bg-destructive/10 text-destructive text-sm border border-destructive/20">
           {error}
         </div>
       )}
