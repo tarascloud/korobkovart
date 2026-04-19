@@ -1,5 +1,3 @@
-import { useTranslations } from "next-intl";
-
 // Inline brand SVG icons (Simple Icons, CC0).
 // Using inline SVG avoids adding a new runtime dependency for 3 icons.
 
@@ -52,82 +50,64 @@ function WhatsappIcon({ size = 20 }: { size?: number }) {
 }
 
 export function Footer() {
-  const t = useTranslations("footer");
-  const year = new Date().getFullYear();
-
   const socialLinkCls =
     "inline-flex items-center justify-center w-11 h-11 text-secondary hover:text-foreground transition-colors duration-300";
+  const legalLinkCls =
+    "text-secondary hover:text-foreground transition-colors duration-300 whitespace-nowrap";
 
   return (
     <footer className="border-t border-border mt-auto">
-      <div className="max-w-7xl mx-auto px-6 py-10">
-        {/* Top row: brand icons + location (single row even on 375px) */}
-        <div className="flex flex-row items-center justify-between gap-3 text-sm text-secondary mb-6 flex-wrap">
-          <div className="flex items-center gap-1 sm:gap-2">
-            <a
-              href="https://www.instagram.com/korobkov.art/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className={socialLinkCls}
-            >
-              <InstagramIcon />
-            </a>
-            <a
-              href="https://t.me/Korobkov_art"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Telegram"
-              className={socialLinkCls}
-            >
-              <TelegramIcon />
-            </a>
-            <a
-              href="https://wa.me/34652285139"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp"
-              className={socialLinkCls}
-            >
-              <WhatsappIcon />
-            </a>
-            <span aria-hidden="true" className="text-secondary/50 mx-1 sm:mx-2">
-              ·
-            </span>
-            <span className="text-[10px] sm:text-xs tracking-wider uppercase">
-              Valencia, Spain
-            </span>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="h-[1px] bg-border mb-6" />
-
-        {/* Bottom row: copyright + legal (external to vs.taras.cloud) */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-secondary">
-          <span>
-            &copy; {year} Korobkov Art Studio. {t("rights")}.
-          </span>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://vs.taras.cloud/privacy"
-              target="_blank"
-              rel="noopener"
-              className="hover:text-foreground transition-colors duration-300"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="https://vs.taras.cloud/terms"
-              target="_blank"
-              rel="noopener"
-              className="hover:text-foreground transition-colors duration-300"
-            >
-              Terms of Service
-            </a>
-          </div>
-        </div>
-      </div>
+      <nav
+        aria-label="Footer"
+        className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-row items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm"
+      >
+        <a
+          href="https://www.instagram.com/korobkov.art/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          className={socialLinkCls}
+        >
+          <InstagramIcon />
+        </a>
+        <a
+          href="https://t.me/Korobkov_art"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Telegram"
+          className={socialLinkCls}
+        >
+          <TelegramIcon />
+        </a>
+        <a
+          href="https://wa.me/34652285139"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp"
+          className={socialLinkCls}
+        >
+          <WhatsappIcon />
+        </a>
+        <span aria-hidden="true" className="text-secondary/50">
+          ·
+        </span>
+        <a
+          href="https://vs.taras.cloud/privacy"
+          target="_blank"
+          rel="noopener"
+          className={legalLinkCls}
+        >
+          Privacy Policy
+        </a>
+        <a
+          href="https://vs.taras.cloud/terms"
+          target="_blank"
+          rel="noopener"
+          className={legalLinkCls}
+        >
+          Terms of Service
+        </a>
+      </nav>
     </footer>
   );
 }

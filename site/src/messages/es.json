@@ -154,10 +154,6 @@
     "empty": "No hay impresiones disponibles en este momento.",
     "available": "disponibles"
   },
-  "footer": {
-    "rights": "Todos los derechos reservados",
-    "privacy": "Politica de Privacidad"
-  },
   "theme": {
     "light": "Claro",
     "dark": "Oscuro"
