@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -11,6 +11,19 @@ export default defineConfig({
     baseURL: 'http://localhost:3100',
     trace: 'on-first-retry',
   },
+  projects: [
+    // Default Chromium suite
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    // WebKit (Safari) — important for e-commerce: payment flows, form autofill,
+    // and CSS rendering differ significantly between Blink and WebKit engines.
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+  ],
   webServer: {
     command: 'npm run dev -- --port 3100',
     url: 'http://localhost:3100',
