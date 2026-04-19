@@ -37,12 +37,12 @@ export async function generateMetadata({
     description: t("description"),
     metadataBase: new URL("https://ko.taras.cloud"),
     alternates: {
-      canonical: `/${locale}`,
+      canonical: `https://ko.taras.cloud/${locale}`,
       languages: {
-        "x-default": "/en",
         en: "/en",
         es: "/es",
-        "uk-UA": "/ua",
+        uk: "/ua",
+        "x-default": "/en",
       },
     },
     openGraph: {
