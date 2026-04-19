@@ -281,3 +281,9 @@ input, textarea, select {
 .prose-artwork h1 { font-size: var(--font-size-2xl); line-height: var(--line-height-snug); letter-spacing: var(--letter-spacing-tight); }
 .prose-artwork h2 { font-size: var(--font-size-xl); line-height: var(--line-height-snug); }
 .prose-artwork p  { font-size: var(--font-size-base); line-height: var(--line-height-relaxed); }
+
+/* ── Skeleton shimmer (KO-REFRESH-11) ───────────────────────────── */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
