@@ -48,7 +48,11 @@
     "filter_earlier": "Earlier Works",
     "no_results": "No works found in this category.",
     "load_more": "Load More",
-    "remaining": "remaining"
+    "remaining": "remaining",
+    "clear_filters": "Clear filters",
+    "filter_label": "Filter by series",
+    "showing": "Showing {count} of {total}",
+    "try_other": "Try selecting a different series"
   },
   "artwork": {
     "year": "Year",
