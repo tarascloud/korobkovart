@@ -14,7 +14,8 @@
     "blog": "Blog",
     "theme_light": "Switch to light theme",
     "theme_dark": "Switch to dark theme",
-    "toggle_menu": "Toggle menu"
+    "toggle_menu": "Toggle menu",
+    "skip_to_content": "Skip to content"
   },
   "hero": {
     "tagline": "Contemporary Ukrainian Art",

@@ -316,3 +316,17 @@ select.focus\:border-foreground:focus-visible,
 textarea.focus\:border-foreground:focus-visible {
   outline-offset: 0px;
 }
+
+/* ── will-change policy (KO-REFRESH-16) ────────────────────────────
+   We intentionally do NOT apply blanket `will-change: transform`
+   via class utilities. framer-motion manages transform/opacity GPU
+   hints via its own layer promotion during animation lifecycle; a
+   global will-change hint would promote layers indefinitely and
+   waste GPU memory. Components set `will-change` inline ONLY when
+   actively transforming (see ArtworkDetail lightbox zoom, which
+   clears it back to undefined when scale returns to 1).
+
+   Rule for contributors: do NOT add `will-change` to persistent
+   hover/focus states. If you need a transform animation, let
+   framer-motion/Radix UI handle the hint transiently.
+──────────────────────────────────────────────────────────────────── */
