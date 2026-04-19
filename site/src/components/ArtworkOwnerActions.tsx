@@ -78,10 +78,11 @@ export function ArtworkOwnerActions({
           className="absolute right-0 top-full mt-2 z-50 w-56 rounded-lg border border-border bg-background shadow-lg p-4 space-y-3"
         >
           <div>
-            <label className="text-xs text-secondary uppercase tracking-wider block mb-1">
+            <label htmlFor="artwork-quick-status" className="text-xs text-secondary uppercase tracking-wider block mb-1">
               Status
             </label>
             <select
+              id="artwork-quick-status"
               value={status}
               onChange={(e) => setStatus(e.target.value as ArtworkStatus)}
               className="w-full text-sm rounded-md border border-border bg-background px-2 py-1.5 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none"
@@ -94,8 +95,9 @@ export function ArtworkOwnerActions({
             </select>
           </div>
 
-          <label className="flex items-center gap-2 text-sm cursor-pointer">
+          <label htmlFor="artwork-quick-featured" className="flex items-center gap-2 text-sm cursor-pointer">
             <input
+              id="artwork-quick-featured"
               type="checkbox"
               checked={featured}
               onChange={(e) => setFeatured(e.target.checked)}
