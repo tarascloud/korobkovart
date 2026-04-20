@@ -190,16 +190,50 @@ export function ArtworkTable({
               </th>
               <th className="pb-3 font-medium text-secondary">{t("actions")}</th>
             </tr>
-          ))}
-          {artworks.length === 0 && (
-            <tr>
-              <td colSpan={8} className="py-8 text-center text-secondary">
-                {t("no_artworks")}
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sorted.map((a) => (
+              <tr key={a.id} className="border-b border-border/50 hover:bg-muted/30">
+                <td className="py-3 pr-4">
+                  <div className="relative w-10 h-10 bg-muted rounded overflow-hidden">
+                    <Image src={a.imagePath} alt={a.title} fill className="object-cover" sizes="40px" />
+                  </div>
+                </td>
+                <td className="py-3 pr-4 font-medium">{a.title}</td>
+                <td className="py-3 pr-4 text-secondary">{a.year}</td>
+                <td className="py-3 pr-4 text-secondary capitalize">{a.series}</td>
+                <td className="py-3 pr-4">
+                  <span className={`px-2 py-0.5 text-xs rounded ${statusColors[a.status] || "bg-gray-100"}`}>
+                    {a.status.replace("_", " ")}
+                  </span>
+                </td>
+                <td className="py-3 pr-4 text-secondary">{a.featured ? "★" : "—"}</td>
+                <td className="py-3 pr-4 text-secondary">{a.sortOrder}</td>
+                <td className="py-3">
+                  <div className="flex items-center gap-3">
+                    <Link href={`/admin/artworks/${a.id}`} className="text-sm text-blue-600 hover:underline">
+                      {t("edit")}
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(a.id)}
+                      disabled={deleting === a.id}
+                      className="text-sm text-red-600 hover:underline disabled:opacity-50"
+                    >
+                      {deleting === a.id ? "..." : t("delete")}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+            {artworks.length === 0 && (
+              <tr>
+                <td colSpan={8} className="py-8 text-center text-secondary">
+                  {t("no_artworks")}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       <ConfirmDialog
         open={confirmDeleteId !== null}
         onOpenChange={(open) => !open && setConfirmDeleteId(null)}
