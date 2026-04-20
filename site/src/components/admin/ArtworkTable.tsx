@@ -243,5 +243,6 @@ export function ArtworkTable({
         destructive
       />
     </div>
+    </>
   );
 }
