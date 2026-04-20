@@ -3,7 +3,7 @@ FROM node:22-alpine AS base
 FROM base AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install --frozen-lockfile 2>/dev/null || npm install
+RUN npm install --frozen-lockfile --ignore-scripts 2>/dev/null || npm install --ignore-scripts
 
 FROM base AS builder
 WORKDIR /app
