@@ -3,9 +3,11 @@ import { requireOwnerApi } from "@/lib/api-auth";
 import pg from "pg";
 
 function createClient() {
-  return new pg.Client({
-    connectionString: process.env.VS_DATABASE_URL || "postgresql://vs:vs2026secure@pg:5432/vs",
-  });
+  const connectionString = process.env.VS_DATABASE_URL;
+  if (!connectionString) {
+    throw new Error("VS_DATABASE_URL environment variable is not set");
+  }
+  return new pg.Client({ connectionString });
 }
 
 export async function GET() {
