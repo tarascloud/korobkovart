@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (
@@ -8,7 +13,7 @@ export default function NotFound() {
         This page doesn&apos;t exist.
       </p>
       <Link
-        href="/en"
+        href="/"
         className="px-8 py-3 bg-foreground text-background text-sm tracking-wider uppercase hover:opacity-90 transition-opacity"
       >
         Go Home
