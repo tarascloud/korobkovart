@@ -26,7 +26,7 @@ export function ArtGalleryJsonLd() {
       latitude: 39.4699,
       longitude: -0.3763,
     },
-    image: 'https://ko.taras.cloud/logo.png',
+    image: 'https://ko.taras.cloud/logo.svg',
     priceRange: '€500-€5000',
   };
 
