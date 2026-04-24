@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ChevronsDown } from "lucide-react";
 
 export function HeroSection() {
   const t = useTranslations("hero");
+  const prefersReducedMotion = useReducedMotion();
   const [isIntro, setIsIntro] = useState(true);
 
   useEffect(() => {
@@ -18,7 +19,8 @@ export function HeroSection() {
     }
   }, []);
 
-  const textDelay = isIntro ? 1.4 : 0.2;
+  const textDelay = prefersReducedMotion ? 0 : isIntro ? 1.4 : 0.2;
+  const noMotion = { initial: undefined, animate: undefined, transition: undefined };
 
   return (
     <section className="relative min-h-[100dvh] flex items-end sm:items-center px-6">
@@ -48,9 +50,13 @@ export function HeroSection() {
         {/* Left: Text content -- left-aligned, asymmetric */}
         <motion.div
           className="flex flex-col gap-6 max-w-lg"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: textDelay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          {...(prefersReducedMotion
+            ? noMotion
+            : {
+                initial: { opacity: 0, y: 20 },
+                animate: { opacity: 1, y: 0 },
+                transition: { delay: textDelay, duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+              })}
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-none uppercase">
             Korobkov
@@ -88,12 +94,16 @@ export function HeroSection() {
       {/* Scroll indicator -- bottom center */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 8, 0] }}
-        transition={{
-          opacity: { delay: textDelay + 0.4, duration: 0.8 },
-          y: { repeat: Infinity, duration: 2 },
-        }}
+        {...(prefersReducedMotion
+          ? noMotion
+          : {
+              initial: { opacity: 0 },
+              animate: { opacity: 1, y: [0, 8, 0] },
+              transition: {
+                opacity: { delay: textDelay + 0.4, duration: 0.8 },
+                y: { repeat: Infinity, duration: 2 },
+              },
+            })}
       >
         <ChevronsDown size={24} strokeWidth={1.5} className="text-secondary" />
       </motion.div>
