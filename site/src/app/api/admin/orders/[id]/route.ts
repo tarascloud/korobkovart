@@ -1,8 +1,15 @@
 import { requireOwnerApi } from "@/lib/api-auth";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod/v4";
 
-const VALID_STATUSES = ["INQUIRY", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"] as const;
+const updateOrderSchema = z.object({
+  status: z.enum(["INQUIRY", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"]).optional(),
+  carrierName: z.string().max(200).nullable().optional(),
+  trackingNumber: z.string().max(200).nullable().optional(),
+  shippingCost: z.coerce.number().int().min(0).max(100_000_00).nullable().optional(),
+  notes: z.string().max(5000).nullable().optional(),
+});
 
 export async function PUT(
   request: NextRequest,
@@ -14,19 +21,20 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-
-    if (body.status && !VALID_STATUSES.includes(body.status)) {
-      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+    const parsed = updateOrderSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Validation failed", details: parsed.error.issues }, { status: 400 });
     }
 
+    const data = parsed.data;
     const order = await prisma.order.update({
       where: { id },
       data: {
-        status: body.status,
-        carrierName: body.carrierName ?? undefined,
-        trackingNumber: body.trackingNumber ?? undefined,
-        shippingCost: body.shippingCost !== undefined ? (body.shippingCost ? Number(body.shippingCost) : null) : undefined,
-        notes: body.notes ?? undefined,
+        status: data.status,
+        carrierName: data.carrierName ?? undefined,
+        trackingNumber: data.trackingNumber ?? undefined,
+        shippingCost: data.shippingCost !== undefined ? data.shippingCost : undefined,
+        notes: data.notes ?? undefined,
       },
     });
 

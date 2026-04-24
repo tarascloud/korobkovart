@@ -1,6 +1,17 @@
 import { requireAuthApi } from "@/lib/api-auth";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod/v4";
+
+const createAddressSchema = z.object({
+  name: z.string().min(1).max(200),
+  country: z.string().min(1).max(100),
+  city: z.string().min(1).max(200),
+  address: z.string().min(1).max(500),
+  zip: z.string().min(1).max(20),
+  phone: z.string().max(30).nullable().optional(),
+  isDefault: z.boolean().optional().default(false),
+});
 
 export async function GET() {
   const { error, userId } = await requireAuthApi();
@@ -19,13 +30,15 @@ export async function POST(request: NextRequest) {
   if (error) return error;
 
   const body = await request.json();
-
-  if (!body.name || !body.country || !body.city || !body.address || !body.zip) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  const parsed = createAddressSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Validation failed", details: parsed.error.issues }, { status: 400 });
   }
 
+  const data = parsed.data;
+
   // If this is the first address or isDefault requested, unset other defaults
-  if (body.isDefault) {
+  if (data.isDefault) {
     await prisma.address.updateMany({
       where: { userId, isDefault: true },
       data: { isDefault: false },
@@ -37,13 +50,13 @@ export async function POST(request: NextRequest) {
   const address = await prisma.address.create({
     data: {
       userId,
-      name: body.name,
-      country: body.country,
-      city: body.city,
-      address: body.address,
-      zip: body.zip,
-      phone: body.phone || null,
-      isDefault: body.isDefault || existingCount === 0,
+      name: data.name,
+      country: data.country,
+      city: data.city,
+      address: data.address,
+      zip: data.zip,
+      phone: data.phone ?? null,
+      isDefault: data.isDefault || existingCount === 0,
     },
   });
 
