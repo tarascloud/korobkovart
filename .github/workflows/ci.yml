@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'release-*']
   pull_request:
     branches: [main]
 
@@ -43,6 +43,10 @@ jobs:
 
       - name: Generate Prisma client
         run: npx prisma generate
+        working-directory: site
+
+      - name: Push schema to test DB
+        run: npx prisma db push --force-reset
         working-directory: site
 
       - name: TypeScript check
