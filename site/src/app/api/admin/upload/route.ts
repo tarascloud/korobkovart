@@ -31,7 +31,15 @@ export async function POST(req: NextRequest) {
     }
 
     const slug = (formData.get("slug") as string) || Date.now().toString();
-    const ext = file.name.split(".").pop() || "jpg";
+    const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+
+    const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "avif"];
+    if (!ALLOWED_EXTENSIONS.includes(ext)) {
+      return NextResponse.json(
+        { error: `File type .${ext} not allowed. Allowed: ${ALLOWED_EXTENSIONS.join(", ")}` },
+        { status: 400 },
+      );
+    }
     // Sanitize filename — only allow alphanumeric, hyphens, underscores
     const safeSlug = slug.replace(/[^a-zA-Z0-9_-]/g, "-");
     const filename = `${safeSlug}.${ext}`;

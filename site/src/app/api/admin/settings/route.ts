@@ -12,7 +12,15 @@ export async function GET() {
     create: { id: "default" },
   });
 
-  return NextResponse.json(settings);
+  // Mask tgBotToken — never expose full token in API responses
+  const masked = {
+    ...settings,
+    tgBotToken: settings.tgBotToken
+      ? `****${settings.tgBotToken.slice(-4)}`
+      : null,
+  };
+
+  return NextResponse.json(masked);
 }
 
 export async function PUT(req: NextRequest) {
