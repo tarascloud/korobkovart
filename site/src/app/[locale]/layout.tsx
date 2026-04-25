@@ -35,6 +35,7 @@ export async function generateMetadata({
       template: `%s | ${t("title")}`,
     },
     description: t("description"),
+    keywords: (t("keywords") as string).split(", "),
     metadataBase: new URL("https://ko.taras.cloud"),
     alternates: {
       canonical: `https://ko.taras.cloud/${locale}`,

@@ -4,5 +4,8 @@ Disallow: /api/
 Disallow: /ua/admin/
 Disallow: /en/admin/
 Disallow: /es/admin/
+Disallow: /ua/account/
+Disallow: /en/account/
+Disallow: /es/account/
 Disallow: /auth/
 Sitemap: https://ko.taras.cloud/sitemap.xml
