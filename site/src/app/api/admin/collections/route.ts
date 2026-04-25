@@ -1,6 +1,17 @@
 import { requireOwnerApi } from "@/lib/api-auth";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod/v4";
+
+const createCollectionSchema = z.object({
+  name: z.string().min(1).max(200),
+  slug: z.string().min(1).max(200),
+  descriptionEn: z.string().max(5000).nullable().optional(),
+  descriptionEs: z.string().max(5000).nullable().optional(),
+  descriptionUa: z.string().max(5000).nullable().optional(),
+  coverImagePath: z.string().max(500).nullable().optional(),
+  sortOrder: z.coerce.number().int().optional().default(0),
+});
 
 export async function GET() {
   const { error } = await requireOwnerApi();
@@ -30,20 +41,21 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-
-    if (!body.name || !body.slug) {
-      return NextResponse.json({ error: "Name and slug are required" }, { status: 400 });
+    const parsed = createCollectionSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Validation failed", details: parsed.error.issues }, { status: 400 });
     }
 
+    const data = parsed.data;
     const collection = await prisma.collection.create({
       data: {
-        name: body.name,
-        slug: body.slug,
-        descriptionEn: body.descriptionEn || null,
-        descriptionEs: body.descriptionEs || null,
-        descriptionUa: body.descriptionUa || null,
-        coverImagePath: body.coverImagePath || null,
-        sortOrder: body.sortOrder ? Number(body.sortOrder) : 0,
+        name: data.name,
+        slug: data.slug,
+        descriptionEn: data.descriptionEn ?? null,
+        descriptionEs: data.descriptionEs ?? null,
+        descriptionUa: data.descriptionUa ?? null,
+        coverImagePath: data.coverImagePath ?? null,
+        sortOrder: data.sortOrder,
       },
     });
 

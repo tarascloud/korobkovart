@@ -1,6 +1,17 @@
 import { requireAuthApi } from "@/lib/api-auth";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod/v4";
+
+const updateAddressSchema = z.object({
+  name: z.string().min(1).max(200).optional(),
+  country: z.string().min(1).max(100).optional(),
+  city: z.string().min(1).max(200).optional(),
+  address: z.string().min(1).max(500).optional(),
+  zip: z.string().min(1).max(20).optional(),
+  phone: z.string().max(30).nullable().optional(),
+  isDefault: z.boolean().optional(),
+});
 
 export async function PUT(
   request: NextRequest,
@@ -11,6 +22,12 @@ export async function PUT(
 
   const { id } = await params;
   const body = await request.json();
+  const parsed = updateAddressSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Validation failed", details: parsed.error.issues }, { status: 400 });
+  }
+
+  const data = parsed.data;
 
   // Verify ownership
   const existing = await prisma.address.findFirst({
@@ -18,7 +35,7 @@ export async function PUT(
   });
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  if (body.isDefault) {
+  if (data.isDefault) {
     await prisma.address.updateMany({
       where: { userId, isDefault: true, id: { not: id } },
       data: { isDefault: false },
@@ -28,13 +45,13 @@ export async function PUT(
   const address = await prisma.address.update({
     where: { id },
     data: {
-      name: body.name ?? undefined,
-      country: body.country ?? undefined,
-      city: body.city ?? undefined,
-      address: body.address ?? undefined,
-      zip: body.zip ?? undefined,
-      phone: body.phone ?? undefined,
-      isDefault: body.isDefault ?? undefined,
+      name: data.name,
+      country: data.country,
+      city: data.city,
+      address: data.address,
+      zip: data.zip,
+      phone: data.phone,
+      isDefault: data.isDefault,
     },
   });
 
