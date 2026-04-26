@@ -63,24 +63,26 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
     handleSelect("all");
   }, [handleSelect]);
 
-  // Keyboard arrow-key navigation across tabs (WAI-ARIA tablist pattern)
+  // Keyboard arrow-key navigation across visible tabs (WAI-ARIA tablist pattern).
+  // UX-04: navigates only over rendered filters; hidden empty-count chips are
+  // skipped (idx is the visible-list index, NOT the master filters index).
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLButtonElement>, idx: number) => {
+    (e: React.KeyboardEvent<HTMLButtonElement>, idx: number, list: typeof filters) => {
       if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
         e.preventDefault();
         const direction = e.key === "ArrowRight" ? 1 : -1;
-        const nextIdx = (idx + direction + filters.length) % filters.length;
+        const nextIdx = (idx + direction + list.length) % list.length;
         tabsRef.current[nextIdx]?.focus();
-        handleSelect(filters[nextIdx].value);
+        handleSelect(list[nextIdx].value);
       } else if (e.key === "Home") {
         e.preventDefault();
         tabsRef.current[0]?.focus();
-        handleSelect(filters[0].value);
+        handleSelect(list[0].value);
       } else if (e.key === "End") {
         e.preventDefault();
-        const lastIdx = filters.length - 1;
+        const lastIdx = list.length - 1;
         tabsRef.current[lastIdx]?.focus();
-        handleSelect(filters[lastIdx].value);
+        handleSelect(list[lastIdx].value);
       }
     },
     [handleSelect]
@@ -102,6 +104,13 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
 
   const visible = filtered.slice(0, visibleCount);
   const isFiltered = active !== "all";
+
+  // UX-04: list of filters actually rendered (count>0 or 'all'). Used by
+  // keyboard arrow navigation so we never focus a hidden tab.
+  const visibleFilters = filters.filter((f) => {
+    if (f.value === "all") return true;
+    return artworks.some((a) => a.series === f.value);
+  });
 
   return (
     <div>
@@ -126,7 +135,7 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
           aria-labelledby="gallery-filter-label"
           className="flex flex-wrap gap-2 overflow-x-auto pb-2 sm:[mask-image:none] [mask-image:linear-gradient(to_right,black_85%,transparent)]"
         >
-          {filters.map((f, idx) => {
+          {visibleFilters.map((f, idx) => {
             const count =
               f.value === "all"
                 ? artworks.length
@@ -143,7 +152,7 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
                 aria-controls="gallery-grid"
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => handleSelect(f.value)}
-                onKeyDown={(e) => handleKeyDown(e, idx)}
+                onKeyDown={(e) => handleKeyDown(e, idx, visibleFilters)}
                 className={`min-h-[44px] px-4 py-2 text-sm tracking-[0.1em] uppercase transition-colors duration-300 border focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                   isActive
                     ? "border-foreground text-foreground bg-foreground/5"
