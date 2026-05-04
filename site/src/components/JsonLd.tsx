@@ -8,6 +8,7 @@ export function ArtGalleryJsonLd() {
     description: 'Contemporary Ukrainian art studio. Original paintings, murals, and installations.',
     url: 'https://ko.taras.cloud',
     telephone: '+380634755619',
+    email: 'info@korobkovart.com',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Valencia',
@@ -27,7 +28,11 @@ export function ArtGalleryJsonLd() {
       longitude: -0.3763,
     },
     image: 'https://ko.taras.cloud/logo.svg',
-    priceRange: '€500-€5000',
+    priceRange: '$$',
+    openingHours: 'Mo-Fr 10:00-18:00',
+    sameAs: [
+      'https://www.instagram.com/korobkov_art/',
+    ],
   };
 
   return (
