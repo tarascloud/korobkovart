@@ -1,6 +1,26 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Smoke tests', () => {
+  let pageErrors: string[] = [];
+
+  test.beforeEach(async ({ page }) => {
+    pageErrors = [];
+    page.on('pageerror', (err) => pageErrors.push(err.message));
+    page.on('console', (msg) => {
+      if (msg.type() === 'error') pageErrors.push(msg.text());
+    });
+  });
+
+  test.afterEach(() => {
+    const cspErrors = pageErrors.filter((e) =>
+      /Content Security Policy|Hydration failed|did not match/i.test(e)
+    );
+    expect(
+      cspErrors,
+      `CSP/hydration errors found:\n${cspErrors.join('\n')}`
+    ).toHaveLength(0);
+  });
+
   test('home page loads', async ({ page }) => {
     await page.goto('/en');
     await expect(page).toHaveTitle(/Korobkov Art Studio/);
