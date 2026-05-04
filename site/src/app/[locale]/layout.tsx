@@ -37,6 +37,14 @@ export async function generateMetadata({
     description: t("description"),
     keywords: (t("keywords") as string).split(", "),
     metadataBase: new URL("https://ko.taras.cloud"),
+    manifest: "/manifest.json",
+    icons: {
+      icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
+        { url: "/icon.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    },
     alternates: {
       canonical: `https://ko.taras.cloud/${locale}`,
       languages: {
