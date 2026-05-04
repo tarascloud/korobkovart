@@ -177,9 +177,9 @@ export function ArtworkDetail({
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-24">
+    <div className="max-w-7xl mx-auto px-6 pt-6 pb-24 lg:pt-12 lg:pb-24">
       <ScrollReveal>
-        <nav aria-label="Breadcrumb" className="mb-8">
+        <nav aria-label="Breadcrumb" className="mb-6 lg:mb-8">
           <ol className="flex flex-wrap items-center gap-2 text-xs text-secondary tracking-[0.15em] uppercase">
             <li>
               <Link
