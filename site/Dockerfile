@@ -11,7 +11,8 @@ ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npx prisma generate && npm run build
+# Run unit tests before build — fails fast on broken commits
+RUN npx prisma generate && npm run test && npm run build
 
 FROM base AS runner
 WORKDIR /app
