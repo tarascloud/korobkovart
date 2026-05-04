@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3100';
+const isRemote = !BASE_URL.includes('localhost');
+
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
@@ -8,7 +11,7 @@ export default defineConfig({
   workers: 1,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:3100',
+    baseURL: BASE_URL,
     trace: 'on-first-retry',
   },
   projects: [
@@ -27,13 +30,16 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   ],
-  webServer: {
-    command: 'npm run dev -- --port 3100',
-    url: 'http://localhost:3100',
-    reuseExistingServer: true,
-    timeout: 30000,
-    env: {
-      DATABASE_URL: 'postgresql://korobkov:korobkov@localhost:5432/korobkov',
+  // Only start local dev server when not using a remote BASE_URL
+  ...(isRemote ? {} : {
+    webServer: {
+      command: 'npm run dev -- --port 3100',
+      url: 'http://localhost:3100',
+      reuseExistingServer: true,
+      timeout: 30000,
+      env: {
+        DATABASE_URL: 'postgresql://korobkov:korobkov@localhost:5432/korobkov',
+      },
     },
-  },
+  }),
 });
