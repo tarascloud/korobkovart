@@ -62,8 +62,8 @@ test.describe('Gallery — filter chips', () => {
     const podiliaTab = page.getByRole('tab', { name: /Podilia/i });
     await podiliaTab.click();
 
-    // Brief settle for client-side filter.
-    await page.waitForTimeout(500);
+    // Wait for DOM to settle after client-side filter update.
+    await expect(page.locator('article').first()).toBeVisible({ timeout: 8_000 });
     const filteredCount = await page.locator('article').count();
 
     // Filtered count must be > 0.
@@ -91,7 +91,7 @@ test.describe('Gallery — filter chips', () => {
     const count = await filterTabs.count();
     for (let i = 0; i < count; i++) {
       await filterTabs.nth(i).click();
-      await page.waitForTimeout(200);
+      await expect(page.locator('article').first()).toBeVisible({ timeout: 8_000 });
     }
 
     // Filter out known third-party CSP violations (e.g. GTM/analytics blocked by CSP).
