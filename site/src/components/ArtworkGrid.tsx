@@ -202,11 +202,9 @@ export function ArtworkGrid({ artworks }: { artworks: Artwork[] }) {
           </div>
         </div>
       ) : (
-        <div id="gallery-grid" role="tabpanel" className="columns-1 sm:columns-2 gap-8 [column-fill:balanced]">
+        <div id="gallery-grid" role="tabpanel" className="grid grid-cols-2 gap-3 sm:gap-6 lg:gap-8">
           {visible.map((artwork, i) => (
-            <div key={artwork.slug} className="break-inside-avoid mb-8">
-              <ArtworkCard artwork={artwork} index={i} />
-            </div>
+            <ArtworkCard key={artwork.slug} artwork={artwork} index={i} />
           ))}
         </div>
       )}
