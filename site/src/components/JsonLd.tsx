@@ -57,6 +57,7 @@ export function ArtworkJsonLd({
     series?: string;
     status?: string;
     description?: { en?: string; es?: string; ua?: string } | null;
+    price?: number | null;
   };
   locale?: string;
 }) {
@@ -90,13 +91,19 @@ export function ArtworkJsonLd({
   if (h) jsonLd.height = { "@type": "QuantitativeValue", value: h, unitCode: "CMT" };
   if (artwork.series) jsonLd.genre = artwork.series;
   if (artwork.status === "available") {
-    jsonLd.offers = {
+    const offer: Record<string, unknown> = {
       "@type": "Offer",
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       url: `https://ko.taras.cloud/${locale}/gallery/${artwork.slug}`,
       seller: { "@type": "Organization", name: "Korobkov Art Studio" },
     };
+    // DES/SMM-20260507-0003: include price (EUR, derived from cents) so Google Shopping
+    // and product rich snippets activate. price=null means "price on request" — omit.
+    if (artwork.price != null && artwork.price > 0) {
+      offer.price = (artwork.price / 100).toFixed(2);
+    }
+    jsonLd.offers = offer;
   }
 
   return (
