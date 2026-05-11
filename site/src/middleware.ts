@@ -31,8 +31,8 @@ const countryToLocale: Record<string, string> = {
 };
 
 export default function middleware(request: NextRequest) {
-  // With localePrefix: 'never', locale is determined by cookie only.
-  // Set cookie from geo-detection on first visit.
+  // With localePrefix: 'always', each locale has its own canonical URL (/en, /es, /ua).
+  // Set cookie from geo-detection on first visit so next-intl redirects to correct locale.
   const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
 
   if (!cookieLocale) {
