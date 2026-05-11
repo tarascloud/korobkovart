@@ -24,6 +24,8 @@ export interface Artwork {
   };
   featured?: boolean;
   order: number;
+  /** Price in cents EUR; null/undefined = price on request */
+  price?: number | null;
 }
 
 export interface Exhibition {

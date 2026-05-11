@@ -27,6 +27,7 @@ export function mapArtwork(a: PrismaArtwork): Artwork {
             ua: a.descriptionUa || "",
           }
         : undefined,
+    price: a.price ?? null,
   };
 }
 
