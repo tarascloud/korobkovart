@@ -23,7 +23,7 @@ export function ArtworkCard({ artwork, index = 0 }: { artwork: Artwork; index?: 
             src={getImageUrl(artwork.image)}
             alt={artwork.title}
             fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             loading={index < 4 ? "eager" : "lazy"}
             decoding="async"
