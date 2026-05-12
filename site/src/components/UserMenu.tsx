@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { User } from "lucide-react";
 
 interface UserMenuProps {
@@ -13,6 +14,7 @@ interface UserMenuProps {
 }
 
 export function UserMenu({ user }: UserMenuProps) {
+  const t = useTranslations("nav");
   const [open, setOpen] = useState(false);
 
   if (!user) {
@@ -20,9 +22,10 @@ export function UserMenu({ user }: UserMenuProps) {
       <a
         href="/api/auth/signin"
         className="text-sm text-secondary hover:text-foreground transition-colors"
-        title="Sign in"
+        aria-label={t("sign_in")}
+        title={t("sign_in")}
       >
-        <User size={20} strokeWidth={1.5} />
+        <User size={20} strokeWidth={1.5} aria-hidden="true" />
       </a>
     );
   }
@@ -34,11 +37,14 @@ export function UserMenu({ user }: UserMenuProps) {
       <button
         onClick={() => setOpen(!open)}
         className="w-8 h-8 rounded-full overflow-hidden border border-border"
+        aria-label={t("open_account_menu")}
+        aria-expanded={open}
+        aria-haspopup="menu"
       >
         {user.image ? (
           <img src={user.image} alt="" className="w-full h-full object-cover" />
         ) : (
-          <div className="w-full h-full bg-muted flex items-center justify-center text-xs font-bold">
+          <div className="w-full h-full bg-muted flex items-center justify-center text-xs font-bold" aria-hidden="true">
             {user.name?.[0] || "?"}
           </div>
         )}
