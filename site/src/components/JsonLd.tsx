@@ -1,4 +1,5 @@
 import { getAbsoluteImageUrl } from "@/lib/r2";
+import type { Artwork } from "@/lib/types";
 
 export function ArtGalleryJsonLd() {
   const jsonLd = {
@@ -105,6 +106,89 @@ export function ArtworkJsonLd({
     }
     jsonLd.offers = offer;
   }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+    />
+  );
+}
+
+/**
+ * ItemList JSON-LD for the gallery index page. Lists each artwork inline as a
+ * VisualArtwork node (with Offer/price when available) so Google can surface
+ * gallery list pages in rich list results without crawling each detail page.
+ * REV-20260512-017.
+ */
+export function GalleryItemListJsonLd({
+  artworks,
+  locale = "en",
+}: {
+  artworks: Artwork[];
+  locale?: string;
+}) {
+  const itemListElement = artworks.map((artwork, index) => {
+    const [wRaw, hRaw] = artwork.dimensions.split("x").map((s) => s.trim());
+    const w = wRaw ? parseFloat(wRaw) : undefined;
+    const h = hRaw ? parseFloat(hRaw.replace(/[^0-9.]/g, "")) : undefined;
+    const url = `https://ko.taras.cloud/${locale}/gallery/${artwork.slug}`;
+    const desc =
+      artwork.description &&
+      (artwork.description[locale as "en" | "es" | "ua"] || artwork.description.en);
+
+    const item: Record<string, unknown> = {
+      "@type": "VisualArtwork",
+      name: artwork.title,
+      url,
+      image: getAbsoluteImageUrl(artwork.image),
+      dateCreated: String(artwork.year),
+      artMedium: artwork.medium,
+      artform: "Painting",
+      artworkSurface: artwork.medium,
+      inLanguage: locale,
+      creator: {
+        "@type": "Person",
+        name: "Michael Korobkov",
+        jobTitle: "Artist",
+        nationality: "Ukrainian",
+      },
+    };
+    if (desc) item.description = desc;
+    if (w) item.width = { "@type": "QuantitativeValue", value: w, unitCode: "CMT" };
+    if (h) item.height = { "@type": "QuantitativeValue", value: h, unitCode: "CMT" };
+    if (artwork.series) item.genre = artwork.series;
+
+    if (artwork.status === "available") {
+      const offer: Record<string, unknown> = {
+        "@type": "Offer",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url,
+        seller: { "@type": "Organization", name: "Korobkov Art Studio" },
+      };
+      if (artwork.price != null && artwork.price > 0) {
+        offer.price = (artwork.price / 100).toFixed(2);
+      }
+      item.offers = offer;
+    }
+
+    return {
+      "@type": "ListItem",
+      position: index + 1,
+      url,
+      item,
+    };
+  });
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Korobkov Art Studio — Gallery",
+    url: `https://ko.taras.cloud/${locale}/gallery`,
+    numberOfItems: artworks.length,
+    itemListElement,
+  };
 
   return (
     <script
