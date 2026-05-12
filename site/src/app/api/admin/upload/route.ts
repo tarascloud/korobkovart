@@ -47,6 +47,34 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
+    // Validate magic bytes — reject files whose binary signature does not match claimed type
+    const hex = buffer.subarray(0, 12).toString("hex");
+    const isPNG = hex.startsWith("89504e47");
+    const isJPG = hex.startsWith("ffd8ff");
+    const isWebP =
+      hex.startsWith("52494646") && hex.substring(16, 24) === "57454250";
+    const isAVIF = buffer.subarray(4, 12).toString("ascii").includes("ftypavif");
+    if (!isPNG && !isJPG && !isWebP && !isAVIF) {
+      return NextResponse.json(
+        { error: "Invalid image format" },
+        { status: 400 },
+      );
+    }
+    // Reject if claimed MIME type does not match detected format
+    const mimeToFormat: Record<string, () => boolean> = {
+      "image/png": () => isPNG,
+      "image/jpeg": () => isJPG,
+      "image/webp": () => isWebP,
+      "image/avif": () => isAVIF,
+    };
+    const mimeCheck = mimeToFormat[file.type];
+    if (mimeCheck && !mimeCheck()) {
+      return NextResponse.json(
+        { error: "File MIME type does not match actual content" },
+        { status: 400 },
+      );
+    }
+
     const artworksDir = path.join(process.cwd(), "public", "artworks");
     await mkdir(artworksDir, { recursive: true });
 
