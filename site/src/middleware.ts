@@ -31,6 +31,16 @@ const countryToLocale: Record<string, string> = {
 };
 
 export default function middleware(request: NextRequest) {
+  // DEV-20260512-0012: `/` must deterministically redirect to the default
+  // locale (`/en`) with a 301 (permanent) so search engines + crawlers see
+  // a single canonical home. Previously next-intl auto-detected locale from
+  // Accept-Language / cookie / geo, returning 307 and a different target per
+  // visitor — non-deterministic and bad for SEO.
+  if (request.nextUrl.pathname === '/') {
+    const url = new URL('/en', request.url);
+    return NextResponse.redirect(url, 301);
+  }
+
   // With localePrefix: 'always', each locale has its own canonical URL (/en, /es, /ua).
   // Set cookie from geo-detection on first visit so next-intl redirects to correct locale.
   const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
