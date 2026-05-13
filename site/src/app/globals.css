@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* TODO REV-20260512-011: replace the local :root token block below with
+   `@import "@taras-cloud/design-tokens/tokens/brands/ko.css";`
+   Blocked: @taras-cloud/design-tokens is not yet consumable cross-repo
+   (no workspace setup; package.json has no dep on @taras-cloud/design-tokens).
+   Plan: file:-link to vs-private/packages/design-tokens OR introduce a
+   token sync script (see vs-private/docs/adr/shared-design-tokens.md).
+   NOTE: KO --accent intentionally diverges from PD canon
+   (see vs-private/.claude/rules/css-tokens-sync.md § "KO --accent exception").
+   Migration must preserve KO's monochrome gallery brand identity.
+   Until then, brand-specific overrides live inline. */
+
 /* ── Palette variants (KO-REFRESH-09) ────────────────────────────────
    Three documented light-theme variants — switch by setting
    data-palette="warm-white" or "gallery-white" on <html>. Default = beige.
