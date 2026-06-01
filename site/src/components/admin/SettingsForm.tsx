@@ -8,7 +8,6 @@ interface SiteSettings {
   phone: string;
   email: string;
   instagram: string;
-  tgBotToken: string;
   tgChatId: string;
   tgEnabled: boolean;
 }
@@ -123,18 +122,9 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
           Telegram Notifications
         </legend>
 
-        <div>
-          <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-            Bot Token
-          </label>
-          <input
-            type="password"
-            value={form.tgBotToken}
-            onChange={(e) => update("tgBotToken", e.target.value)}
-            placeholder="123456:ABC-DEF..."
-            className="w-full border border-border px-3 py-2 text-sm bg-transparent font-mono"
-          />
-        </div>
+        <p className="text-xs text-secondary">
+          Bot token is managed via Infisical (env <code className="font-mono">TG_BOT_KO</code>) — no longer editable here.
+        </p>
 
         <div>
           <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">

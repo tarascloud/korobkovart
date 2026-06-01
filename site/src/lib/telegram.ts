@@ -1,15 +1,15 @@
 import { prisma } from "./prisma";
 
 export async function sendTelegramNotification(message: string) {
-  let token = process.env.TG_BOT_TOKEN;
+  // Bot token lives in Infisical → process.env.TG_BOT_KO. Never read from DB.
+  const token = process.env.TG_BOT_KO || process.env.TG_BOT_TOKEN;
   let chatId = process.env.TG_CHAT_ID;
 
   try {
     const settings = await prisma.siteSettings.findUnique({
       where: { id: "default" },
     });
-    if (settings?.tgEnabled && settings.tgBotToken && settings.tgChatId) {
-      token = settings.tgBotToken;
+    if (settings?.tgEnabled && settings.tgChatId) {
       chatId = settings.tgChatId;
     }
   } catch {
