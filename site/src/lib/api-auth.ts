@@ -3,8 +3,11 @@ import { NextResponse } from "next/server";
 
 export async function requireOwnerApi() {
   const session = await auth();
-  if (!session?.user || (session.user as Record<string, unknown>).role !== "OWNER") {
-    return { error: NextResponse.json({ error: "Unauthorized" }, { status: 403 }), session: null };
+  if (!session?.user) {
+    return { error: NextResponse.json({ error: "Unauthorized" }, { status: 401 }), session: null };
+  }
+  if ((session.user as Record<string, unknown>).role !== "OWNER") {
+    return { error: NextResponse.json({ error: "Forbidden" }, { status: 403 }), session: null };
   }
   return { error: null, session };
 }
