@@ -109,7 +109,7 @@ export default async function LocaleLayout({
   const isProd = process.env.NODE_ENV === "production";
 
   return (
-    <html lang={locale} suppressHydrationWarning className={`h-full ${manrope.variable} ${manrope.className}`}>
+    <html lang={locale === 'ua' ? 'uk' : locale} suppressHydrationWarning className={`h-full ${manrope.variable} ${manrope.className}`}>
       <head>
         <script
           dangerouslySetInnerHTML={{
