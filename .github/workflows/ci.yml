@@ -89,6 +89,10 @@ jobs:
         run: npm run lint
         working-directory: site
 
+      - name: Prettier format check
+        run: npx prettier --check .
+        working-directory: site
+
       - name: Unit tests
-        run: npm test
+        run: npm test -- --coverage --reporter=text
         working-directory: site
