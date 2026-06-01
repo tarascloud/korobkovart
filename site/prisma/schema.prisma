@@ -173,7 +173,6 @@ model SiteSettings {
   phone      String   @default("+38 (063) 475 56 19")
   email      String   @default("info@korobkovart.com")
   instagram  String   @default("https://www.instagram.com/korobkov.art/")
-  tgBotToken String   @default("")
   tgChatId   String   @default("")
   tgEnabled  Boolean  @default(false)
   updatedAt  DateTime @updatedAt

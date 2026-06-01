@@ -8,7 +8,6 @@ const updateSettingsSchema = z.object({
   phone: z.string().max(30).optional(),
   email: z.string().email().max(200).optional(),
   instagram: z.string().max(200).optional(),
-  tgBotToken: z.string().max(100).optional(),
   tgChatId: z.string().max(50).optional(),
   tgEnabled: z.boolean().optional(),
 });
@@ -23,15 +22,7 @@ export async function GET() {
     create: { id: "default" },
   });
 
-  // Mask tgBotToken — never expose full token in API responses
-  const masked = {
-    ...settings,
-    tgBotToken: settings.tgBotToken
-      ? `****${settings.tgBotToken.slice(-4)}`
-      : null,
-  };
-
-  return NextResponse.json(masked);
+  return NextResponse.json(settings);
 }
 
 export async function PUT(req: NextRequest) {
@@ -54,7 +45,6 @@ export async function PUT(req: NextRequest) {
         phone: data.phone,
         email: data.email,
         instagram: data.instagram,
-        tgBotToken: data.tgBotToken,
         tgChatId: data.tgChatId,
         tgEnabled: data.tgEnabled,
       },
@@ -64,21 +54,12 @@ export async function PUT(req: NextRequest) {
         phone: data.phone,
         email: data.email,
         instagram: data.instagram,
-        tgBotToken: data.tgBotToken,
         tgChatId: data.tgChatId,
         tgEnabled: data.tgEnabled,
       },
     });
 
-    // Mask tgBotToken — never expose full token in API responses
-    const masked = {
-      ...settings,
-      tgBotToken: settings.tgBotToken
-        ? `****${settings.tgBotToken.slice(-4)}`
-        : null,
-    };
-
-    return NextResponse.json(masked);
+    return NextResponse.json(settings);
   } catch (error) {
     console.error("[Settings] Error:", error);
     return NextResponse.json({ error: "Failed to save settings" }, { status: 500 });

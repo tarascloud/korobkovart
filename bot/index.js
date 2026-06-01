@@ -9,7 +9,11 @@ async function getSettings() {
     connectionString: process.env.DATABASE_URL || 'postgresql://korobkov:korobkov@pg:5432/korobkov',
   });
   await client.connect();
-  const res = await client.query('SELECT * FROM "SiteSettings" WHERE id = $1', ['default']);
+  // Explicit columns only — never SELECT *. Bot token comes from process.env.TG_BOT_KO.
+  const res = await client.query(
+    'SELECT "tgEnabled", "tgChatId", "tgAllowedUsers" FROM "SiteSettings" WHERE id = $1',
+    ['default']
+  );
   await client.end();
   return res.rows[0] || null;
 }
@@ -131,14 +135,15 @@ async function handleCommand(token, chatId, command, settings) {
 
 async function poll() {
   try {
+    // Token from Infisical-managed env, NOT from DB.
+    const token = process.env.TG_BOT_KO;
     const settings = await getSettings();
-    if (!settings || !settings.tgEnabled || !settings.tgBotToken) {
+    if (!token || !settings || !settings.tgEnabled) {
       // Bot not configured, retry later
       setTimeout(poll, 10000);
       return;
     }
 
-    const token = settings.tgBotToken;
     const updates = await getUpdates(token, lastUpdateId + 1);
 
     if (updates.ok && updates.result) {
