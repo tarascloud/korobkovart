@@ -247,6 +247,8 @@ export function PurchaseModal({
                       {t("city")}
                     </label>
                     <input
+                      name="city"
+                      autoComplete="address-level2"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                       className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
@@ -258,6 +260,8 @@ export function PurchaseModal({
                       {t("address")}
                     </label>
                     <input
+                      name="address"
+                      autoComplete="street-address"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
@@ -269,6 +273,9 @@ export function PurchaseModal({
                       {t("zip")}
                     </label>
                     <input
+                      name="zip"
+                      autoComplete="postal-code"
+                      inputMode="numeric"
                       value={zip}
                       onChange={(e) => setZip(e.target.value)}
                       className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
@@ -364,6 +371,8 @@ export function PurchaseModal({
                       {t("name")}
                     </label>
                     <input
+                      name="name"
+                      autoComplete="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
@@ -377,6 +386,9 @@ export function PurchaseModal({
                     </label>
                     <input
                       type="email"
+                      name="email"
+                      autoComplete="email"
+                      inputMode="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -390,6 +402,9 @@ export function PurchaseModal({
                     </label>
                     <input
                       type="tel"
+                      name="phone"
+                      autoComplete="tel"
+                      inputMode="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
