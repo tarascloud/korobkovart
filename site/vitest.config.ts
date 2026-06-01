@@ -6,7 +6,7 @@ export default defineConfig({
     environment: 'node',
     exclude: ['tests/e2e/**', 'node_modules/**'],
     coverage: {
-      provider: '@vitest/coverage-v8',
+      provider: 'v8',
       thresholds: {
         lines: 60,
         functions: 60,
