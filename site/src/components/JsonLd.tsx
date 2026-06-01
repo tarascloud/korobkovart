@@ -28,7 +28,7 @@ export function ArtGalleryJsonLd() {
       latitude: 39.4699,
       longitude: -0.3763,
     },
-    image: 'https://ko.taras.cloud/logo.svg',
+    image: 'https://ko.taras.cloud/og-image.png',
     priceRange: '$$',
     openingHours: 'Mo-Fr 10:00-18:00',
     sameAs: [
