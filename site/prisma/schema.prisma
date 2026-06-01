@@ -128,6 +128,10 @@ model ArtworkCollection {
   collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
 
   @@id([artworkId, collectionId])
+  // Composite PK already indexes (artworkId, collectionId) — the leading
+  // column. Queries that filter by collectionId alone (e.g. "list artworks
+  // in this collection" / cascade on collection delete) need a separate index.
+  @@index([collectionId])
 }
 
 model Address {
