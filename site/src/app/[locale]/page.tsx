@@ -29,6 +29,14 @@ export default async function HomePage() {
 
   return (
     <div>
+      {/*
+        sr-only h1 backup — heading flow safety net (DES-20260601-0015).
+        Primary visual h1 lives in <HeroSection>; if Hero is ever conditionally
+        hidden (A/B test, holiday banner), the page must still expose an h1
+        for SEO + a11y (WCAG 2.4.6, AX tree landmark).
+      */}
+      <h1 className="sr-only">Korobkov Art — Gallery</h1>
+
       <HeroSection />
 
       {/* Featured Works */}
