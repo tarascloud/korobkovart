@@ -1,11 +1,22 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { mapArtwork } from "@/lib/artworks";
 import { ArtworkGrid } from "@/components/ArtworkGrid";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
+import { pageAlternates } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>;
+}): Promise<Metadata> {
+  const { slug, locale } = await params;
+  return { alternates: pageAlternates(locale, `/gallery/collections/${slug}`) };
+}
 
 export default async function CollectionPage({
   params,

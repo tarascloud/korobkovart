@@ -1,5 +1,16 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { InquiryForm } from "@/components/InquiryForm";
+import { pageAlternates } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates(locale, "/partners") };
+}
 
 export default function PartnersPage() {
   const t = useTranslations("partners");

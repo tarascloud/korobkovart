@@ -45,15 +45,8 @@ export async function generateMetadata({
       ],
       apple: { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     },
-    alternates: {
-      canonical: `https://ko.taras.cloud/${locale}`,
-      languages: {
-        en: "/en",
-        es: "/es",
-        uk: "/ua",
-        "x-default": "/en",
-      },
-    },
+    // alternates.canonical НЕ ставити тут — кожна сторінка визначає
+    // self-referencing canonical у власному generateMetadata (див. lib/seo.ts)
     openGraph: {
       title: t("title"),
       description: t("description"),

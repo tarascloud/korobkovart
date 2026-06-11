@@ -1,5 +1,16 @@
+import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { pageAlternates } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates(locale, "/cv") };
+}
 
 const content = {
   ua: {

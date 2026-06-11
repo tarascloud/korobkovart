@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ArtworkGrid } from "@/components/ArtworkGrid";
 import { GalleryItemListJsonLd } from "@/components/JsonLd";
 import { getAllArtworks } from "@/lib/artworks";
+import { pageAlternates } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates(locale, "/gallery") };
+}
 
 export default async function GalleryPage({
   params,
