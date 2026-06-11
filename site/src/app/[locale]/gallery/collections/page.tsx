@@ -1,10 +1,21 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { getImageUrl } from "@/lib/r2";
+import { pageAlternates } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates(locale, "/gallery/collections") };
+}
 
 export default async function CollectionsPage({
   params,

@@ -4,6 +4,7 @@ import { getArtworkBySlug, getRelatedArtworks } from "@/lib/artworks";
 import { ArtworkJsonLd } from "@/components/JsonLd";
 import { ArtworkDetail } from "@/components/ArtworkDetail";
 import { auth } from "@/lib/auth";
+import { pageAlternates } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    alternates: pageAlternates(locale, `/gallery/${artwork.slug}`),
     openGraph: {
       title,
       description,

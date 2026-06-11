@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
 import { Mail, MessageCircle, Send } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { InquiryForm } from "@/components/InquiryForm";
+import { pageAlternates } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates(locale, "/contact") };
+}
 
 function InstagramIcon({ size = 24 }: { size?: number }) {
   return (

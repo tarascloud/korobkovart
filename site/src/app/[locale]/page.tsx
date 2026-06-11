@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { pageAlternates } from "@/lib/seo";
 import { HeroSection } from "@/components/HeroSection";
 import { ArtworkCard } from "@/components/ArtworkCard";
 import { getFeaturedArtworks } from "@/lib/artworks";
@@ -13,6 +15,15 @@ function InstagramIcon({ size = 24 }: { size?: number }) {
       <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
     </svg>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates(locale) };
 }
 
 export default async function HomePage() {
