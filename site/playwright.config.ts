@@ -1,5 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Default: local dev server (webServer below). Set BASE_URL to run against a
+// deployed instance (e.g. BASE_URL=https://ko.taras.cloud for prod smoke) —
+// in that case the local webServer is NOT started.
+const baseURL = process.env.BASE_URL || 'http://localhost:3100';
+
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
@@ -8,7 +13,7 @@ export default defineConfig({
   workers: 1,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:3100',
+    baseURL,
     trace: 'on-first-retry',
   },
   projects: [
@@ -27,13 +32,15 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   ],
-  webServer: {
-    command: 'npm run dev -- --port 3100',
-    url: 'http://localhost:3100',
-    reuseExistingServer: true,
-    timeout: 30000,
-    env: {
-      DATABASE_URL: 'postgresql://korobkov:korobkov@localhost:5432/korobkov',
-    },
-  },
+  webServer: process.env.BASE_URL
+    ? undefined
+    : {
+        command: 'npm run dev -- --port 3100',
+        url: 'http://localhost:3100',
+        reuseExistingServer: true,
+        timeout: 30000,
+        env: {
+          DATABASE_URL: 'postgresql://korobkov:korobkov@localhost:5432/korobkov',
+        },
+      },
 });

@@ -25,15 +25,15 @@ test.describe('Smoke tests', () => {
     await page.goto('/en');
     await expect(page).toHaveTitle(/Korobkov Art Studio/);
     await expect(page.locator('text=Korobkov').first()).toBeVisible();
-    await expect(page.locator('text=View Gallery')).toBeVisible();
+    await expect(page.locator('text=View Gallery').first()).toBeVisible();
   });
 
   test('gallery page shows artworks', async ({ page }) => {
     await page.goto('/en/gallery');
     await expect(page.locator('h1').last()).toContainText('Gallery');
-    // Filter buttons visible
-    await expect(page.getByRole('button', { name: /All Works/ })).toBeVisible();
-    await expect(page.getByRole('button', { name: /Podilia/ })).toBeVisible();
+    // Filter tabs visible (rendered as role="tab", not "button")
+    await expect(page.getByRole('tab', { name: /All Works/ })).toBeVisible();
+    await expect(page.getByRole('tab', { name: /Podilia/ })).toBeVisible();
     // At least one artwork card
     await expect(page.locator('article').first()).toBeVisible();
   });
@@ -42,19 +42,21 @@ test.describe('Smoke tests', () => {
     await page.goto('/en/gallery/concrete-flowers');
     await expect(page.locator('h1').last()).toContainText('Concrete flowers');
     await expect(page.getByText('2023', { exact: true })).toBeVisible();
-    await expect(page.locator('text=Available')).toBeVisible();
-    await expect(page.locator('text=Buy This Artwork')).toBeVisible();
+    await expect(page.locator('text=Available').first()).toBeVisible();
+    await expect(page.locator('text=Buy This Artwork').first()).toBeVisible();
   });
 
   test('about page loads', async ({ page }) => {
     await page.goto('/en/about');
-    await expect(page.locator('h1').last()).toContainText('About');
-    await expect(page.locator('text=Mykhailo Korobkov')).toBeVisible();
+    // Current about page: h1 is the studio name, "Artist Statement" section below
+    await expect(page.locator('h1').last()).toContainText('Korobkov Art Studio');
+    await expect(page.getByRole('heading', { name: /Artist Statement/i })).toBeVisible();
   });
 
   test('contact page has form', async ({ page }) => {
     await page.goto('/en/contact');
-    await expect(page.locator('h1').last()).toContainText('Contact');
+    // Current contact page has no h1; the inquiry form heading is an h2
+    await expect(page.getByRole('heading', { name: /send us a message/i })).toBeVisible();
     await expect(page.locator('input[name="name"]')).toBeVisible();
     await expect(page.locator('input[name="email"]')).toBeVisible();
   });
@@ -63,7 +65,7 @@ test.describe('Smoke tests', () => {
     await page.goto('/en');
     await page.click('button:text("UA")');
     await page.waitForURL(/\/ua/);
-    await expect(page.locator('text=Галерея')).toBeVisible();
+    await expect(page.locator('text=Галерея').first()).toBeVisible();
   });
 
   test('gallery filter works', async ({ page }) => {
@@ -80,10 +82,11 @@ test.describe('Smoke tests', () => {
     await expect(page.locator('select').first()).toBeVisible(); // country dropdown
   });
 
-  test('exhibitions page loads', async ({ page }) => {
-    await page.goto('/en/exhibitions');
-    await expect(page.locator('h1')).toContainText('Exhibition');
-    await expect(page.locator('text=BSMT Art Gallery')).toBeVisible();
+  // 'exhibitions page loads' removed: /en/exhibitions route no longer exists
+  // (returns 404); CV page covers the secondary-content-page smoke instead.
+  test('cv page loads', async ({ page }) => {
+    await page.goto('/en/cv');
+    await expect(page.getByRole('heading', { name: /Biography/i })).toBeVisible();
   });
 
   test('sign in link visible', async ({ page }) => {
