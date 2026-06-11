@@ -50,6 +50,9 @@ export function PurchaseModal({
   const [orderId, setOrderId] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
+  const steps = ["shipping", "details", "confirm"] as const;
+  const stepIndex = steps.indexOf(step);
+
   useEffect(() => {
     if (open) {
       fetch("/api/account/addresses")
@@ -229,6 +232,23 @@ export function PurchaseModal({
             </div>
 
             <div className="p-6">
+              {/* Step indicator */}
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-xs text-secondary tracking-wider uppercase">
+                  {t("step_of", { current: stepIndex + 1, total: steps.length })}
+                </p>
+                <div className="flex items-center gap-1.5" aria-hidden="true">
+                  {steps.map((s, i) => (
+                    <span
+                      key={s}
+                      className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                        i <= stepIndex ? "bg-foreground" : "bg-border"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+
               {/* Artwork summary */}
               <div className="flex gap-4 mb-6 pb-6 border-b border-border">
                 <div className="w-20 h-24 bg-muted relative flex-shrink-0 overflow-hidden">

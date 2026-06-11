@@ -209,6 +209,7 @@
     "choose_carrier": "Choose Shipping Carrier",
     "days": "business days",
     "proceed": "Proceed to Checkout",
+    "step_of": "Step {current} of {total}",
     "your_details": "Your Contact Details",
     "name": "Full Name",
     "email": "Email",

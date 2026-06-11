@@ -209,6 +209,7 @@
     "choose_carrier": "Elegir Transportista",
     "days": "dias laborables",
     "proceed": "Continuar con la Compra",
+    "step_of": "Paso {current} de {total}",
     "your_details": "Sus Datos de Contacto",
     "name": "Nombre Completo",
     "email": "Correo Electronico",
