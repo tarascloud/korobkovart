@@ -20,11 +20,12 @@ interface ArtworkRow {
 
 type SortColumn = "title" | "year" | "series" | "status" | "featured" | "sortOrder";
 
+// Semantic status tokens (globals.css --status-*) — light/dark handled by CSS vars.
 const statusColors: Record<string, string> = {
-  available: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
-  sold: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
-  on_exhibition: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
-  exists: "bg-gray-100 text-gray-800 dark:bg-gray-800/40 dark:text-gray-400",
+  available: "bg-status-success-bg text-status-success-fg",
+  sold: "bg-status-error-bg text-status-error-fg",
+  on_exhibition: "bg-status-info-bg text-status-info-fg",
+  exists: "bg-status-neutral-bg text-status-neutral-fg",
 };
 
 export function ArtworkTable({
@@ -107,12 +108,12 @@ export function ArtworkTable({
                 </div>
                 <div className="flex items-center gap-2 mt-1.5">
                   <span
-                    className={`px-2 py-0.5 text-xs rounded ${statusColors[a.status] || "bg-gray-100"}`}
+                    className={`px-2 py-0.5 text-xs rounded ${statusColors[a.status] || "bg-status-neutral-bg text-status-neutral-fg"}`}
                   >
                     {a.status.replace("_", " ")}
                   </span>
                   {a.featured && (
-                    <span className="text-xs text-yellow-600 dark:text-yellow-400">
+                    <span className="text-xs text-status-warning-fg">
                       Featured
                     </span>
                   )}
@@ -126,14 +127,14 @@ export function ArtworkTable({
               <div className="flex items-center gap-3">
                 <Link
                   href={`/admin/artworks/${a.id}`}
-                  className="text-sm text-blue-600 hover:underline"
+                  className="text-sm text-status-info-fg hover:underline"
                 >
                   {t("edit")}
                 </Link>
                 <button
                   onClick={() => handleDelete(a.id)}
                   disabled={deleting === a.id}
-                  className="text-sm text-red-600 hover:underline disabled:opacity-50"
+                  className="text-sm text-destructive hover:underline disabled:opacity-50"
                 >
                   {deleting === a.id ? "..." : t("delete")}
                 </button>
@@ -203,7 +204,7 @@ export function ArtworkTable({
                 <td className="py-3 pr-4 text-secondary">{a.year}</td>
                 <td className="py-3 pr-4 text-secondary capitalize">{a.series}</td>
                 <td className="py-3 pr-4">
-                  <span className={`px-2 py-0.5 text-xs rounded ${statusColors[a.status] || "bg-gray-100"}`}>
+                  <span className={`px-2 py-0.5 text-xs rounded ${statusColors[a.status] || "bg-status-neutral-bg text-status-neutral-fg"}`}>
                     {a.status.replace("_", " ")}
                   </span>
                 </td>
@@ -211,13 +212,13 @@ export function ArtworkTable({
                 <td className="py-3 pr-4 text-secondary">{a.sortOrder}</td>
                 <td className="py-3">
                   <div className="flex items-center gap-3">
-                    <Link href={`/admin/artworks/${a.id}`} className="text-sm text-blue-600 hover:underline">
+                    <Link href={`/admin/artworks/${a.id}`} className="text-sm text-status-info-fg hover:underline">
                       {t("edit")}
                     </Link>
                     <button
                       onClick={() => handleDelete(a.id)}
                       disabled={deleting === a.id}
-                      className="text-sm text-red-600 hover:underline disabled:opacity-50"
+                      className="text-sm text-destructive hover:underline disabled:opacity-50"
                     >
                       {deleting === a.id ? "..." : t("delete")}
                     </button>

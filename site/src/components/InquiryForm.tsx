@@ -16,6 +16,24 @@ export function InquiryForm({
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  // Inline validation: HTML5 constraint API on blur → per-field message
+  // announced via aria-live, field flagged with aria-invalid.
+  function validateField(
+    el: HTMLInputElement | HTMLTextAreaElement
+  ) {
+    let message = "";
+    if (el.validity.valueMissing) message = t("field_required");
+    else if (el.validity.typeMismatch) message = t("field_invalid_email");
+    setFieldErrors((prev) => ({ ...prev, [el.name]: message }));
+  }
+
+  function handleBlur(
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    validateField(e.currentTarget);
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -61,8 +79,14 @@ export function InquiryForm({
           id="inquiry-name"
           name="name"
           required
-          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors duration-300"
+          onBlur={handleBlur}
+          aria-invalid={fieldErrors.name ? true : undefined}
+          aria-describedby={fieldErrors.name ? "inquiry-name-error" : undefined}
+          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground aria-[invalid=true]:border-status-error-fg outline-none transition-colors duration-300"
         />
+        <p id="inquiry-name-error" aria-live="polite" className="mt-1 text-sm text-status-error-fg">
+          {fieldErrors.name}
+        </p>
       </div>
 
       <div>
@@ -74,8 +98,14 @@ export function InquiryForm({
           name="email"
           type="email"
           required
-          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors duration-300"
+          onBlur={handleBlur}
+          aria-invalid={fieldErrors.email ? true : undefined}
+          aria-describedby={fieldErrors.email ? "inquiry-email-error" : undefined}
+          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground aria-[invalid=true]:border-status-error-fg outline-none transition-colors duration-300"
         />
+        <p id="inquiry-email-error" aria-live="polite" className="mt-1 text-sm text-status-error-fg">
+          {fieldErrors.email}
+        </p>
       </div>
 
       {type === "general" && (
@@ -105,8 +135,14 @@ export function InquiryForm({
           name="message"
           rows={5}
           required
-          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors duration-300 resize-none"
+          onBlur={handleBlur}
+          aria-invalid={fieldErrors.message ? true : undefined}
+          aria-describedby={fieldErrors.message ? "inquiry-message-error" : undefined}
+          className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground aria-[invalid=true]:border-status-error-fg outline-none transition-colors duration-300 resize-none"
         />
+        <p id="inquiry-message-error" aria-live="polite" className="mt-1 text-sm text-status-error-fg">
+          {fieldErrors.message}
+        </p>
       </div>
 
       <button
@@ -129,9 +165,9 @@ export function InquiryForm({
         ) : t("form_submit")}
       </button>
 
-      {status === "error" && (
-        <p className="text-red-500 text-sm">{t("form_error")}</p>
-      )}
+      <p aria-live="polite" role="status" className="text-status-error-fg text-sm">
+        {status === "error" ? t("form_error") : ""}
+      </p>
     </form>
   );
 }

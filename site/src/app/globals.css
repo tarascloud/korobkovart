@@ -39,6 +39,25 @@
   --input: #d4d4d0;
   --ring: #1a1a1a;
   --radius: 0.5rem;
+
+  /* ── Semantic status tokens (REV-20260611, KO UX) ─────────────────
+     bg/fg pairs for status badges and form feedback. Components must
+     use these instead of hardcoded bg-red-100/text-green-700 etc. so
+     light/dark theming stays in one place.
+     NOTE: additive only — does not touch KO --accent exception
+     (vs-private/.claude/rules/css-tokens-sync.md). */
+  --status-success-bg: #dcfce7;
+  --status-success-fg: #166534;
+  --status-error-bg: #fee2e2;
+  --status-error-fg: #991b1b;
+  --status-info-bg: #dbeafe;
+  --status-info-fg: #1e40af;
+  --status-warning-bg: #fef9c3;
+  --status-warning-fg: #854d0e;
+  --status-progress-bg: #f3e8ff;
+  --status-progress-fg: #6b21a8;
+  --status-neutral-bg: #eaeae8;
+  --status-neutral-fg: #3f3f3f;
   --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
   --spring-duration: 0.5s;
 
@@ -85,6 +104,20 @@
   --destructive: #ef4444;
   --input: #333333;
   --ring: #f0f0f0;
+
+  /* Semantic status tokens — dark theme */
+  --status-success-bg: rgba(20, 83, 45, 0.3);
+  --status-success-fg: #4ade80;
+  --status-error-bg: rgba(127, 29, 29, 0.3);
+  --status-error-fg: #f87171;
+  --status-info-bg: rgba(30, 58, 138, 0.3);
+  --status-info-fg: #60a5fa;
+  --status-warning-bg: rgba(113, 63, 18, 0.3);
+  --status-warning-fg: #facc15;
+  --status-progress-bg: rgba(88, 28, 135, 0.3);
+  --status-progress-fg: #c084fc;
+  --status-neutral-bg: rgba(38, 38, 38, 0.4);
+  --status-neutral-fg: #b8b8b8;
 }
 
 @theme inline {
@@ -106,6 +139,18 @@
   --color-destructive: var(--destructive);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-status-success-bg: var(--status-success-bg);
+  --color-status-success-fg: var(--status-success-fg);
+  --color-status-error-bg: var(--status-error-bg);
+  --color-status-error-fg: var(--status-error-fg);
+  --color-status-info-bg: var(--status-info-bg);
+  --color-status-info-fg: var(--status-info-fg);
+  --color-status-warning-bg: var(--status-warning-bg);
+  --color-status-warning-fg: var(--status-warning-fg);
+  --color-status-progress-bg: var(--status-progress-bg);
+  --color-status-progress-fg: var(--status-progress-fg);
+  --color-status-neutral-bg: var(--status-neutral-bg);
+  --color-status-neutral-fg: var(--status-neutral-fg);
   --radius: var(--radius);
   --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
 }

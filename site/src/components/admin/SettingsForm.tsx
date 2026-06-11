@@ -52,12 +52,20 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
       {error && (
-        <div className="p-3 bg-red-50 text-red-700 text-sm border border-red-200">
+        <div
+          role="alert"
+          aria-live="polite"
+          className="p-3 bg-status-error-bg text-status-error-fg text-sm border border-status-error-fg/30"
+        >
           {error}
         </div>
       )}
       {message && (
-        <div className="p-3 bg-green-50 text-green-700 text-sm border border-green-200">
+        <div
+          role="status"
+          aria-live="polite"
+          className="p-3 bg-status-success-bg text-status-success-fg text-sm border border-status-success-fg/30"
+        >
           {message}
         </div>
       )}

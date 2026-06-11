@@ -45,6 +45,7 @@ export function PurchaseModal({
   const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([]);
   const [orderId, setOrderId] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -117,6 +118,16 @@ export function PurchaseModal({
     setStep("details");
   }
 
+  // Inline validation: HTML5 constraint API on blur → per-field message
+  // announced via aria-live, field flagged with aria-invalid.
+  function handleFieldBlur(e: React.FocusEvent<HTMLInputElement>) {
+    const el = e.currentTarget;
+    let message = "";
+    if (el.validity.valueMissing) message = t("field_required");
+    else if (el.validity.typeMismatch) message = t("field_invalid_email");
+    setFieldErrors((prev) => ({ ...prev, [el.name]: message }));
+  }
+
   async function handleSubmit() {
     if (!name || !email || !selectedCarrier) return;
     setSubmitting(true);
@@ -165,6 +176,7 @@ export function PurchaseModal({
     setSelectedCarrier(null);
     setSubmitted(false);
     setOrderId(null);
+    setFieldErrors({});
     onClose();
   }
 
@@ -412,11 +424,18 @@ export function PurchaseModal({
                       {t("name")}
                     </label>
                     <input
+                      name="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
+                      onBlur={handleFieldBlur}
+                      aria-invalid={fieldErrors.name ? true : undefined}
+                      aria-describedby={fieldErrors.name ? "purchase-name-error" : undefined}
+                      className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground aria-[invalid=true]:border-status-error-fg outline-none transition-colors"
                     />
+                    <p id="purchase-name-error" aria-live="polite" className="mt-1 text-sm text-status-error-fg">
+                      {fieldErrors.name}
+                    </p>
                   </div>
 
                   <div>
@@ -424,12 +443,19 @@ export function PurchaseModal({
                       {t("email")}
                     </label>
                     <input
+                      name="email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
+                      onBlur={handleFieldBlur}
+                      aria-invalid={fieldErrors.email ? true : undefined}
+                      aria-describedby={fieldErrors.email ? "purchase-email-error" : undefined}
+                      className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground aria-[invalid=true]:border-status-error-fg outline-none transition-colors"
                     />
+                    <p id="purchase-email-error" aria-live="polite" className="mt-1 text-sm text-status-error-fg">
+                      {fieldErrors.email}
+                    </p>
                   </div>
 
                   <div>

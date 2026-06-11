@@ -62,8 +62,10 @@ test.describe('Gallery — filter chips', () => {
     const podiliaTab = page.getByRole('tab', { name: /Podilia/i });
     await podiliaTab.click();
 
-    // Brief settle for client-side filter.
-    await page.waitForTimeout(500);
+    // Element-based wait: the tab reflects selection via aria-selected,
+    // and the grid re-renders synchronously after that.
+    await expect(podiliaTab).toHaveAttribute('aria-selected', 'true');
+    await expect(page.locator('article').first()).toBeVisible();
     const filteredCount = await page.locator('article').count();
 
     // Filtered count must be > 0.
@@ -90,8 +92,10 @@ test.describe('Gallery — filter chips', () => {
     const filterTabs = page.getByRole('tab');
     const count = await filterTabs.count();
     for (let i = 0; i < count; i++) {
-      await filterTabs.nth(i).click();
-      await page.waitForTimeout(200);
+      const tab = filterTabs.nth(i);
+      await tab.click();
+      // Element-based wait: selection state confirms the click was processed.
+      await expect(tab).toHaveAttribute('aria-selected', 'true');
     }
 
     // Filter out known third-party CSP violations (e.g. GTM/analytics blocked by CSP).
