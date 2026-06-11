@@ -18,7 +18,10 @@
     "toggle_menu": "Toggle menu",
     "skip_to_content": "Skip to content",
     "sign_in": "Sign in",
-    "open_account_menu": "Open account menu"
+    "open_account_menu": "Open account menu",
+    "admin_panel": "Admin Panel",
+    "my_account": "My Account",
+    "sign_out": "Sign Out"
   },
   "hero": {
     "tagline": "Contemporary Ukrainian Art",
@@ -84,7 +87,8 @@
     "breadcrumb_gallery": "Gallery",
     "artist_statement": "Artist statement",
     "close": "Close",
-    "zoom_hint": "Tap image to zoom"
+    "zoom_hint": "Tap image to zoom",
+    "zoom": "Zoom"
   },
   "about": {
     "title": "About",
@@ -328,5 +332,41 @@
     "subscribe": "Subscribe",
     "success": "Thank you for subscribing!",
     "error": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service"
+  },
+  "account": {
+    "title": "My Account",
+    "tab_profile": "Profile",
+    "tab_addresses": "Addresses",
+    "tab_orders": "Orders",
+    "email": "Email",
+    "name": "Name",
+    "phone": "Phone",
+    "save": "Save",
+    "saving": "Saving...",
+    "saved": "Saved",
+    "new_address": "+ New Address",
+    "country": "Country",
+    "city": "City",
+    "zip": "Zip",
+    "address": "Address",
+    "default_address": "Default address",
+    "default": "Default",
+    "update": "Update",
+    "add": "Add",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "delete_confirm": "Delete this address?",
+    "no_addresses": "No saved addresses",
+    "no_orders": "No orders yet",
+    "status_inquiry": "Inquiry",
+    "status_confirmed": "Confirmed",
+    "status_shipped": "Shipped",
+    "status_delivered": "Delivered",
+    "status_cancelled": "Cancelled"
   }
 }

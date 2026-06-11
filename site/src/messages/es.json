@@ -18,7 +18,10 @@
     "toggle_menu": "Abrir menu",
     "skip_to_content": "Saltar al contenido",
     "sign_in": "Iniciar sesion",
-    "open_account_menu": "Abrir menu de cuenta"
+    "open_account_menu": "Abrir menu de cuenta",
+    "admin_panel": "Panel de administración",
+    "my_account": "Mi cuenta",
+    "sign_out": "Cerrar sesión"
   },
   "hero": {
     "tagline": "Arte Contemporaneo Ucraniano",
@@ -84,7 +87,8 @@
     "breadcrumb_gallery": "Galeria",
     "artist_statement": "Palabra del artista",
     "close": "Cerrar",
-    "zoom_hint": "Toca la imagen para ampliar"
+    "zoom_hint": "Toca la imagen para ampliar",
+    "zoom": "Ampliar"
   },
   "about": {
     "title": "Sobre Nosotros",
@@ -328,5 +332,41 @@
     "subscribe": "Suscribirse",
     "success": "Gracias por suscribirte!",
     "error": "Algo salio mal. Intenta de nuevo."
+  },
+  "footer": {
+    "privacy_policy": "Política de privacidad",
+    "terms_of_service": "Términos del servicio"
+  },
+  "account": {
+    "title": "Mi cuenta",
+    "tab_profile": "Perfil",
+    "tab_addresses": "Direcciones",
+    "tab_orders": "Pedidos",
+    "email": "Email",
+    "name": "Nombre",
+    "phone": "Teléfono",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "saved": "Guardado",
+    "new_address": "+ Nueva dirección",
+    "country": "País",
+    "city": "Ciudad",
+    "zip": "Código postal",
+    "address": "Dirección",
+    "default_address": "Dirección predeterminada",
+    "default": "Predeterminada",
+    "update": "Actualizar",
+    "add": "Añadir",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "delete_confirm": "¿Eliminar esta dirección?",
+    "no_addresses": "No hay direcciones guardadas",
+    "no_orders": "Aún no hay pedidos",
+    "status_inquiry": "Consulta",
+    "status_confirmed": "Confirmado",
+    "status_shipped": "Enviado",
+    "status_delivered": "Entregado",
+    "status_cancelled": "Cancelado"
   }
 }

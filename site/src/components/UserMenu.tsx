@@ -64,7 +64,7 @@ export function UserMenu({ user }: UserMenuProps) {
                 className="block px-4 py-2 text-sm hover:bg-muted transition-colors"
                 onClick={() => setOpen(false)}
               >
-                Admin Panel
+                {t("admin_panel")}
               </a>
             )}
             <a
@@ -72,13 +72,13 @@ export function UserMenu({ user }: UserMenuProps) {
               className="block px-4 py-2 text-sm hover:bg-muted transition-colors"
               onClick={() => setOpen(false)}
             >
-              My Account
+              {t("my_account")}
             </a>
             <a
               href="/api/auth/signout"
               className="block w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors text-red-500"
             >
-              Sign Out
+              {t("sign_out")}
             </a>
           </div>
         </>
