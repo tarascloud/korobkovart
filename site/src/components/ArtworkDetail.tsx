@@ -331,7 +331,7 @@ export function ArtworkDetail({
               {t("related")}
             </h2>
           </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {related.map((a, i) => (
               <ScrollReveal key={a.slug} delay={i * 0.08}>
                 <ArtworkCard artwork={a} index={i} />

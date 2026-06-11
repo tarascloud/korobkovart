@@ -42,7 +42,7 @@ export function UserMenu({ user }: UserMenuProps) {
         aria-haspopup="menu"
       >
         {user.image ? (
-          <img src={user.image} alt="" className="w-full h-full object-cover" />
+          <img src={user.image} alt={user.name || "User avatar"} className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full bg-muted flex items-center justify-center text-xs font-bold" aria-hidden="true">
             {user.name?.[0] || "?"}
