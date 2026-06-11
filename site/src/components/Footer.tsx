@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 // Inline brand SVG icons (Simple Icons, CC0).
 // Using inline SVG avoids adding a new runtime dependency for 3 icons.
 
@@ -50,6 +52,7 @@ function WhatsappIcon({ size = 20 }: { size?: number }) {
 }
 
 export function Footer() {
+  const t = useTranslations("footer");
   const socialLinkCls =
     "inline-flex items-center justify-center w-11 h-11 text-secondary hover:text-foreground transition-colors duration-300";
   const legalLinkCls =
@@ -97,7 +100,7 @@ export function Footer() {
           rel="noopener"
           className={legalLinkCls}
         >
-          Privacy Policy
+          {t("privacy_policy")}
         </a>
         <a
           href="https://vs.taras.cloud/terms"
@@ -105,7 +108,7 @@ export function Footer() {
           rel="noopener"
           className={legalLinkCls}
         >
-          Terms of Service
+          {t("terms_of_service")}
         </a>
       </nav>
     </footer>

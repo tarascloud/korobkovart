@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 type Tab = "profile" | "addresses" | "orders";
 
@@ -30,14 +31,6 @@ interface Order {
   artwork: { title: string; imagePath: string };
 }
 
-const statusLabels: Record<string, string> = {
-  INQUIRY: "Inquiry",
-  CONFIRMED: "Confirmed",
-  SHIPPED: "Shipped",
-  DELIVERED: "Delivered",
-  CANCELLED: "Cancelled",
-};
-
 const statusColors: Record<string, string> = {
   INQUIRY: "bg-yellow-100 text-yellow-800",
   CONFIRMED: "bg-blue-100 text-blue-800",
@@ -55,6 +48,7 @@ export function AccountPage({
   addresses: Address[];
   orders: Order[];
 }) {
+  const t = useTranslations("account");
   const [tab, setTab] = useState<Tab>("profile");
   const [user, setUser] = useState(initialUser);
   const [addresses, setAddresses] = useState(initialAddresses);
@@ -98,7 +92,7 @@ export function AccountPage({
       if (res.ok) {
         const data = await res.json();
         setUser(data);
-        setProfileMsg("Saved");
+        setProfileMsg(t("saved"));
       }
     } finally {
       setProfileSaving(false);
@@ -154,35 +148,43 @@ export function AccountPage({
   }
 
   async function handleDeleteAddress(id: string) {
-    if (!confirm("Delete this address?")) return;
+    if (!confirm(t("delete_confirm"))) return;
     const res = await fetch(`/api/account/addresses/${id}`, { method: "DELETE" });
     if (res.ok) await reloadAddresses();
   }
 
+  const statusLabels: Record<string, string> = {
+    INQUIRY: t("status_inquiry"),
+    CONFIRMED: t("status_confirmed"),
+    SHIPPED: t("status_shipped"),
+    DELIVERED: t("status_delivered"),
+    CANCELLED: t("status_cancelled"),
+  };
+
   const tabs: { key: Tab; label: string }[] = [
-    { key: "profile", label: "Profile" },
-    { key: "addresses", label: "Addresses" },
-    { key: "orders", label: "Orders" },
+    { key: "profile", label: t("tab_profile") },
+    { key: "addresses", label: t("tab_addresses") },
+    { key: "orders", label: t("tab_orders") },
   ];
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold tracking-wider uppercase mb-8">
-        My Account
+        {t("title")}
       </h1>
 
       <div className="flex gap-4 mb-8 border-b border-border">
-        {tabs.map((t) => (
+        {tabs.map((tabItem) => (
           <button
-            key={t.key}
-            onClick={() => setTab(t.key)}
+            key={tabItem.key}
+            onClick={() => setTab(tabItem.key)}
             className={`pb-3 px-2 text-sm tracking-wider uppercase transition-colors ${
-              tab === t.key
+              tab === tabItem.key
                 ? "border-b-2 border-foreground text-foreground"
                 : "text-secondary hover:text-foreground"
             }`}
           >
-            {t.label}
+            {tabItem.label}
           </button>
         ))}
       </div>
@@ -192,7 +194,7 @@ export function AccountPage({
         <form onSubmit={handleProfileSave} className="space-y-4 max-w-md">
           <div>
             <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-              Email
+              {t("email")}
             </label>
             <input
               type="email"
@@ -203,7 +205,7 @@ export function AccountPage({
           </div>
           <div>
             <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-              Name
+              {t("name")}
             </label>
             <input
               type="text"
@@ -214,7 +216,7 @@ export function AccountPage({
           </div>
           <div>
             <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-              Phone
+              {t("phone")}
             </label>
             <input
               type="tel"
@@ -229,7 +231,7 @@ export function AccountPage({
               disabled={profileSaving}
               className="px-6 py-2 bg-foreground text-background text-sm tracking-wider uppercase disabled:opacity-50"
             >
-              {profileSaving ? "Saving..." : "Save"}
+              {profileSaving ? t("saving") : t("save")}
             </button>
             {profileMsg && (
               <span className="text-sm text-green-600">{profileMsg}</span>
@@ -245,7 +247,7 @@ export function AccountPage({
             onClick={startNewAddress}
             className="px-4 py-2 bg-foreground text-background text-sm tracking-wider uppercase"
           >
-            + New Address
+            {t("new_address")}
           </button>
 
           {showAddressForm && (
@@ -256,7 +258,7 @@ export function AccountPage({
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-                    Name *
+                    {t("name")} *
                   </label>
                   <input
                     type="text"
@@ -270,7 +272,7 @@ export function AccountPage({
                 </div>
                 <div>
                   <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-                    Country *
+                    {t("country")} *
                   </label>
                   <input
                     type="text"
@@ -286,7 +288,7 @@ export function AccountPage({
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-                    City *
+                    {t("city")} *
                   </label>
                   <input
                     type="text"
@@ -300,7 +302,7 @@ export function AccountPage({
                 </div>
                 <div>
                   <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-                    Zip *
+                    {t("zip")} *
                   </label>
                   <input
                     type="text"
@@ -315,7 +317,7 @@ export function AccountPage({
               </div>
               <div>
                 <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-                  Address *
+                  {t("address")} *
                 </label>
                 <input
                   type="text"
@@ -330,7 +332,7 @@ export function AccountPage({
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs text-secondary mb-1 uppercase tracking-wider">
-                    Phone
+                    {t("phone")}
                   </label>
                   <input
                     type="tel"
@@ -354,7 +356,7 @@ export function AccountPage({
                       }
                       className="w-4 h-4"
                     />
-                    Default address
+                    {t("default_address")}
                   </label>
                 </div>
               </div>
@@ -365,10 +367,10 @@ export function AccountPage({
                   className="px-4 py-2 bg-foreground text-background text-sm tracking-wider uppercase disabled:opacity-50"
                 >
                   {addrSaving
-                    ? "Saving..."
+                    ? t("saving")
                     : editingAddress
-                      ? "Update"
-                      : "Add"}
+                      ? t("update")
+                      : t("add")}
                 </button>
                 <button
                   type="button"
@@ -378,7 +380,7 @@ export function AccountPage({
                   }}
                   className="px-4 py-2 border border-border text-sm"
                 >
-                  Cancel
+                  {t("cancel")}
                 </button>
               </div>
             </form>
@@ -392,7 +394,7 @@ export function AccountPage({
                     {addr.name}
                     {addr.isDefault && (
                       <span className="ml-2 text-xs bg-foreground/10 px-2 py-0.5 rounded">
-                        Default
+                        {t("default")}
                       </span>
                     )}
                   </p>
@@ -409,13 +411,13 @@ export function AccountPage({
                     onClick={() => startEditAddress(addr)}
                     className="text-blue-600 hover:underline"
                   >
-                    Edit
+                    {t("edit")}
                   </button>
                   <button
                     onClick={() => handleDeleteAddress(addr.id)}
                     className="text-red-600 hover:underline"
                   >
-                    Delete
+                    {t("delete")}
                   </button>
                 </div>
               </div>
@@ -423,7 +425,7 @@ export function AccountPage({
           ))}
 
           {addresses.length === 0 && !showAddressForm && (
-            <p className="text-secondary py-4">No saved addresses</p>
+            <p className="text-secondary py-4">{t("no_addresses")}</p>
           )}
         </div>
       )}
@@ -459,7 +461,7 @@ export function AccountPage({
           ))}
 
           {orders.length === 0 && (
-            <p className="text-secondary py-4">No orders yet</p>
+            <p className="text-secondary py-4">{t("no_orders")}</p>
           )}
         </div>
       )}

@@ -18,7 +18,10 @@
     "toggle_menu": "Відкрити меню",
     "skip_to_content": "Перейти до основного вмісту",
     "sign_in": "Увійти",
-    "open_account_menu": "Відкрити меню акаунта"
+    "open_account_menu": "Відкрити меню акаунта",
+    "admin_panel": "Адмін-панель",
+    "my_account": "Мій акаунт",
+    "sign_out": "Вийти"
   },
   "hero": {
     "tagline": "Сучасне Українське Мистецтво",
@@ -84,7 +87,8 @@
     "breadcrumb_gallery": "Галерея",
     "artist_statement": "Слово автора",
     "close": "Закрити",
-    "zoom_hint": "Торкніться, щоб збільшити"
+    "zoom_hint": "Торкніться, щоб збільшити",
+    "zoom": "Збільшити"
   },
   "about": {
     "title": "Про Нас",
@@ -328,5 +332,41 @@
     "subscribe": "Підписатись",
     "success": "Дякуємо за підписку!",
     "error": "Щось пішло не так. Спробуйте ще раз."
+  },
+  "footer": {
+    "privacy_policy": "Політика конфіденційності",
+    "terms_of_service": "Умови використання"
+  },
+  "account": {
+    "title": "Мій акаунт",
+    "tab_profile": "Профіль",
+    "tab_addresses": "Адреси",
+    "tab_orders": "Замовлення",
+    "email": "Email",
+    "name": "Ім'я",
+    "phone": "Телефон",
+    "save": "Зберегти",
+    "saving": "Збереження...",
+    "saved": "Збережено",
+    "new_address": "+ Нова адреса",
+    "country": "Країна",
+    "city": "Місто",
+    "zip": "Індекс",
+    "address": "Адреса",
+    "default_address": "Адреса за замовчуванням",
+    "default": "За замовчуванням",
+    "update": "Оновити",
+    "add": "Додати",
+    "cancel": "Скасувати",
+    "edit": "Редагувати",
+    "delete": "Видалити",
+    "delete_confirm": "Видалити цю адресу?",
+    "no_addresses": "Немає збережених адрес",
+    "no_orders": "Поки немає замовлень",
+    "status_inquiry": "Запит",
+    "status_confirmed": "Підтверджено",
+    "status_shipped": "Відправлено",
+    "status_delivered": "Доставлено",
+    "status_cancelled": "Скасовано"
   }
 }

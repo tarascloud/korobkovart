@@ -224,7 +224,7 @@ export function ArtworkDetail({
             />
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
               <span className="bg-foreground/80 text-background px-3 py-1.5 text-xs tracking-[0.2em] uppercase">
-                {t("zoom") || "View"}
+                {t("zoom")}
               </span>
             </div>
           </div>
