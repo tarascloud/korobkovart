@@ -2,6 +2,11 @@
 
 import { useState, useEffect, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
+import { Package } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { Button } from "@/components/ui/button";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { EmptyState } from "@/components/EmptyState";
 
 type Tab = "profile" | "addresses" | "orders";
 
@@ -31,12 +36,13 @@ interface Order {
   artwork: { title: string; imagePath: string };
 }
 
+// Semantic status tokens (globals.css --status-*) — light/dark handled by CSS vars.
 const statusColors: Record<string, string> = {
-  INQUIRY: "bg-yellow-100 text-yellow-800",
-  CONFIRMED: "bg-blue-100 text-blue-800",
-  SHIPPED: "bg-purple-100 text-purple-800",
-  DELIVERED: "bg-green-100 text-green-800",
-  CANCELLED: "bg-red-100 text-red-800",
+  INQUIRY: "bg-status-warning-bg text-status-warning-fg",
+  CONFIRMED: "bg-status-info-bg text-status-info-fg",
+  SHIPPED: "bg-status-progress-bg text-status-progress-fg",
+  DELIVERED: "bg-status-success-bg text-status-success-fg",
+  CANCELLED: "bg-status-error-bg text-status-error-fg",
 };
 
 export function AccountPage({
@@ -73,6 +79,7 @@ export function AccountPage({
     isDefault: false,
   });
   const [addrSaving, setAddrSaving] = useState(false);
+  const [confirmDeleteAddressId, setConfirmDeleteAddressId] = useState<string | null>(null);
 
   useEffect(() => {
     setProfileName(user.name || "");
@@ -147,8 +154,9 @@ export function AccountPage({
     }
   }
 
-  async function handleDeleteAddress(id: string) {
-    if (!confirm(t("delete_confirm"))) return;
+  async function executeDeleteAddress() {
+    const id = confirmDeleteAddressId;
+    if (!id) return;
     const res = await fetch(`/api/account/addresses/${id}`, { method: "DELETE" });
     if (res.ok) await reloadAddresses();
   }
@@ -234,7 +242,9 @@ export function AccountPage({
               {profileSaving ? t("saving") : t("save")}
             </button>
             {profileMsg && (
-              <span className="text-sm text-green-600">{profileMsg}</span>
+              <span role="status" aria-live="polite" className="text-sm text-status-success-fg">
+                {profileMsg}
+              </span>
             )}
           </div>
         </form>
@@ -409,13 +419,13 @@ export function AccountPage({
                 <div className="flex gap-3 text-sm">
                   <button
                     onClick={() => startEditAddress(addr)}
-                    className="text-blue-600 hover:underline"
+                    className="text-status-info-fg hover:underline"
                   >
                     {t("edit")}
                   </button>
                   <button
-                    onClick={() => handleDeleteAddress(addr.id)}
-                    className="text-red-600 hover:underline"
+                    onClick={() => setConfirmDeleteAddressId(addr.id)}
+                    className="text-destructive hover:underline"
                   >
                     {t("delete")}
                   </button>
@@ -427,6 +437,16 @@ export function AccountPage({
           {addresses.length === 0 && !showAddressForm && (
             <p className="text-secondary py-4">{t("no_addresses")}</p>
           )}
+
+          <ConfirmDialog
+            open={confirmDeleteAddressId !== null}
+            onOpenChange={(open) => !open && setConfirmDeleteAddressId(null)}
+            title={t("delete_confirm")}
+            confirmLabel={t("delete")}
+            cancelLabel={t("cancel")}
+            onConfirm={executeDeleteAddress}
+            destructive
+          />
         </div>
       )}
 
@@ -461,7 +481,16 @@ export function AccountPage({
           ))}
 
           {orders.length === 0 && (
-            <p className="text-secondary py-4">{t("no_orders")}</p>
+            <EmptyState
+              icon={Package}
+              title={t("no_orders")}
+              description={t("no_orders_hint")}
+              action={
+                <Link href="/gallery">
+                  <Button>{t("view_gallery")}</Button>
+                </Link>
+              }
+            />
           )}
         </div>
       )}

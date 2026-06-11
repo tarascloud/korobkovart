@@ -5,12 +5,13 @@ import { useTranslations } from "next-intl";
 
 const ORDER_STATUSES = ["INQUIRY", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"] as const;
 
+// Semantic status tokens (globals.css --status-*) — light/dark handled by CSS vars.
 const statusColors: Record<string, string> = {
-  INQUIRY: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
-  CONFIRMED: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
-  SHIPPED: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
-  DELIVERED: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
-  CANCELLED: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+  INQUIRY: "bg-status-warning-bg text-status-warning-fg",
+  CONFIRMED: "bg-status-info-bg text-status-info-fg",
+  SHIPPED: "bg-status-progress-bg text-status-progress-fg",
+  DELIVERED: "bg-status-success-bg text-status-success-fg",
+  CANCELLED: "bg-status-error-bg text-status-error-fg",
 };
 
 interface OrderRow {

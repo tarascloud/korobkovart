@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface CollectionRow {
   id: string;
@@ -29,6 +30,7 @@ export function CollectionManager({
   const [saving, setSaving] = useState(false);
   const [addingArtwork, setAddingArtwork] = useState<string | null>(null);
   const [selectedArtwork, setSelectedArtwork] = useState("");
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   async function reload() {
     const res = await fetch("/api/admin/collections");
@@ -59,8 +61,9 @@ export function CollectionManager({
     }
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm("Delete this collection?")) return;
+  async function executeDelete() {
+    const id = confirmDeleteId;
+    if (!id) return;
     const res = await fetch(`/api/admin/collections/${id}`, { method: "DELETE" });
     if (res.ok) await reload();
   }
@@ -168,13 +171,13 @@ export function CollectionManager({
                   onClick={() =>
                     setAddingArtwork(addingArtwork === c.id ? null : c.id)
                   }
-                  className="text-sm text-blue-600 hover:underline"
+                  className="text-sm text-status-info-fg hover:underline"
                 >
                   + Add artwork
                 </button>
                 <button
-                  onClick={() => handleDelete(c.id)}
-                  className="text-sm text-red-600 hover:underline"
+                  onClick={() => setConfirmDeleteId(c.id)}
+                  className="text-sm text-destructive hover:underline"
                 >
                   Delete
                 </button>
@@ -222,7 +225,7 @@ export function CollectionManager({
                       onClick={() =>
                         handleRemoveArtwork(c.id, ca.artworkId)
                       }
-                      className="text-red-500 hover:text-red-700 ml-1"
+                      className="text-destructive hover:opacity-80 ml-1"
                     >
                       x
                     </button>
@@ -239,6 +242,15 @@ export function CollectionManager({
           </p>
         )}
       </div>
+
+      <ConfirmDialog
+        open={confirmDeleteId !== null}
+        onOpenChange={(open) => !open && setConfirmDeleteId(null)}
+        title="Delete this collection?"
+        confirmLabel="Delete"
+        onConfirm={executeDelete}
+        destructive
+      />
     </div>
   );
 }

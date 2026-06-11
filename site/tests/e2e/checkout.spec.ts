@@ -1,24 +1,45 @@
 /**
- * E2E: Checkout flow — unauthenticated buyer inquiry + admin status transition
+ * E2E: Checkout flow — self-contained fixtures (no pre-seeded DB required)
  *
- * Test 1: Unauthenticated user opens an artwork detail page, clicks
- *   "Buy This Artwork", fills the inquiry modal, submits → API returns 200.
+ * beforeAll seeds its own test data via Prisma (artwork, buyer, OWNER user,
+ * INQUIRY order, OWNER DB session) and afterAll removes everything it created.
  *
- * Test 2: Admin order status transition INQUIRY → CONFIRMED via the
- *   admin orders API endpoint (PUT /api/admin/orders/:id).
+ * Covered:
+ *  1. Buyer: seeded artwork detail page renders + Buy button opens the
+ *     purchase modal (UI), public /api/inquiry accepts a valid payload (API).
+ *  2. Admin pipeline: INQUIRY → CONFIRMED → SHIPPED via
+ *     PUT /api/admin/orders/:id with a *programmatic* OWNER session.
+ *     KO uses NextAuth v5 + PrismaAdapter => database session strategy, so an
+ *     OWNER session is created by inserting a Session row and setting the
+ *     `authjs.session-token` cookie — no Google OAuth flow needed in CI.
+ *  3. Auth/validation guards: 401 for unauthenticated admin PUT,
+ *     400 for invalid inquiry payload (run even without DB).
  *
- * Notes:
- *  - The gallery serves /en/gallery on localhost, /gallery on production
- *    (locale redirect). We derive the path from baseURL.
- *  - The inquiry endpoint (/api/inquiry) is public (no auth required) and
- *    accepts {name, email, message, type: "purchase", artworkId?}.
- *  - Admin order API requires OWNER session — tested via API-level assertion
- *    (401 when unauthenticated) rather than full OAuth flow.
- *
- * verificationStatus: NO_RUNTIME — requires seeded DB with artworks; run on Mini.
+ * DB access: uses DATABASE_URL (falls back to the local dev DB used by
+ * playwright.config.ts webServer). When the DB is unreachable (e.g. running
+ * against https://ko.taras.cloud via playwright-remote.config.ts), the
+ * seeded tests are skipped with an explicit reason instead of failing.
  */
 
 import { test, expect } from '@playwright/test';
+import { randomUUID } from 'node:crypto';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '@prisma/client';
+
+const DATABASE_URL =
+  process.env.DATABASE_URL ??
+  'postgresql://korobkov:korobkov@localhost:5432/korobkov';
+
+// All fixture identifiers share this prefix so leftovers from crashed runs
+// are swept on the next run (cleanup() runs both before seed and afterAll).
+const FIXTURE_SLUG = 'e2e-checkout-fixture-artwork';
+const OWNER_EMAIL = 'e2e-checkout-owner@test.invalid';
+const BUYER_EMAIL = 'e2e-checkout-buyer@test.invalid';
+
+let prisma: PrismaClient | null = null;
+let dbAvailable = false;
+let orderId = '';
+let ownerSessionToken = '';
 
 function localePath(baseURL: string | undefined, path: string): string {
   // localhost uses /en/ locale prefix; production does not
@@ -26,67 +47,107 @@ function localePath(baseURL: string | undefined, path: string): string {
   return path;
 }
 
+async function cleanup(db: PrismaClient) {
+  // Order of deletes respects FK constraints (Order → User/Artwork cascade
+  // is not guaranteed, so delete orders first; Session cascades on User).
+  await db.order.deleteMany({
+    where: { user: { email: { in: [OWNER_EMAIL, BUYER_EMAIL] } } },
+  });
+  await db.user.deleteMany({ where: { email: { in: [OWNER_EMAIL, BUYER_EMAIL] } } });
+  await db.artwork.deleteMany({ where: { slug: FIXTURE_SLUG } });
+}
+
+test.beforeAll(async () => {
+  try {
+    const adapter = new PrismaPg({ connectionString: DATABASE_URL });
+    prisma = new PrismaClient({ adapter });
+    await prisma.$queryRaw`SELECT 1`;
+    dbAvailable = true;
+  } catch {
+    // DB unreachable (e.g. remote run) — seeded tests will be skipped.
+    dbAvailable = false;
+    return;
+  }
+
+  await cleanup(prisma);
+
+  const artwork = await prisma.artwork.create({
+    data: {
+      slug: FIXTURE_SLUG,
+      title: 'E2E Checkout Fixture',
+      year: 2026,
+      series: 'podilia',
+      medium: 'e2e test fixture',
+      dimensions: '100x80 cm',
+      status: 'available',
+      imagePath: '/artworks/mural-1.jpg',
+      sortOrder: 9999,
+    },
+  });
+
+  const buyer = await prisma.user.create({
+    data: { email: BUYER_EMAIL, name: 'E2E Buyer', role: 'BUYER' },
+  });
+
+  ownerSessionToken = randomUUID();
+  await prisma.user.create({
+    data: {
+      email: OWNER_EMAIL,
+      name: 'E2E Owner',
+      role: 'OWNER',
+      sessions: {
+        create: {
+          sessionToken: ownerSessionToken,
+          expires: new Date(Date.now() + 60 * 60 * 1000), // 1h
+        },
+      },
+    },
+  });
+
+  const order = await prisma.order.create({
+    data: {
+      userId: buyer.id,
+      artworkId: artwork.id,
+      status: 'INQUIRY',
+      notes: 'E2E checkout fixture order',
+    },
+  });
+  orderId = order.id;
+});
+
+test.afterAll(async () => {
+  if (prisma) {
+    if (dbAvailable) await cleanup(prisma);
+    await prisma.$disconnect();
+  }
+});
+
 test.describe('Buyer checkout inquiry', () => {
-  test('unauthenticated user can submit inquiry for artwork via modal', async ({
+  test('seeded artwork detail page renders and Buy opens purchase modal', async ({
     page,
     baseURL,
   }) => {
-    // 1. Navigate to the gallery
-    const galleryPath = localePath(baseURL, '/gallery');
-    await page.goto(galleryPath, { waitUntil: 'domcontentloaded' });
+    test.skip(!dbAvailable, 'DB not reachable — seeded fixture unavailable');
 
-    // 2. Wait for at least one artwork card to render
-    const artworkCard = page.locator('article').first();
-    await expect(artworkCard).toBeVisible({ timeout: 15_000 });
+    await page.goto(localePath(baseURL, `/gallery/${FIXTURE_SLUG}`), {
+      waitUntil: 'domcontentloaded',
+    });
 
-    // 3. Click the first artwork card to open the detail page / modal
-    await artworkCard.click();
+    await expect(
+      page.getByRole('heading', { name: /E2E Checkout Fixture/i }).first(),
+    ).toBeVisible({ timeout: 15_000 });
 
-    // 4. Wait for either a modal or a new page URL for artwork detail
-    // KO shows artwork detail — could be a modal overlay or navigation to /gallery/[slug]
-    await page.waitForURL((url) => {
-      const p = url.pathname;
-      return (
-        p.includes('/gallery/') ||
-        p.includes('/artwork/') ||
-        // Remain on gallery if it's a modal
-        p === galleryPath ||
-        p === '/gallery' ||
-        p === '/en/gallery'
-      );
-    }, { timeout: 10_000 });
-
-    // 5. Look for "Buy This Artwork" button (i18n may vary — match partially)
     const buyButton = page
-      .getByRole('button', { name: /buy|purchase|inquiry|замовити|купити/i })
+      .getByRole('button', { name: /buy|purchase|замовити|купити/i })
       .first();
+    await expect(buyButton).toBeVisible({ timeout: 10_000 });
+    await buyButton.click();
 
-    const hasBuyButton = await buyButton.isVisible({ timeout: 8_000 }).catch(() => false);
+    // Purchase modal opens (role=dialog with shipping form inside).
+    await expect(page.getByRole('dialog')).toBeVisible({ timeout: 10_000 });
+  });
 
-    if (!hasBuyButton) {
-      // If artwork detail is on a separate page, navigate back to gallery and
-      // click into detail directly.
-      await page.goto(galleryPath, { waitUntil: 'domcontentloaded' });
-      await expect(page.locator('article').first()).toBeVisible({ timeout: 10_000 });
-
-      // Try to find a direct "Buy" link in gallery cards
-      const galleryBuyBtn = page
-        .getByRole('link', { name: /buy|purchase/i })
-        .first();
-      const hasBuyLink = await galleryBuyBtn.isVisible({ timeout: 5_000 }).catch(() => false);
-
-      if (!hasBuyLink) {
-        // Artwork buying feature may be on the detail page only —
-        // test the API directly instead.
-        test.info().annotations.push({
-          type: 'note',
-          description: 'Buy button not visible in gallery; testing API directly',
-        });
-      }
-    }
-
-    // 6. Test the inquiry API directly (public, no auth required)
-    //    This validates the core purchase flow regardless of UI state.
+  test('public inquiry API accepts a valid payload', async ({ page, baseURL }) => {
     const baseUrl = baseURL ?? 'http://localhost:3100';
     const apiResponse = await page.request.post(`${baseUrl}/api/inquiry`, {
       data: {
@@ -96,9 +157,7 @@ test.describe('Buyer checkout inquiry', () => {
         type: 'inquiry',
         subject: 'Artwork purchase inquiry (E2E test)',
       },
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
 
     expect(
@@ -109,17 +168,27 @@ test.describe('Buyer checkout inquiry', () => {
     const body = await apiResponse.json();
     expect(body.success, 'Expected success: true in response').toBe(true);
   });
+
+  test('inquiry API validates required fields', async ({ page, baseURL }) => {
+    const baseUrl = baseURL ?? 'http://localhost:3100';
+    const response = await page.request.post(`${baseUrl}/api/inquiry`, {
+      data: { type: 'purchase' }, // missing required: name, email, message
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    expect(
+      response.status(),
+      `Expected 400 for invalid inquiry payload, got ${response.status()}`,
+    ).toBe(400);
+  });
 });
 
-test.describe('Admin order status transition', () => {
+test.describe('Admin order status pipeline', () => {
   test('unauthenticated PUT to /api/admin/orders/:id returns 401', async ({
     page,
     baseURL,
   }) => {
-    // Admin order API requires OWNER session.
-    // Verify that unauthenticated requests are properly rejected.
     const baseUrl = baseURL ?? 'http://localhost:3100';
-
     const response = await page.request.put(
       `${baseUrl}/api/admin/orders/non-existent-order-id`,
       {
@@ -128,29 +197,56 @@ test.describe('Admin order status transition', () => {
       },
     );
 
-    // Should return 401 Unauthorized (or 403/302 redirect to auth)
     expect(
       [401, 403, 302].includes(response.status()),
       `Expected 401/403/302 for unauthenticated admin request, got ${response.status()}`,
     ).toBe(true);
   });
 
-  test('inquiry API validates required fields', async ({ page, baseURL }) => {
-    // POST with missing required fields should return 400
+  test('OWNER transitions order INQUIRY → CONFIRMED → SHIPPED', async ({
+    browser,
+    baseURL,
+  }) => {
+    test.skip(!dbAvailable, 'DB not reachable — seeded fixture unavailable');
+
     const baseUrl = baseURL ?? 'http://localhost:3100';
+    const { hostname, protocol } = new URL(baseUrl);
+    const isHttps = protocol === 'https:';
 
-    const response = await page.request.post(`${baseUrl}/api/inquiry`, {
-      data: {
-        // Missing required: name, email, message
-        type: 'purchase',
+    const context = await browser.newContext({ baseURL: baseUrl });
+    // NextAuth v5 database session: the cookie value IS the Session.sessionToken.
+    // On https the cookie name carries the __Secure- prefix.
+    await context.addCookies([
+      {
+        name: isHttps ? '__Secure-authjs.session-token' : 'authjs.session-token',
+        value: ownerSessionToken,
+        domain: hostname,
+        path: '/',
+        httpOnly: true,
+        secure: isHttps,
+        sameSite: 'Lax',
       },
-      headers: { 'Content-Type': 'application/json' },
-    });
+    ]);
 
-    // Should return 400 Bad Request for invalid payload
-    expect(
-      response.status(),
-      `Expected 400 for invalid inquiry payload, got ${response.status()}`,
-    ).toBe(400);
+    try {
+      for (const status of ['CONFIRMED', 'SHIPPED'] as const) {
+        const res = await context.request.put(`/api/admin/orders/${orderId}`, {
+          data: { status },
+          headers: { 'Content-Type': 'application/json' },
+        });
+        expect(
+          res.status(),
+          `Expected 200 transitioning order to ${status}, got ${res.status()}`,
+        ).toBe(200);
+        const body = await res.json();
+        expect(body.status, `API should echo new status ${status}`).toBe(status);
+      }
+
+      // Verify final state directly in the DB.
+      const dbOrder = await prisma!.order.findUnique({ where: { id: orderId } });
+      expect(dbOrder?.status, 'Order should be SHIPPED in DB').toBe('SHIPPED');
+    } finally {
+      await context.close();
+    }
   });
 });
