@@ -35,7 +35,7 @@ const nextConfig: NextConfig = {
           // connect-src needs *.google-analytics.com + *.analytics.google.com:
           // GA4 beacons go to regional endpoints (e.g. region1.google-analytics.com),
           // not just www. — caught by e2e smoke (CSP blocked all page_view beacons).
-          { key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.cloudflare.com https://*.googletagmanager.com https://*.google-analytics.com; font-src 'self' data:; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none';" },
+          { key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.cloudflare.com https://*.googletagmanager.com https://*.google-analytics.com; font-src 'self' data:; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://cloudflareinsights.com; frame-ancestors 'none';" },
         ],
       },
     ];
